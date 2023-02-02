@@ -4,7 +4,8 @@
   "description": "A little personalised world with extendability to diversity",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint-staged": "npx lint-staged",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,26 @@
   "bugs": {
     "url": "https://github.com/RoseBud13/Project-Asteroid/issues"
   },
-  "homepage": "https://github.com/RoseBud13/Project-Asteroid#readme"
+  "homepage": "https://github.com/RoseBud13/Project-Asteroid#readme",
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.vue": [
+      "stylelint --fix",
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{less,css}": [
+      "stylelint --fix",
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.1.0"
+  }
 }
