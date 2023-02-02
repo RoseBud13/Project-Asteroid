@@ -1,0 +1,19 @@
+{
+  "name": "project-asteroid",
+  "version": "0.0.1",
+  "description": "A little personalised world with extendability to diversity",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RoseBud13/Project-Asteroid.git"
+  },
+  "author": "Rosebud",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RoseBud13/Project-Asteroid/issues"
+  },
+  "homepage": "https://github.com/RoseBud13/Project-Asteroid#readme"
+}
