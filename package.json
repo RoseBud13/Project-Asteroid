@@ -2,36 +2,20 @@
   "name": "project-asteroid",
   "version": "0.0.1",
   "description": "A little personalised world with extendability to diversity",
-  "main": "index.js",
   "scripts": {
-    "lint-staged": "npx lint-staged",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RoseBud13/Project-Asteroid.git"
   },
   "author": "Rosebud",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/RoseBud13/Project-Asteroid/issues"
   },
   "homepage": "https://github.com/RoseBud13/Project-Asteroid#readme",
-  "lint-staged": {
-    "*.{js,ts,jsx,tsx}": [
-      "prettier --write",
-      "eslint --fix"
-    ],
-    "*.vue": [
-      "stylelint --fix",
-      "prettier --write",
-      "eslint --fix"
-    ],
-    "*.{less,css}": [
-      "stylelint --fix",
-      "prettier --write"
-    ]
-  },
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
