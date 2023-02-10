@@ -17,5 +17,6 @@
   "prettier.arrowParens": "avoid", // 在唯一的箭头函数参数周围不用包含括号
   "prettier.requirePragma": false, // 取消限制仅格式化文件顶部包含@prettier特殊注释的文件
   "prettier.proseWrap": "preserve", // 对于markdown文件配合printWidth长度是否换行，什么都不做
-  "prettier.endOfLine": "lf" // 文件结尾统一用lf，不然windows和linux结尾方式可能不一样
+  "prettier.endOfLine": "lf", // 文件结尾统一用lf，不然windows和linux结尾方式可能不一样
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
