@@ -1,9 +1,10 @@
+<template>
+  <h1>{{ $t('home.title') }}</h1>
+  <Navbar></Navbar>
+</template>
+
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue';
+import Navbar from '@/components/navbar/index.vue';
 </script>
 
-<template>
-  <main>
-    <TheWelcome />
-  </main>
-</template>
+<style lang="scss" scoped></style>
