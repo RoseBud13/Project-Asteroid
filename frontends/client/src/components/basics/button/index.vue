@@ -154,6 +154,7 @@ export default {
   color: #fff;
   background-color: var(--color-primary-light-3);
   border: 1px solid transparent;
+  cursor: not-allowed;
 }
 
 /***** Secondary *****/
@@ -205,6 +206,7 @@ export default {
   color: var(--color-primary-light-3);
   background-color: transparent;
   border: 1px solid var(--color-primary-light-3);
+  cursor: not-allowed;
 }
 
 /***** Text *****/
@@ -230,13 +232,50 @@ export default {
   color: var(--color-primary-light-3);
   background-color: transparent;
   border: 1px solid transparent;
+  cursor: not-allowed;
 }
 
+/***** Bubble *****/
+.astro-btn-bubble,
+.astro-btn-bubble[type='button'],
+.astro-btn-bubble[type='submit'] {
+  color: rgba(0, 0, 0, 0.8);
+  background-color: #75a297;
+  border: none;
+  transition: 0.3s ease;
+  line-height: normal;
+}
+
+.astro-btn-bubble:hover,
+.astro-btn-bubble[type='button']:hover,
+.astro-btn-bubble[type='submit']:hover {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: rgb(95, 140, 128);
+}
+
+.astro-btn-bubble.astro-btn-disabled,
+.astro-btn-bubble[type='button'].astro-btn-disabled,
+.astro-btn-bubble[type='submit'].astro-btn-disabled {
+  color: #5f5f5f;
+  background-color: #93bcb2;
+  border: 1px solid transparent;
+  cursor: not-allowed;
+}
+
+/***** SIZE *****/
 .astro-btn-size-medium {
   height: 32px;
   padding: 0 15px;
   font-size: 14px;
   border-radius: var(--border-radius-small);
+}
+
+.astro-btn-size-bubble {
+  padding: 13px 45px;
+  margin: 15px 0;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 15px;
 }
 
 /***** Link *****/

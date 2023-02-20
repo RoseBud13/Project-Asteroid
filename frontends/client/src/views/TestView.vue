@@ -12,6 +12,10 @@
     <AstroButton type="text" href="https://github.com" disabled
       >Github</AstroButton
     >
+    <AstroButton type="bubble" size="bubble" @click="sayHi">Bubble</AstroButton>
+    <AstroButton type="bubble" size="bubble" @click="sayHi" disabled
+      >Bubble</AstroButton
+    >
   </div>
 </template>
 
@@ -30,5 +34,8 @@ function sayHello() {
 <style lang="scss" scoped>
 .test-container {
   padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>

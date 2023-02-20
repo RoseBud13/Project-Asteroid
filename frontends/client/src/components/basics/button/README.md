@@ -14,7 +14,7 @@ description: 按钮是一种命令组件，可发起一个即时操作。
 
 |参数名|描述|类型|默认值|
 |---|---|---|:---:|
-|type|按钮的类型，分为五种：次要按钮、主要按钮、线性按钮、文字按钮。|`'primary' \| 'secondary' \| 'outline' \| 'text'`|`'secondary'`|
+|type|按钮的类型，分为五种：次要按钮、主要按钮、线性按钮、文字按钮、气泡按钮。|`'primary' \| 'secondary' \| 'outline' \| 'text' | 'bubble'`|`'secondary'`|
 |shape|按钮的形状|`'square' \| 'round' \| 'circle'`|`-`|
 |status|按钮的状态|`'normal' \| 'warning' \| 'success' \| 'danger'`|`'normal'`|
 |size|按钮的尺寸|`'mini' \| 'small' \| 'medium' \| 'large'`|`'medium'`|
