@@ -22,8 +22,8 @@ import { isString } from '@/utils/is';
 
 const props = defineProps({
   /**
-   * @zh 按钮的类型，分为四种：次要按钮、主要按钮、线性按钮、文字按钮。
-   * @en Button types are divided into five types: secondary, primary, outline and text.
+   * @zh 按钮的类型，分为五种：次要按钮、主要按钮、线性按钮、文字按钮、气泡按钮。
+   * @en Button types are divided into five types: secondary, primary, outline, text and bubble.
    * @defaultValue 'secondary'
    */
   type: {
@@ -31,7 +31,9 @@ const props = defineProps({
     default: 'secondary',
     validator(value) {
       // The value must match one of these strings
-      return ['primary', 'secondary', 'outline', 'text'].includes(value);
+      return ['primary', 'secondary', 'outline', 'text', 'bubble'].includes(
+        value
+      );
     }
   },
   /**
@@ -47,14 +49,14 @@ const props = defineProps({
   /**
    * @zh 按钮的尺寸
    * @en Button size
-   * @values 'mini','small','medium','large'
+   * @values 'mini','small','medium','large', 'bubble'
    * @defaultValue 'medium'
    */
   size: {
     type: String,
     default: 'medium',
     validator(value) {
-      return ['mini', 'small', 'medium', 'large'].includes(value);
+      return ['mini', 'small', 'medium', 'large', 'bubble'].includes(value);
     }
   },
   /**
@@ -264,7 +266,7 @@ export default {
 
 /***** SIZE *****/
 .astro-btn-size-medium {
-  height: 32px;
+  height: var(--btn-size-medium-height);
   padding: 0 15px;
   font-size: 14px;
   border-radius: var(--border-radius-small);

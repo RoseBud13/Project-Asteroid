@@ -17,10 +17,52 @@
       >Bubble</AstroButton
     >
   </div>
+  <div class="test-container">
+    <AstroButton type="text" @click="sayHello">Text</AstroButton>
+    <AstroDropdown>
+      <AstroButton>Dropdown</AstroButton>
+      <template #content>
+        <AstroDropdownOption>
+          <template #icon>
+            <IconCommunity />
+          </template>
+          <template #default>
+            <a href="https://github.com">Community</a>
+          </template>
+        </AstroDropdownOption>
+        <AstroDropdownOption @click="sayHello">Greetings</AstroDropdownOption>
+        <AstroDropdownOption @click="sayHi">Hi there</AstroDropdownOption>
+        <AstroDropdownOption>Test</AstroDropdownOption>
+      </template>
+    </AstroDropdown>
+    <AstroButton type="text" @click="sayHello" disabled>Text</AstroButton>
+    <AstroDropdown>
+      <AstroButton type="bubble" size="bubble">Dropdown</AstroButton>
+      <template #content>
+        <AstroDropdownOption>
+          <template #icon>
+            <IconCommunity />
+          </template>
+          <template #default>
+            <a href="https://github.com">Community</a>
+          </template>
+        </AstroDropdownOption>
+        <AstroDropdownOption @click="sayHello" disabled
+          >Greetings</AstroDropdownOption
+        >
+        <AstroDropdownOption @click="sayHi">Hi there</AstroDropdownOption>
+        <AstroDropdownOption>Test</AstroDropdownOption>
+      </template>
+    </AstroDropdown>
+    <AstroButton type="text" href="https://github.com">Github</AstroButton>
+  </div>
 </template>
 
 <script setup>
 import AstroButton from '@/components/basics/button/index.vue';
+import AstroDropdown from '@/components/basics/dropdown/index.vue';
+import AstroDropdownOption from '@/components/basics/dropdown/dropdown-option.vue';
+import IconCommunity from '@/components/icons/IconCommunity.vue';
 
 function sayHi() {
   console.log('hi there!');
