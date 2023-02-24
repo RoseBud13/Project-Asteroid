@@ -56,6 +56,13 @@
     </AstroDropdown>
     <AstroButton type="text" href="https://github.com">Github</AstroButton>
   </div>
+  <div class="test-container">
+    <ClockItem
+      :blink="true"
+      :display-seconds="false"
+      :twelve-hour="false"
+    ></ClockItem>
+  </div>
 </template>
 
 <script setup>
@@ -63,6 +70,7 @@ import AstroButton from '@/components/basics/button/index.vue';
 import AstroDropdown from '@/components/basics/dropdown/index.vue';
 import AstroDropdownOption from '@/components/basics/dropdown/dropdown-option.vue';
 import IconCommunity from '@/components/icons/IconCommunity.vue';
+import ClockItem from '@/components/materials/ClockItem.vue';
 
 function sayHi() {
   console.log('hi there!');
