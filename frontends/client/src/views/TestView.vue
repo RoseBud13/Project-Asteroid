@@ -1,60 +1,60 @@
 <template>
   <div class="test-container">
-    <AstroButton type="primary" @click="sayHi">Primary</AstroButton>
-    <AstroButton type="primary" @click="sayHi" disabled>Primary</AstroButton>
-    <AstroButton @click="sayHi">Secondary</AstroButton>
-    <AstroButton @click="sayHi" disabled>Secondary</AstroButton>
-    <AstroButton type="outline" @click="sayHello">Outline</AstroButton>
-    <AstroButton type="outline" @click="sayHello" disabled>Outline</AstroButton>
-    <AstroButton type="text" @click="sayHello">Text</AstroButton>
-    <AstroButton type="text" @click="sayHello" disabled>Text</AstroButton>
-    <AstroButton type="text" href="https://github.com">Github</AstroButton>
-    <AstroButton type="text" href="https://github.com" disabled
-      >Github</AstroButton
+    <AstraButton type="primary" @click="sayHi">Primary</AstraButton>
+    <AstraButton type="primary" @click="sayHi" disabled>Primary</AstraButton>
+    <AstraButton @click="sayHi">Secondary</AstraButton>
+    <AstraButton @click="sayHi" disabled>Secondary</AstraButton>
+    <AstraButton type="outline" @click="sayHello">Outline</AstraButton>
+    <AstraButton type="outline" @click="sayHello" disabled>Outline</AstraButton>
+    <AstraButton type="text" @click="sayHello">Text</AstraButton>
+    <AstraButton type="text" @click="sayHello" disabled>Text</AstraButton>
+    <AstraButton type="text" href="https://github.com">Github</AstraButton>
+    <AstraButton type="text" href="https://github.com" disabled
+      >Github</AstraButton
     >
-    <AstroButton type="bubble" size="bubble" @click="sayHi">Bubble</AstroButton>
-    <AstroButton type="bubble" size="bubble" @click="sayHi" disabled
-      >Bubble</AstroButton
+    <AstraButton type="bubble" size="bubble" @click="sayHi">Bubble</AstraButton>
+    <AstraButton type="bubble" size="bubble" @click="sayHi" disabled
+      >Bubble</AstraButton
     >
   </div>
   <div class="test-container">
-    <AstroButton type="text" @click="sayHello">Text</AstroButton>
-    <AstroDropdown>
-      <AstroButton>Dropdown</AstroButton>
+    <AstraButton type="text" @click="sayHello">Text</AstraButton>
+    <AstraDropdown>
+      <AstraButton>Dropdown</AstraButton>
       <template #content>
-        <AstroDropdownOption>
+        <AstraDropdownOption>
           <template #icon>
             <IconCommunity />
           </template>
           <template #default>
             <a href="https://github.com">Community</a>
           </template>
-        </AstroDropdownOption>
-        <AstroDropdownOption @click="sayHello">Greetings</AstroDropdownOption>
-        <AstroDropdownOption @click="sayHi">Hi there</AstroDropdownOption>
-        <AstroDropdownOption>Test</AstroDropdownOption>
+        </AstraDropdownOption>
+        <AstraDropdownOption @click="sayHello">Greetings</AstraDropdownOption>
+        <AstraDropdownOption @click="sayHi">Hi there</AstraDropdownOption>
+        <AstraDropdownOption>Test</AstraDropdownOption>
       </template>
-    </AstroDropdown>
-    <AstroButton type="text" @click="sayHello" disabled>Text</AstroButton>
-    <AstroDropdown>
-      <AstroButton type="bubble" size="bubble">Dropdown</AstroButton>
+    </AstraDropdown>
+    <AstraButton type="text" @click="sayHello" disabled>Text</AstraButton>
+    <AstraDropdown>
+      <AstraButton type="bubble" size="bubble">Dropdown</AstraButton>
       <template #content>
-        <AstroDropdownOption>
+        <AstraDropdownOption>
           <template #icon>
             <IconCommunity />
           </template>
           <template #default>
             <a href="https://github.com">Community</a>
           </template>
-        </AstroDropdownOption>
-        <AstroDropdownOption @click="sayHello" disabled
-          >Greetings</AstroDropdownOption
+        </AstraDropdownOption>
+        <AstraDropdownOption @click="sayHello" disabled
+          >Greetings</AstraDropdownOption
         >
-        <AstroDropdownOption @click="sayHi">Hi there</AstroDropdownOption>
-        <AstroDropdownOption>Test</AstroDropdownOption>
+        <AstraDropdownOption @click="sayHi">Hi there</AstraDropdownOption>
+        <AstraDropdownOption>Test</AstraDropdownOption>
       </template>
-    </AstroDropdown>
-    <AstroButton type="text" href="https://github.com">Github</AstroButton>
+    </AstraDropdown>
+    <AstraButton type="text" href="https://github.com">Github</AstraButton>
   </div>
   <div class="test-container">
     <ClockItem
@@ -66,9 +66,9 @@
 </template>
 
 <script setup>
-import AstroButton from '@/components/basics/button/index.vue';
-import AstroDropdown from '@/components/basics/dropdown/index.vue';
-import AstroDropdownOption from '@/components/basics/dropdown/dropdown-option.vue';
+import AstraButton from '@/components/basics/button/index.vue';
+import AstraDropdown from '@/components/basics/dropdown/index.vue';
+import AstraDropdownOption from '@/components/basics/dropdown/dropdown-option.vue';
 import IconCommunity from '@/components/icons/IconCommunity.vue';
 import ClockItem from '@/components/materials/ClockItem.vue';
 

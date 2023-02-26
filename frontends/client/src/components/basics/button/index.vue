@@ -96,7 +96,7 @@ const handleClick = ev => {
   emit('click', ev);
 };
 
-const prefixCls = 'astro-btn';
+const prefixCls = 'astra-btn';
 
 const cls = computed(() => [
   prefixCls,
@@ -112,12 +112,12 @@ const cls = computed(() => [
 
 <script>
 export default {
-  name: 'AstroButton'
+  name: 'AstraButton'
 };
 </script>
 
 <style lang="scss" scoped>
-.astro-btn {
+.astra-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -134,25 +134,25 @@ export default {
 }
 
 /***** Primary *****/
-.astro-btn-primary,
-.astro-btn-primary[type='button'],
-.astro-btn-primary[type='submit'] {
+.astra-btn-primary,
+.astra-btn-primary[type='button'],
+.astra-btn-primary[type='submit'] {
   color: #fff;
   background-color: var(--primary-6);
   border: 1px solid transparent;
 }
 
-.astro-btn-primary:hover,
-.astro-btn-primary[type='button']:hover,
-.astro-btn-primary[type='submit']:hover {
+.astra-btn-primary:hover,
+.astra-btn-primary[type='button']:hover,
+.astra-btn-primary[type='submit']:hover {
   color: #fff;
   background-color: var(--primary-5);
   border: 1px solid transparent;
 }
 
-.astro-btn-primary.astro-btn-disabled,
-.astro-btn-primary[type='button'].astro-btn-disabled,
-.astro-btn-primary[type='submit'].astro-btn-disabled {
+.astra-btn-primary.astra-btn-disabled,
+.astra-btn-primary[type='button'].astra-btn-disabled,
+.astra-btn-primary[type='submit'].astra-btn-disabled {
   color: #fff;
   background-color: var(--color-primary-light-3);
   border: 1px solid transparent;
@@ -160,25 +160,25 @@ export default {
 }
 
 /***** Secondary *****/
-.astro-btn-secondary,
-.astro-btn-secondary[type='button'],
-.astro-btn-secondary[type='submit'] {
+.astra-btn-secondary,
+.astra-btn-secondary[type='button'],
+.astra-btn-secondary[type='submit'] {
   color: var(--color-text-2);
   background-color: var(--color-secondary);
   border: 1px solid transparent;
 }
 
-.astro-btn-secondary:hover,
-.astro-btn-secondary[type='button']:hover,
-.astro-btn-secondary[type='submit']:hover {
+.astra-btn-secondary:hover,
+.astra-btn-secondary[type='button']:hover,
+.astra-btn-secondary[type='submit']:hover {
   color: var(--color-text-2);
   background-color: var(--color-secondary-hover);
   border: 1px solid transparent;
 }
 
-.astro-btn-secondary.astro-btn-disabled,
-.astro-btn-secondary[type='button'].astro-btn-disabled,
-.astro-btn-secondary[type='submit'].astro-btn-disabled {
+.astra-btn-secondary.astra-btn-disabled,
+.astra-btn-secondary[type='button'].astra-btn-disabled,
+.astra-btn-secondary[type='submit'].astra-btn-disabled {
   color: var(--color-text-4);
   background-color: var(--color-secondary-disabled);
   border: 1px solid transparent;
@@ -186,25 +186,25 @@ export default {
 }
 
 /***** Outline *****/
-.astro-btn-outline,
-.astro-btn-outline[type='button'],
-.astro-btn-outline[type='submit'] {
+.astra-btn-outline,
+.astra-btn-outline[type='button'],
+.astra-btn-outline[type='submit'] {
   color: var(--primary-6);
   background-color: transparent;
   border: 1px solid var(--primary-6);
 }
 
-.astro-btn-outline:hover,
-.astro-btn-outline[type='button']:hover,
-.astro-btn-outline[type='submit']:hover {
+.astra-btn-outline:hover,
+.astra-btn-outline[type='button']:hover,
+.astra-btn-outline[type='submit']:hover {
   color: var(--primary-5);
   background-color: transparent;
   border: 1px solid var(--primary-5);
 }
 
-.astro-btn-outline.astro-btn-disabled,
-.astro-btn-outline[type='button'].astro-btn-disabled,
-.astro-btn-outline[type='submit'].astro-btn-disabled {
+.astra-btn-outline.astra-btn-disabled,
+.astra-btn-outline[type='button'].astra-btn-disabled,
+.astra-btn-outline[type='submit'].astra-btn-disabled {
   color: var(--color-primary-light-3);
   background-color: transparent;
   border: 1px solid var(--color-primary-light-3);
@@ -212,25 +212,25 @@ export default {
 }
 
 /***** Text *****/
-.astro-btn-text,
-.astro-btn-text[type='button'],
-.astro-btn-text[type='submit'] {
+.astra-btn-text,
+.astra-btn-text[type='button'],
+.astra-btn-text[type='submit'] {
   color: var(--primary-6);
   background-color: transparent;
   border: 1px solid transparent;
 }
 
-.astro-btn-text:hover,
-.astro-btn-text[type='button']:hover,
-.astro-btn-text[type='submit']:hover {
+.astra-btn-text:hover,
+.astra-btn-text[type='button']:hover,
+.astra-btn-text[type='submit']:hover {
   color: var(--primary-6);
   background-color: var(--color-fill-2);
   border: 1px solid transparent;
 }
 
-.astro-btn-text.astro-btn-disabled,
-.astro-btn-text[type='button'].astro-btn-disabled,
-.astro-btn-text[type='submit'].astro-btn-disabled {
+.astra-btn-text.astra-btn-disabled,
+.astra-btn-text[type='button'].astra-btn-disabled,
+.astra-btn-text[type='submit'].astra-btn-disabled {
   color: var(--color-primary-light-3);
   background-color: transparent;
   border: 1px solid transparent;
@@ -238,9 +238,9 @@ export default {
 }
 
 /***** Bubble *****/
-.astro-btn-bubble,
-.astro-btn-bubble[type='button'],
-.astro-btn-bubble[type='submit'] {
+.astra-btn-bubble,
+.astra-btn-bubble[type='button'],
+.astra-btn-bubble[type='submit'] {
   color: rgba(0, 0, 0, 0.8);
   background-color: #75a297;
   border: none;
@@ -248,16 +248,16 @@ export default {
   line-height: normal;
 }
 
-.astro-btn-bubble:hover,
-.astro-btn-bubble[type='button']:hover,
-.astro-btn-bubble[type='submit']:hover {
+.astra-btn-bubble:hover,
+.astra-btn-bubble[type='button']:hover,
+.astra-btn-bubble[type='submit']:hover {
   color: rgba(255, 255, 255, 0.8);
   background-color: rgb(95, 140, 128);
 }
 
-.astro-btn-bubble.astro-btn-disabled,
-.astro-btn-bubble[type='button'].astro-btn-disabled,
-.astro-btn-bubble[type='submit'].astro-btn-disabled {
+.astra-btn-bubble.astra-btn-disabled,
+.astra-btn-bubble[type='button'].astra-btn-disabled,
+.astra-btn-bubble[type='submit'].astra-btn-disabled {
   color: #5f5f5f;
   background-color: #93bcb2;
   border: 1px solid transparent;
@@ -265,14 +265,14 @@ export default {
 }
 
 /***** SIZE *****/
-.astro-btn-size-medium {
+.astra-btn-size-medium {
   height: var(--btn-size-medium-height);
   padding: 0 15px;
   font-size: 14px;
   border-radius: var(--border-radius-small);
 }
 
-.astro-btn-size-bubble {
+.astra-btn-size-bubble {
   padding: 13px 45px;
   margin: 15px 0;
   font-size: 15px;
@@ -281,7 +281,7 @@ export default {
 }
 
 /***** Link *****/
-.astro-btn-link {
+.astra-btn-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;

@@ -2,9 +2,9 @@
   <div>
     <ul>
       <li v-for="item in locales" :key="item.value">
-        <AstroButton @click="changeLocale(item.value)">{{
+        <AstraButton @click="changeLocale(item.value)">{{
           item.label
-        }}</AstroButton>
+        }}</AstraButton>
       </li>
     </ul>
   </div>
@@ -13,7 +13,7 @@
 <script setup>
 import { LOCALE_OPTIONS } from '@/locale';
 import useLocale from '@/hooks/locale';
-import AstroButton from '@/components/basics/button/index.vue';
+import AstraButton from '@/components/basics/button/index.vue';
 
 const locales = [...LOCALE_OPTIONS];
 const { changeLocale } = useLocale();

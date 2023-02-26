@@ -1,6 +1,6 @@
 <template>
-  <li class="astro-dropdown-option" @click="handleClick">
-    <span v-if="$slots.icon" class="astro-dropdown-option-icon">
+  <li class="astra-dropdown-option" @click="handleClick">
+    <span v-if="$slots.icon" class="astra-dropdown-option-icon">
       <slot name="icon"></slot>
     </span>
     <slot></slot>
@@ -31,12 +31,12 @@ const handleClick = ev => {
 
 <script>
 export default {
-  name: 'AstroDropdownOption'
+  name: 'AstraDropdownOption'
 };
 </script>
 
 <style lang="scss" scoped>
-.astro-dropdown-option {
+.astra-dropdown-option {
   position: relative;
   display: flex;
   align-items: center;
@@ -53,11 +53,11 @@ export default {
   cursor: pointer;
 }
 
-.astro-dropdown-option:hover {
+.astra-dropdown-option:hover {
   color: #75a297;
 }
 
-.astro-dropdown-option-icon {
+.astra-dropdown-option-icon {
   display: inline-flex;
   justify-content: center;
   align-items: center;

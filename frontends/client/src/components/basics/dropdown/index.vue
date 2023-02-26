@@ -1,8 +1,8 @@
 <template>
-  <div class="astro-dropdown">
+  <div class="astra-dropdown">
     <slot></slot>
-    <div class="astro-dropdown-container">
-      <ul class="astro-dropdown-menu">
+    <div class="astra-dropdown-container">
+      <ul class="astra-dropdown-menu">
         <slot name="content"></slot>
       </ul>
     </div>
@@ -13,21 +13,21 @@
 
 <script>
 export default {
-  name: 'AstroDropdown'
+  name: 'AstraDropdown'
 };
 </script>
 
 <style lang="scss" scoped>
-.astro-dropdown {
+.astra-dropdown {
   position: relative;
 }
 
-.astro-dropdown:hover .astro-dropdown-container {
+.astra-dropdown:hover .astra-dropdown-container {
   opacity: 1;
   visibility: visible;
 }
 
-.astro-dropdown-container {
+.astra-dropdown-container {
   position: absolute;
   top: calc(var(--btn-size-medium-height) + 10px);
   right: 50%;
@@ -38,7 +38,7 @@ export default {
   z-index: 1;
 }
 
-.astro-dropdown-menu {
+.astra-dropdown-menu {
   margin-top: 0;
   margin-bottom: 0;
   list-style: none;
