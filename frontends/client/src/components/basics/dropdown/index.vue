@@ -35,6 +35,7 @@ export default {
   visibility: hidden;
   transform: translateX(50%);
   transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
+  z-index: 1;
 }
 
 .astro-dropdown-menu {
@@ -44,7 +45,6 @@ export default {
   border-radius: 8px;
   padding: 12px 0;
   min-width: 100px;
-  border: 1px solid transparent;
   background: var(--vt-c-bg);
   box-shadow: var(--vt-shadow-3);
   transition: background-color 0.5s;
