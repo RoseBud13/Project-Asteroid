@@ -66,7 +66,20 @@ const getMonth = () => padZero(getDate().getMonth() + 1);
 const getDay = () => padZero(getDate().getDate());
 const getWeek = () => week[getDate().getDay()];
 
-const props = defineProps(['blink', 'displaySeconds', 'twelveHour']);
+const props = defineProps({
+  blink: {
+    type: Boolean,
+    default: false
+  },
+  displaySeconds: {
+    type: Boolean,
+    default: false
+  },
+  twelveHour: {
+    type: Boolean,
+    default: false
+  }
+});
 
 const state = reactive({
   ticker: null,

@@ -4,11 +4,7 @@
       <h2>{{ $t('home.title') }}</h2>
     </template>
     <template #mid>
-      <ClockItem
-        :blink="true"
-        :display-seconds="false"
-        :twelve-hour="false"
-      ></ClockItem>
+      <ClockItem blink></ClockItem>
     </template>
     <template #right>
       <AstraDropdown>

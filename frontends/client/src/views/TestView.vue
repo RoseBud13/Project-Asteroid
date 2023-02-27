@@ -57,11 +57,7 @@
     <AstraButton type="text" href="https://github.com">Github</AstraButton>
   </div>
   <div class="test-container">
-    <ClockItem
-      :blink="true"
-      :display-seconds="false"
-      :twelve-hour="false"
-    ></ClockItem>
+    <ClockItem blink></ClockItem>
   </div>
 </template>
 
