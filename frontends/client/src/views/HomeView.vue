@@ -1,4 +1,5 @@
 <template>
+  <Background :wallpaperUrl="wallpaper"></Background>
   <Navbar>
     <template #left>
       <h2>{{ $t('home.title') }}</h2>
@@ -27,6 +28,7 @@
 </template>
 
 <script setup>
+import Background from '@/components/background/index.vue';
 import Navbar from '@/components/navbar/index.vue';
 import ClockItem from '@/components/materials/ClockItem.vue';
 import AstraDropdown from '@/components/basics/dropdown/index.vue';
@@ -37,6 +39,8 @@ import useLocale from '@/hooks/locale';
 
 const locales = [...LOCALE_OPTIONS];
 const { changeLocale } = useLocale();
+
+const wallpaper = 'https://b612.one/oneapi/img/FvNvpKLF74mqdlKqAnhaNWhlToQ6';
 </script>
 
 <style lang="scss" scoped></style>

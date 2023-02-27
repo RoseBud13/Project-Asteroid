@@ -72,6 +72,12 @@ export function isWindow(el) {
   return el === window;
 }
 
+export function isUrl(url) {
+  return /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi.test(
+    url
+  );
+}
+
 // export function isDayjs(timey) {
 //   return (
 //     isObject(time) &&
