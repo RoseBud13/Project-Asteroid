@@ -1,6 +1,6 @@
 <template>
   <template v-if="href">
-    <a :class="[cls]" :href="href">
+    <a :class="[cls]" :href="href" :target="target">
       <slot></slot>
     </a>
   </template>
@@ -83,7 +83,19 @@ const props = defineProps({
    * @zh 设置跳转链接。设置此属性时，按钮渲染为a标签。
    * @en Set up a jump link. When this property is set, the button is rendered as `<a>`
    */
-  href: String
+  href: String,
+  /**
+   * @zh 设置跳转链接跳转属性。https://www.w3schools.com/tags/att_a_target.asp
+   * @en Set up the <a> tag target property
+   * @defaultValue '_blank'
+   */
+  target: {
+    type: String,
+    default: '_blank',
+    validator(value) {
+      return ['_blank', '_self', '_parent', '_top'].includes(value);
+    }
+  }
 });
 
 const emit = defineEmits(['click']);
