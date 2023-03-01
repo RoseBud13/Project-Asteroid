@@ -36,11 +36,14 @@ import AstraDropdownOption from '@/components/basics/dropdown/dropdown-option.vu
 import AstraButton from '@/components/basics/button/index.vue';
 import { LOCALE_OPTIONS } from '@/locale';
 import useLocale from '@/hooks/locale';
+import useConfig from '../config';
 
 const locales = [...LOCALE_OPTIONS];
 const { changeLocale } = useLocale();
+const { getLocalConfig } = useConfig();
 
-const wallpaper = 'https://b612.one/oneapi/img/FvNvpKLF74mqdlKqAnhaNWhlToQ6';
+const wallpaperInfo = getLocalConfig('wallpaper');
+const wallpaper = wallpaperInfo['bing'][0];
 </script>
 
 <style lang="scss" scoped></style>

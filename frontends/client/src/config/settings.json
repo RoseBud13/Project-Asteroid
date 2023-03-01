@@ -1,0 +1,18 @@
+{
+  "version": "0.0.0",
+  "title": "global.title",
+  "tagline": "Ad astra",
+  "navbarPosition": "fixed",
+  "hiddenSearchArea": true,
+  "locale": "zh-CN",
+  "theme": "light",
+  "wallpaper": {
+    "bing": ["https://api.dujin.org/bing/1920.php"],
+    "oneApp": ["https://b612.one/oneapi/img/FvNvpKLF74mqdlKqAnhaNWhlToQ6"]
+  },
+  "footer": true,
+  "themeColor": "",
+  "globalSettings": false,
+  "device": "desktop",
+  "showLogo": false
+}
