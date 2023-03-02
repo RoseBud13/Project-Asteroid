@@ -4,6 +4,9 @@
       <img v-if="imgUrl" class="wallpaper-img" :src="imgUrl" />
       <div v-else class="wallpaper-placeholder"></div>
     </div>
+    <div class="homepage-utilities-container">
+      <slot name="homepage-utilities"></slot>
+    </div>
   </div>
 </template>
 
@@ -35,6 +38,9 @@ export default {
   left: 0;
   overflow: hidden;
   z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .wallpaper-wrapper {
@@ -59,5 +65,16 @@ export default {
   width: 100%;
   height: 100%;
   background: linear-gradient(#f9dbbd, #ffa5ab, #da627d);
+}
+
+.homepage-utilities-container {
+  width: 90%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 100px;
 }
 </style>
