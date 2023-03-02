@@ -1,7 +1,7 @@
 <template>
   <div
     class="background-wrapper"
-    @dblclick="toggleUtilities"
+    @dblclick="widgetboxStore.toggleWidgetbox()"
     :style="{ userSelect: props.preventUserSelect ? 'none' : 'auto' }"
   >
     <div class="wallpaper-wrapper">
@@ -9,17 +9,20 @@
       <div v-else class="wallpaper-placeholder"></div>
     </div>
     <div
-      class="homepage-utilities-container"
-      :class="[showUtilities ? 'homepage-utilities-container-show' : '']"
+      class="widgetbox-container"
+      :class="[widgetboxStore.showWidgetbox ? 'widgetbox-container-show' : '']"
     >
-      <slot name="homepage-utilities"></slot>
+      <slot name="widgetbox"></slot>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { isUrl } from '@/utils/is';
+import { useWidgetboxStore } from '@/stores/widgetbox';
+
+const widgetboxStore = useWidgetboxStore();
 
 const props = defineProps({
   wallpaperUrl: String,
@@ -32,12 +35,6 @@ const props = defineProps({
 const imgUrl = computed(() => {
   return isUrl(props.wallpaperUrl) ? props.wallpaperUrl : '';
 });
-
-const showUtilities = ref(false);
-
-const toggleUtilities = () => {
-  showUtilities.value = !showUtilities.value;
-};
 </script>
 
 <script>
@@ -84,7 +81,7 @@ export default {
   background: linear-gradient(#f9dbbd, #ffa5ab, #da627d);
 }
 
-.homepage-utilities-container {
+.widgetbox-container {
   width: 90%;
   height: 60%;
   display: flex;
@@ -98,7 +95,7 @@ export default {
   opacity: 0;
 }
 
-.homepage-utilities-container-show {
+.widgetbox-container-show {
   visibility: visible;
   opacity: 1;
 }

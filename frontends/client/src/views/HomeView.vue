@@ -1,6 +1,6 @@
 <template>
   <Background :wallpaperUrl="wallpaper" preventUserSelect>
-    <template #homepage-utilities>
+    <template #widgetbox>
       <SearchBar autofocus></SearchBar>
     </template>
   </Background>
