@@ -10,7 +10,7 @@
     </div>
     <div
       class="widgetbox-container"
-      :class="[widgetboxStore.showWidgetbox ? 'widgetbox-container-show' : '']"
+      :class="[showWidgetbox ? 'widgetbox-container-show' : '']"
     >
       <slot name="widgetbox"></slot>
     </div>
@@ -18,11 +18,22 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
+import { storeToRefs } from 'pinia';
 import { isUrl } from '@/utils/is';
 import { useWidgetboxStore } from '@/stores/widgetbox';
 
 const widgetboxStore = useWidgetboxStore();
+
+const { showWidgetbox } = storeToRefs(widgetboxStore);
+
+watch(showWidgetbox, () => {
+  if (showWidgetbox.value) {
+    setTimeout(() => {
+      document.querySelector('.search-input input').focus();
+    }, 200);
+  }
+});
 
 const props = defineProps({
   wallpaperUrl: String,
