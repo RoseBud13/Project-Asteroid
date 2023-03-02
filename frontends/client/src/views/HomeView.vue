@@ -1,5 +1,5 @@
 <template>
-  <Background :wallpaperUrl="wallpaper">
+  <Background :wallpaperUrl="wallpaper" preventUserSelect>
     <template #homepage-utilities>
       <SearchBar autofocus></SearchBar>
     </template>

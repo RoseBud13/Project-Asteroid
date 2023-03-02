@@ -1,26 +1,43 @@
 <template>
-  <div class="background-wrapper">
+  <div
+    class="background-wrapper"
+    @dblclick="toggleUtilities"
+    :style="{ userSelect: props.preventUserSelect ? 'none' : 'auto' }"
+  >
     <div class="wallpaper-wrapper">
       <img v-if="imgUrl" class="wallpaper-img" :src="imgUrl" />
       <div v-else class="wallpaper-placeholder"></div>
     </div>
-    <div class="homepage-utilities-container">
+    <div
+      class="homepage-utilities-container"
+      :class="[showUtilities ? 'homepage-utilities-container-show' : '']"
+    >
       <slot name="homepage-utilities"></slot>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { isUrl } from '@/utils/is';
 
 const props = defineProps({
-  wallpaperUrl: String
+  wallpaperUrl: String,
+  preventUserSelect: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const imgUrl = computed(() => {
   return isUrl(props.wallpaperUrl) ? props.wallpaperUrl : '';
 });
+
+const showUtilities = ref(false);
+
+const toggleUtilities = () => {
+  showUtilities.value = !showUtilities.value;
+};
 </script>
 
 <script>
@@ -76,5 +93,13 @@ export default {
   align-items: center;
   padding: 10px;
   margin-bottom: 100px;
+  transition: opacity 0.35s, visibility 0.35s;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.homepage-utilities-container-show {
+  visibility: visible;
+  opacity: 1;
 }
 </style>
