@@ -4,7 +4,7 @@
       <input
         v-model="keywords"
         @keyup.enter="handleInputKeyDown"
-        placeholder="Type to search..."
+        :placeholder="$t('searchbar.input.placeholder.bing')"
         :autofocus="props.autofocus"
       />
     </div>

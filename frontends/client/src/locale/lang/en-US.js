@@ -3,5 +3,6 @@ export default {
   'home.title': 'Homepage',
   'about.text': 'This is an about page',
   'navbar.docs': 'Docs',
-  'navbar.action.locale': 'Switched to English'
+  'navbar.action.locale': 'Switched to English',
+  'searchbar.input.placeholder.bing': 'via bing.com'
 };
