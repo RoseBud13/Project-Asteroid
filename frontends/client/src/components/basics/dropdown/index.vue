@@ -1,7 +1,12 @@
 <template>
   <div class="astra-dropdown">
-    <slot></slot>
-    <div class="astra-dropdown-container">
+    <div class="dropdown-trigger-wrapper" ref="dropdownTrigger">
+      <slot name="trigger"></slot>
+    </div>
+    <div
+      class="astra-dropdown-container"
+      :style="{ top: triggerHeight + 'px' }"
+    >
       <ul class="astra-dropdown-menu">
         <slot name="content"></slot>
       </ul>
@@ -9,7 +14,17 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { onMounted, ref } from 'vue';
+
+const dropdownTrigger = ref(null);
+const triggerHeight = ref();
+
+onMounted(() => {
+  // console.log(dropdownTrigger.value.offsetHeight);
+  triggerHeight.value = dropdownTrigger.value.offsetHeight + 5;
+});
+</script>
 
 <script>
 export default {
@@ -29,7 +44,7 @@ export default {
 
 .astra-dropdown-container {
   position: absolute;
-  top: calc(var(--btn-size-medium-height) + 10px);
+  top: 0;
   right: 50%;
   opacity: 0;
   visibility: hidden;

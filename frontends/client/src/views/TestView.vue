@@ -20,7 +20,9 @@
   <div class="test-container">
     <AstraButton type="text" @click="sayHello">Text</AstraButton>
     <AstraDropdown>
-      <AstraButton>Dropdown</AstraButton>
+      <template #trigger>
+        <AstraButton>Dropdown</AstraButton>
+      </template>
       <template #content>
         <AstraDropdownOption>
           <template #icon>
@@ -37,7 +39,9 @@
     </AstraDropdown>
     <AstraButton type="text" @click="sayHello" disabled>Text</AstraButton>
     <AstraDropdown>
-      <AstraButton type="bubble" size="bubble">Dropdown</AstraButton>
+      <template #trigger>
+        <AstraButton type="bubble" size="bubble">Dropdown</AstraButton>
+      </template>
       <template #content>
         <AstraDropdownOption>
           <template #icon>

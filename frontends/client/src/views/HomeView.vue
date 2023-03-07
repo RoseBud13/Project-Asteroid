@@ -13,7 +13,9 @@
     </template>
     <template #right>
       <AstraDropdown>
-        <AstraButton>A/文</AstraButton>
+        <template #trigger>
+          <AstraButton>A/文</AstraButton>
+        </template>
         <template #content>
           <AstraDropdownOption
             v-for="item in locales"
