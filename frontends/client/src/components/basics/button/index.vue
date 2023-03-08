@@ -22,8 +22,8 @@ import { isString } from '@/utils/is';
 
 const props = defineProps({
   /**
-   * @zh 按钮的类型，分为五种：次要按钮、主要按钮、线性按钮、文字按钮、气泡按钮。
-   * @en Button types are divided into five types: secondary, primary, outline, text and bubble.
+   * @zh 按钮的类型，分为六种：次要按钮、主要按钮、线性按钮、文字按钮、气泡按钮、导航按钮。
+   * @en Button types are divided into six types: secondary, primary, outline, text, bubble and nav.
    * @defaultValue 'secondary'
    */
   type: {
@@ -31,9 +31,14 @@ const props = defineProps({
     default: 'secondary',
     validator(value) {
       // The value must match one of these strings
-      return ['primary', 'secondary', 'outline', 'text', 'bubble'].includes(
-        value
-      );
+      return [
+        'primary',
+        'secondary',
+        'outline',
+        'text',
+        'bubble',
+        'nav'
+      ].includes(value);
     }
   },
   /**
@@ -272,6 +277,32 @@ export default {
 .astra-btn-bubble[type='submit'].astra-btn-disabled {
   color: #5f5f5f;
   background-color: #93bcb2;
+  border: 1px solid transparent;
+  cursor: not-allowed;
+}
+
+/***** Nav *****/
+.astra-btn-nav,
+.astra-btn-nav[type='button'],
+.astra-btn-nav[type='submit'] {
+  color: #fff;
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+.astra-btn-nav:hover,
+.astra-btn-nav[type='button']:hover,
+.astra-btn-nav[type='submit']:hover {
+  color: #98c9a3;
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+.astra-btn-nav.astra-btn-disabled,
+.astra-btn-nav[type='button'].astra-btn-disabled,
+.astra-btn-nav[type='submit'].astra-btn-disabled {
+  color: #bfbfbf;
+  background-color: transparent;
   border: 1px solid transparent;
   cursor: not-allowed;
 }

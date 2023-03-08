@@ -9,12 +9,12 @@
       <h2>{{ $t('home.title') }}</h2>
     </template>
     <template #mid>
-      <ClockItem blink></ClockItem>
+      <ClockItem blink textColor="#fff"></ClockItem>
     </template>
     <template #right>
       <AstraDropdown>
         <template #trigger>
-          <AstraButton>A/文</AstraButton>
+          <AstraButton type="nav">A/文</AstraButton>
         </template>
         <template #content>
           <AstraDropdownOption
@@ -26,7 +26,9 @@
           </AstraDropdownOption>
         </template>
       </AstraDropdown>
-      <AstraButton href="https://github.com/RoseBud13/Project-Asteroid"
+      <AstraButton
+        type="nav"
+        href="https://github.com/RoseBud13/Project-Asteroid"
         >GitHub</AstraButton
       >
     </template>

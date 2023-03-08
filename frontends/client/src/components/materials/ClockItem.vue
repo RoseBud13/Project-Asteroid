@@ -2,7 +2,10 @@
 Modified by Rosebud on Feb 24 2023 -->
 <template>
   <div id="clock" class="light">
-    <time class="time">
+    <time
+      class="time"
+      :style="{ color: props.textColor ? props.textColor : '' }"
+    >
       <span class="clock__hour">{{ state.hours }}</span>
       <span
         class="clock__colon"
@@ -78,7 +81,8 @@ const props = defineProps({
   twelveHour: {
     type: Boolean,
     default: false
-  }
+  },
+  textColor: String
 });
 
 const state = reactive({

@@ -63,6 +63,10 @@
   <div class="test-container">
     <ClockItem blink></ClockItem>
   </div>
+  <div class="test-container" style="background-color: black">
+    <AstraButton type="nav">Nav</AstraButton>
+    <AstraButton type="nav" disabled>Nav</AstraButton>
+  </div>
 </template>
 
 <script setup>
