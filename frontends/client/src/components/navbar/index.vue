@@ -101,4 +101,10 @@ export default {
 .navbar-right :deep(> *) {
   margin-right: 10px;
 }
+
+@media (max-width: 480px) {
+  .navbar-mid {
+    display: none;
+  }
+}
 </style>

@@ -144,9 +144,4 @@ onUnmounted(() => {
 .greetings p {
   margin: 5px;
 }
-@media (max-width: 480px) {
-  #clock {
-    display: none;
-  }
-}
 </style>

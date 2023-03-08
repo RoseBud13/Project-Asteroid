@@ -89,7 +89,7 @@ export default {
 .wallpaper-placeholder {
   width: 100%;
   height: 100%;
-  background: linear-gradient(#f9dbbd, #ffa5ab, #da627d);
+  background: linear-gradient(#77bfa3, #bfd8bd, #edeec9);
 }
 
 .widgetbox-container {
