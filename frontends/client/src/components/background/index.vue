@@ -58,7 +58,7 @@ export default {
 .background-wrapper {
   width: 100vw;
   height: 100vh;
-  position: relative;
+  position: fixed;
   top: 0;
   left: 0;
   overflow: hidden;
@@ -100,10 +100,11 @@ export default {
   justify-content: center;
   align-items: center;
   padding: 10px;
-  margin-bottom: 100px;
+  margin-bottom: 20vh;
   transition: opacity 0.35s, visibility 0.35s;
   visibility: hidden;
   opacity: 0;
+  z-index: 1;
 }
 
 .widgetbox-container-show {

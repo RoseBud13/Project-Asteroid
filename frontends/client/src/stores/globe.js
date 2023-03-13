@@ -1,7 +1,10 @@
 import { defineStore } from 'pinia';
 
 export const useGlobe = defineStore('globe', {
-  state: () => ({ isFullscreen: false }),
+  state: () => ({
+    isFullscreen: false,
+    showDashboard: false
+  }),
   getters: {},
   actions: {
     toggleFullscreen(fullscreenState) {
@@ -10,6 +13,9 @@ export const useGlobe = defineStore('globe', {
       } else {
         this.isFullscreen = !this.isFullscreen;
       }
+    },
+    toggleDashboard() {
+      this.showDashboard = !this.showDashboard;
     }
   }
 });
