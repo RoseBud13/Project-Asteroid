@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia';
 
-export const useGlobe = defineStore('globe', {
+export const useGlobal = defineStore('global', {
   state: () => ({
     isFullscreen: false,
-    showDashboard: false
+    showDashboard: false,
+    deviceType: ''
   }),
   getters: {},
   actions: {
@@ -16,6 +17,14 @@ export const useGlobe = defineStore('globe', {
     },
     toggleDashboard() {
       this.showDashboard = !this.showDashboard;
+    },
+    setDeviceType(device) {
+      if (device === 'PC' || device === 'mobile') {
+        this.deviceType = device;
+      } else {
+        this.deviceType = '';
+      }
+      console.log(this.deviceType);
     }
   }
 });

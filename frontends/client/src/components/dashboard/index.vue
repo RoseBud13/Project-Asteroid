@@ -14,11 +14,11 @@
 
 <script setup>
 import { storeToRefs } from 'pinia';
-import { useGlobe } from '@/stores/globe';
+import { useGlobal } from '@/stores/global';
 import IconArrowUp from '../icons/IconArrowUp.vue';
 
-const globeStore = useGlobe();
-const { showDashboard } = storeToRefs(globeStore);
+const globalStore = useGlobal();
+const { showDashboard } = storeToRefs(globalStore);
 </script>
 
 <script>

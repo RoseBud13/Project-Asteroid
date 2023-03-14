@@ -57,15 +57,15 @@ import { LOCALE_OPTIONS } from '@/locale';
 import useLocale from '@/hooks/locale';
 import useConfig from '@/config';
 import { useFullscreen } from '@/utils/browser';
-import { useGlobe } from '@/stores/globe';
+import { useGlobal } from '@/stores/global';
 import { storeToRefs } from 'pinia';
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const homepage = ref(null);
 
 const { openFullscreen, closeFullscreen } = useFullscreen();
-const globeStore = useGlobe();
-const { isFullscreen } = storeToRefs(globeStore);
+const globalStore = useGlobal();
+const { isFullscreen } = storeToRefs(globalStore);
 
 const locales = [...LOCALE_OPTIONS];
 const { changeLocale } = useLocale();
@@ -93,7 +93,7 @@ const handleScroll = event => {
       behavior: 'smooth'
     });
     scrollStart.value = target.value;
-    globeStore.toggleDashboard();
+    globalStore.toggleDashboard();
   } else if (scrollStart.value - scrollTop.value > 1) {
     homepage.value.removeEventListener('scroll', handleScroll);
     homepage.value.scroll({
@@ -102,7 +102,7 @@ const handleScroll = event => {
       behavior: 'smooth'
     });
     scrollStart.value = 0;
-    globeStore.toggleDashboard();
+    globalStore.toggleDashboard();
   }
 };
 
@@ -121,7 +121,7 @@ onMounted(() => {
   homepage.value.addEventListener('scroll', handleScroll);
   homepage.value.addEventListener('scroll', handleScrollEnd);
   document.addEventListener('fullscreenchange', () => {
-    globeStore.toggleFullscreen();
+    globalStore.toggleFullscreen();
     setSize();
   });
   window.addEventListener('resize', () => {
@@ -133,7 +133,7 @@ onUnmounted(() => {
   homepage.value.removeEventListener('scroll', handleScroll);
   homepage.value.removeEventListener('scroll', handleScrollEnd);
   document.removeEventListener('fullscreenchange', () => {
-    globeStore.toggleFullscreen();
+    globalStore.toggleFullscreen();
     setSize();
   });
   window.removeEventListener('resize', () => {
