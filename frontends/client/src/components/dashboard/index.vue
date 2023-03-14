@@ -35,6 +35,7 @@ export default {
   position: relative;
   top: 90vh;
   backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   overflow: hidden;
   transition: all 0.5s ease-in-out;
   -webkit-transition: all 0.5s ease-in-out;
@@ -46,6 +47,7 @@ export default {
 
 .dashboard-show {
   backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
   padding-top: 50px;
 }
 
