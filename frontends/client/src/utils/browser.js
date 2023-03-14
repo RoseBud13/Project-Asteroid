@@ -22,6 +22,9 @@ export function useUserAgent() {
         /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
       )
     ) {
+      if (navigator.userAgent.match(/(iPhone|iPod|ios|iPad)/i)) {
+        return 'ios';
+      }
       return 'mobile';
     } else {
       return 'PC';

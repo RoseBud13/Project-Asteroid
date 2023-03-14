@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { watch, onMounted } from 'vue';
+import { watch, onBeforeMount } from 'vue';
 import { RouterView } from 'vue-router';
 import useLocale from '@/hooks/locale';
 import { useGlobal } from '@/stores/global';
@@ -13,14 +13,23 @@ const { i18, currentLocale } = useLocale();
 const globalStore = useGlobal();
 const { getDeviceType } = useUserAgent();
 
+const setDeviceVh = () => {
+  if (getDeviceType() === 'ios') {
+    document.documentElement.style.setProperty('--90vh', `90dvh`);
+  } else {
+    document.documentElement.style.setProperty('--90vh', `90vh`);
+  }
+};
+
 document.title = i18.t('global.title');
 
 watch(currentLocale, () => {
   document.title = i18.t('global.title');
 });
 
-onMounted(() => {
+onBeforeMount(() => {
   globalStore.setDeviceType(getDeviceType());
+  setDeviceVh();
 });
 </script>
 

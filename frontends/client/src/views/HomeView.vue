@@ -40,7 +40,7 @@
         >
       </template>
     </Navbar>
-    <HomeDashboard></HomeDashboard>
+    <HomeDashboard ref="dashboard"></HomeDashboard>
   </div>
 </template>
 
@@ -62,10 +62,11 @@ import { storeToRefs } from 'pinia';
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const homepage = ref(null);
+const dashboard = ref(null);
 
 const { openFullscreen, closeFullscreen } = useFullscreen();
 const globalStore = useGlobal();
-const { isFullscreen } = storeToRefs(globalStore);
+const { isFullscreen, deviceType } = storeToRefs(globalStore);
 
 const locales = [...LOCALE_OPTIONS];
 const { changeLocale } = useLocale();
@@ -78,6 +79,8 @@ const scrollTop = ref(0);
 const scrollStart = ref(0);
 const target = ref(); // distence of toggling dashbaord
 const scrollTimeoutTime = ref(800); // 0.8s is the minimum scroll interval to act as debounce
+const touchStartY = ref(0); // 触摸位置
+const touchEndY = ref(0); // 结束位置
 
 const setSize = () => {
   target.value = 0.9 * homepage.value.clientHeight; // dsshboard initial top 90vh
@@ -116,10 +119,63 @@ const handleScrollEnd = () => {
   }, scrollTimeoutTime.value);
 };
 
+const handleTouchStart = event => {
+  touchStartY.value = event.targetTouches[0].clientY;
+};
+
+const handleTouchMove = event => {
+  touchEndY.value = event.targetTouches[0].clientY;
+};
+
+const handleTouchEnd = () => {
+  if (Math.abs(touchEndY.value - touchStartY.value) > 10) {
+    globalStore.toggleDashboardMobile();
+  }
+  touchStartY.value = 0;
+  touchEndY.value = 0;
+};
+
+const setScrollOrTouch = () => {
+  if (deviceType.value === 'PC' || deviceType.value === '') {
+    homepage.value.addEventListener('scroll', handleScroll);
+    homepage.value.addEventListener('scroll', handleScrollEnd);
+  } else {
+    document.documentElement.style.overflow = 'hidden';
+    dashboard.value.dashboardComp.addEventListener(
+      'touchstart',
+      handleTouchStart
+    );
+    dashboard.value.dashboardComp.addEventListener(
+      'touchmove',
+      handleTouchMove
+    );
+    dashboard.value.dashboardComp.addEventListener('touchend', handleTouchEnd);
+  }
+};
+
+const removeScrollOrTouch = () => {
+  if (deviceType === 'PC' || deviceType === '') {
+    homepage.value.removeEventListener('scroll', handleScroll);
+    homepage.value.removeEventListener('scroll', handleScrollEnd);
+  } else {
+    dashboard.value.dashboardComp.removeEventListener(
+      'touchstart',
+      handleTouchStart
+    );
+    dashboard.value.dashboardComp.removeEventListener(
+      'touchmove',
+      handleTouchMove
+    );
+    dashboard.value.dashboardComp.removeEventListener(
+      'touchend',
+      handleTouchEnd
+    );
+  }
+};
+
 onMounted(() => {
   setSize();
-  homepage.value.addEventListener('scroll', handleScroll);
-  homepage.value.addEventListener('scroll', handleScrollEnd);
+  setScrollOrTouch();
   document.addEventListener('fullscreenchange', () => {
     globalStore.toggleFullscreen();
     setSize();
@@ -130,8 +186,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  homepage.value.removeEventListener('scroll', handleScroll);
-  homepage.value.removeEventListener('scroll', handleScrollEnd);
+  removeScrollOrTouch();
   document.removeEventListener('fullscreenchange', () => {
     globalStore.toggleFullscreen();
     setSize();

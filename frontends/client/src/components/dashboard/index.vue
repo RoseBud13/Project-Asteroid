@@ -1,8 +1,11 @@
 <template>
   <div
-    ref="dashboard"
+    ref="dashboardComp"
     class="dashboard-container"
-    :class="{ 'dashboard-show': showDashboard }"
+    :class="{
+      'dashboard-show': showDashboard,
+      'dashboard-show-mobile': showDashboardMobile
+    }"
   >
     <div class="dashboard-hint">
       <div class="arrow-wrapper">
@@ -13,12 +16,19 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useGlobal } from '@/stores/global';
-import IconArrowUp from '../icons/IconArrowUp.vue';
+import IconArrowUp from '@/components/icons/IconArrowUp.vue';
+
+const dashboardComp = ref(null);
 
 const globalStore = useGlobal();
-const { showDashboard } = storeToRefs(globalStore);
+const { showDashboard, showDashboardMobile } = storeToRefs(globalStore);
+
+defineExpose({
+  dashboardComp
+});
 </script>
 
 <script>
@@ -33,7 +43,7 @@ export default {
   height: 100vh;
   z-index: 1;
   position: relative;
-  top: 90vh;
+  top: var(--90vh);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   overflow: hidden;
@@ -51,6 +61,13 @@ export default {
   padding-top: 50px;
 }
 
+.dashboard-show-mobile {
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  padding-top: 50px;
+  top: 0;
+}
+
 .dashboard-hint {
   width: 100%;
   height: 10vh;
@@ -61,6 +78,10 @@ export default {
 }
 
 .dashboard-show .dashboard-hint {
+  display: none;
+}
+
+.dashboard-show-mobile .dashboard-hint {
   display: none;
 }
 
