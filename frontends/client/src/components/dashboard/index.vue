@@ -12,19 +12,84 @@
         <IconArrowUp></IconArrowUp>
       </div>
     </div>
+    <div class="dashboard-content-wrapper" ref="dashboardContent">
+      <div class="dashboard-content">
+        <div
+          class="dashboard-content-widget"
+          :style="{
+            transform: `translate3d(-${dashboardViewIndex * 100}%, 0, 0)`
+          }"
+        >
+          <h1>widget</h1>
+        </div>
+        <div
+          class="dashboard-content-main"
+          :style="{
+            transform: `translate3d(-${dashboardViewIndex * 100}%, 0, 0)`
+          }"
+        >
+          <h1>main</h1>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useGlobal } from '@/stores/global';
 import IconArrowUp from '@/components/icons/IconArrowUp.vue';
 
 const dashboardComp = ref(null);
+const dashboardContent = ref(null);
 
 const globalStore = useGlobal();
-const { showDashboard, showDashboardMobile } = storeToRefs(globalStore);
+const { showDashboard, showDashboardMobile, dashboardViewIndex, deviceType } =
+  storeToRefs(globalStore);
+
+const touchStartX = ref(0);
+const touchEndX = ref(0);
+
+const handleTouchStart = event => {
+  touchStartX.value = event.targetTouches[0].clientX;
+  touchEndX.value = 0;
+};
+
+const handleTouchMove = event => {
+  touchEndX.value = event.targetTouches[0].clientX;
+};
+
+const handleTouchEnd = () => {
+  if (!touchEndX.value || Math.abs(touchEndX.value - touchStartX.value) < 20) {
+    return;
+  }
+  if (touchEndX.value < touchStartX.value) {
+    globalStore.nextDashboardView();
+  } else {
+    globalStore.prevDashboardView();
+  }
+};
+
+const changeDashboardView = () => {
+  if (deviceType.value === 'PC' || deviceType.value === '') {
+    dashboardContent.value.style.overflowX = 'auto';
+  } else {
+    dashboardContent.value.addEventListener('touchstart', handleTouchStart);
+    dashboardContent.value.addEventListener('touchmove', handleTouchMove);
+    dashboardContent.value.addEventListener('touchend', handleTouchEnd);
+  }
+};
+
+onMounted(() => {
+  changeDashboardView();
+});
+
+onUnmounted(() => {
+  dashboardContent.value.addEventListener('touchstart', handleTouchStart);
+  dashboardContent.value.addEventListener('touchmove', handleTouchMove);
+  dashboardContent.value.addEventListener('touchend', handleTouchEnd);
+});
 
 defineExpose({
   dashboardComp
@@ -88,6 +153,60 @@ export default {
 .arrow-wrapper {
   opacity: 0;
   animation: 16s bounce;
+}
+
+.dashboard-content-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.dashboard-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.dashboard-content * {
+  border: 1px red solid;
+}
+
+.dashboard-content-widget {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+}
+
+.dashboard-content-main {
+  flex: 7;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 960px) {
+  .dashboard-content-widget {
+    min-width: 330px;
+  }
+}
+
+@media (max-width: 660px) {
+  .dashboard-content {
+    width: 200%;
+    transition: all 0.5s ease;
+  }
+  .dashboard-content-widget {
+    flex: 1;
+    min-width: auto;
+    transition: transform 0.5s ease;
+  }
+
+  .dashboard-content-main {
+    flex: 1;
+    transition: transform 0.5s ease;
+  }
 }
 
 @keyframes bounce {

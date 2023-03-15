@@ -5,7 +5,9 @@ export const useGlobal = defineStore('global', {
     isFullscreen: false,
     showDashboard: false,
     showDashboardMobile: false,
-    deviceType: ''
+    deviceType: '',
+    dashboardViewIndex: 0,
+    dashboardViewLength: 2
   }),
   getters: {},
   actions: {
@@ -27,6 +29,16 @@ export const useGlobal = defineStore('global', {
         this.deviceType = device;
       } else {
         this.deviceType = '';
+      }
+    },
+    nextDashboardView() {
+      if (this.dashboardViewIndex < this.dashboardViewLength - 1) {
+        this.dashboardViewIndex++;
+      }
+    },
+    prevDashboardView() {
+      if (this.dashboardViewIndex > 0) {
+        this.dashboardViewIndex--;
       }
     }
   }

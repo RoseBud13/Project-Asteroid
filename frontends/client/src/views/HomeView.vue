@@ -66,7 +66,8 @@ const dashboard = ref(null);
 
 const { openFullscreen, closeFullscreen } = useFullscreen();
 const globalStore = useGlobal();
-const { isFullscreen, deviceType } = storeToRefs(globalStore);
+const { isFullscreen, deviceType, showDashboardMobile } =
+  storeToRefs(globalStore);
 
 const locales = [...LOCALE_OPTIONS];
 const { changeLocale } = useLocale();
@@ -121,6 +122,7 @@ const handleScrollEnd = () => {
 
 const handleTouchStart = event => {
   touchStartY.value = event.targetTouches[0].clientY;
+  touchEndY.value = 0;
 };
 
 const handleTouchMove = event => {
@@ -128,11 +130,15 @@ const handleTouchMove = event => {
 };
 
 const handleTouchEnd = () => {
-  if (Math.abs(touchEndY.value - touchStartY.value) > 10) {
-    globalStore.toggleDashboardMobile();
+  if (showDashboardMobile.value) {
+    if (touchEndY.value && Math.abs(touchEndY.value - touchStartY.value) > 70) {
+      globalStore.toggleDashboardMobile();
+    }
+  } else {
+    if (touchEndY.value && Math.abs(touchEndY.value - touchStartY.value) > 10) {
+      globalStore.toggleDashboardMobile();
+    }
   }
-  touchStartY.value = 0;
-  touchEndY.value = 0;
 };
 
 const setScrollOrTouch = () => {
