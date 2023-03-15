@@ -44,8 +44,8 @@ export default {
   z-index: 1;
   position: relative;
   top: var(--90vh);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   overflow: hidden;
   transition: all 0.5s ease-in-out;
   -webkit-transition: all 0.5s ease-in-out;
