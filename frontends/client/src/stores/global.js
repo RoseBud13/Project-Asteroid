@@ -7,8 +7,7 @@ export const useGlobal = defineStore('global', {
     showDashboardMobile: false,
     deviceType: '',
     dashboardViewIndex: 0,
-    dashboardViewLength: 2,
-    dashboardContentOffset: 0
+    dashboardViewLength: 2
   }),
   getters: {},
   actions: {
@@ -24,11 +23,6 @@ export const useGlobal = defineStore('global', {
     },
     toggleDashboardMobile() {
       this.showDashboardMobile = !this.showDashboardMobile;
-      if (this.dashboardContentOffset === 0) {
-        this.dashboardContentOffset = 1;
-      } else {
-        this.dashboardContentOffset = 0;
-      }
     },
     setDeviceType(device) {
       if (device === 'PC' || device === 'mobile' || device === 'ios') {

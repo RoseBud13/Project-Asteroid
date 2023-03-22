@@ -17,12 +17,10 @@
         <div
           class="dashboard-content-widget"
           :style="{
-            transform: `translate3d(-${dashboardViewIndex * 100}%, -${
-              dashboardContentOffset * 105
-            }px, 0)`
+            transform: `translate3d(-${dashboardViewIndex * 100}%, -105px, 0)`
           }"
         >
-          <div class="dashboard-content-hint" v-if="dashboardContentOffset">
+          <div class="dashboard-content-hint">
             <IconArrowDown></IconArrowDown>
           </div>
           <h1>widget</h1>
@@ -60,12 +58,10 @@
         <div
           class="dashboard-content-main"
           :style="{
-            transform: `translate3d(-${dashboardViewIndex * 100}%, -${
-              dashboardContentOffset * 105
-            }px, 0)`
+            transform: `translate3d(-${dashboardViewIndex * 100}%, -105px, 0)`
           }"
         >
-          <div class="dashboard-content-hint" v-if="dashboardContentOffset">
+          <div class="dashboard-content-hint">
             <IconArrowDown></IconArrowDown>
           </div>
           <h1>main</h1>
@@ -86,13 +82,8 @@ const dashboardComp = ref(null);
 const dashboardContent = ref(null);
 
 const globalStore = useGlobal();
-const {
-  showDashboard,
-  showDashboardMobile,
-  dashboardViewIndex,
-  deviceType,
-  dashboardContentOffset
-} = storeToRefs(globalStore);
+const { showDashboard, showDashboardMobile, dashboardViewIndex, deviceType } =
+  storeToRefs(globalStore);
 
 const touchStartX = ref(0);
 const touchEndX = ref(0);
@@ -221,7 +212,9 @@ export default {
 .dashboard-content-hint {
   width: 100%;
   padding: 40px 0;
-  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 25px;
 }
 
@@ -236,6 +229,7 @@ export default {
   min-width: 320px;
   position: relative;
   overflow: auto;
+  height: calc(100% + 105px);
 }
 
 .dashboard-content-main {
@@ -244,6 +238,7 @@ export default {
   flex-direction: column;
   position: relative;
   overflow: auto;
+  height: calc(100% + 105px);
 }
 
 @media (max-width: 960px) {
@@ -261,17 +256,10 @@ export default {
     flex: 1;
     min-width: auto;
     transition: transform 0.5s ease;
-    height: calc(100% + 105px);
   }
   .dashboard-content-main {
     flex: 1;
     transition: transform 0.5s ease;
-    height: calc(100% + 105px);
-  }
-  .dashboard-content-hint {
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 }
 
