@@ -178,12 +178,14 @@ export default {
   display: flex;
   flex-direction: column;
   min-width: 320px;
+  position: relative;
 }
 
 .dashboard-content-main {
   flex: 7;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 @media (max-width: 960px) {
