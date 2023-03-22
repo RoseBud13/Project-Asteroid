@@ -5,7 +5,12 @@
     :style="{ userSelect: props.preventUserSelect ? 'none' : 'auto' }"
   >
     <div class="wallpaper-wrapper">
-      <img v-if="imgUrl" class="wallpaper-img" :src="imgUrl" />
+      <img
+        v-if="imgUrl"
+        class="wallpaper-img"
+        :src="imgUrl"
+        draggable="false"
+      />
       <div v-else class="wallpaper-placeholder"></div>
     </div>
     <div
