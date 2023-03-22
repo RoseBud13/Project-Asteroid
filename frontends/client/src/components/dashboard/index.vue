@@ -21,6 +21,36 @@
           }"
         >
           <h1>widget</h1>
+          <div class="widget-test">
+            <h1>test</h1>
+            <br />
+            <h1>test</h1>
+            <br />
+            <h1>test</h1>
+            <br />
+            <h1>test</h1>
+            <br />
+            <h1>hi</h1>
+            <br />
+            <h1>test</h1>
+            <br />
+            <h1>hi</h1>
+            <br />
+            <h1>test</h1>
+            <br />
+            <h1>hi</h1>
+            <br />
+            <h1>test</h1>
+            <br />
+            <h1>hi</h1>
+            <br />
+            <h1>test</h1>
+            <br />
+            <h1>hi</h1>
+            <br />
+            <h1>test</h1>
+            <br />
+          </div>
         </div>
         <div
           class="dashboard-content-main"
@@ -61,7 +91,7 @@ const handleTouchMove = event => {
 };
 
 const handleTouchEnd = () => {
-  if (!touchEndX.value || Math.abs(touchEndX.value - touchStartX.value) < 20) {
+  if (!touchEndX.value || Math.abs(touchEndX.value - touchStartX.value) < 30) {
     return;
   }
   if (touchEndX.value < touchStartX.value) {
@@ -105,7 +135,7 @@ export default {
 <style lang="scss" scoped>
 .dashboard-container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   z-index: 1;
   position: relative;
   top: var(--90vh);
@@ -159,6 +189,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .dashboard-content {
@@ -167,6 +198,7 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: row;
+  overflow: hidden;
 }
 
 .dashboard-content * {
@@ -179,6 +211,7 @@ export default {
   flex-direction: column;
   min-width: 320px;
   position: relative;
+  overflow: auto;
 }
 
 .dashboard-content-main {
@@ -186,6 +219,7 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow: auto;
 }
 
 @media (max-width: 960px) {
@@ -209,6 +243,12 @@ export default {
     flex: 1;
     transition: transform 0.5s ease;
   }
+}
+
+.widget-test {
+  width: 200px;
+  height: 2000px;
+  background-color: white;
 }
 
 @keyframes bounce {

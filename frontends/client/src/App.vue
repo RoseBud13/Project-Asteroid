@@ -15,9 +15,11 @@ const { getDeviceType } = useUserAgent();
 
 const setDeviceVh = () => {
   if (getDeviceType() === 'ios') {
-    document.documentElement.style.setProperty('--90vh', `90dvh`);
+    document.documentElement.style.setProperty('--90vh', '90dvh');
+    document.documentElement.style.setProperty('--100vh', '100dvh');
   } else {
-    document.documentElement.style.setProperty('--90vh', `90vh`);
+    document.documentElement.style.setProperty('--90vh', '90vh');
+    document.documentElement.style.setProperty('--100vh', '100vh');
   }
 };
 

@@ -98,7 +98,7 @@ const handleScroll = event => {
     });
     scrollStart.value = target.value;
     globalStore.toggleDashboard();
-  } else if (scrollStart.value - scrollTop.value > 1) {
+  } else if (scrollStart.value - scrollTop.value > 5) {
     homepage.value.removeEventListener('scroll', handleScroll);
     homepage.value.scroll({
       top: 0,
@@ -131,11 +131,12 @@ const handleTouchMove = event => {
 
 const handleTouchEnd = () => {
   if (showDashboardMobile.value) {
-    if (touchEndY.value && Math.abs(touchEndY.value - touchStartY.value) > 70) {
+    // touch down distance should be more than 250 to trigger toggle
+    if (touchEndY.value && touchEndY.value - touchStartY.value > 250) {
       globalStore.toggleDashboardMobile();
     }
   } else {
-    if (touchEndY.value && Math.abs(touchEndY.value - touchStartY.value) > 10) {
+    if (touchEndY.value && touchEndY.value - touchStartY.value < -10) {
       globalStore.toggleDashboardMobile();
     }
   }
@@ -147,6 +148,7 @@ const setScrollOrTouch = () => {
     homepage.value.addEventListener('scroll', handleScrollEnd);
   } else {
     document.documentElement.style.overflow = 'hidden';
+    homepage.value.style.overflowY = 'hidden';
     dashboard.value.dashboardComp.addEventListener(
       'touchstart',
       handleTouchStart
@@ -207,7 +209,7 @@ onUnmounted(() => {
 .homepage-wrapper {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: var(--100vh);
   overflow-y: auto;
   overflow-x: hidden;
 }
