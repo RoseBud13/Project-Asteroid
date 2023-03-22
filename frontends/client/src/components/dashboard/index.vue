@@ -17,9 +17,14 @@
         <div
           class="dashboard-content-widget"
           :style="{
-            transform: `translate3d(-${dashboardViewIndex * 100}%, 0, 0)`
+            transform: `translate3d(-${dashboardViewIndex * 100}%, -${
+              dashboardContentOffset * 105
+            }px, 0)`
           }"
         >
+          <div class="dashboard-content-hint" v-if="dashboardContentOffset">
+            <IconArrowDown></IconArrowDown>
+          </div>
           <h1>widget</h1>
           <div class="widget-test">
             <h1>test</h1>
@@ -55,9 +60,14 @@
         <div
           class="dashboard-content-main"
           :style="{
-            transform: `translate3d(-${dashboardViewIndex * 100}%, 0, 0)`
+            transform: `translate3d(-${dashboardViewIndex * 100}%, -${
+              dashboardContentOffset * 105
+            }px, 0)`
           }"
         >
+          <div class="dashboard-content-hint" v-if="dashboardContentOffset">
+            <IconArrowDown></IconArrowDown>
+          </div>
           <h1>main</h1>
         </div>
       </div>
@@ -70,13 +80,19 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useGlobal } from '@/stores/global';
 import IconArrowUp from '@/components/icons/IconArrowUp.vue';
+import IconArrowDown from '@/components/icons/IconArrowDown.vue';
 
 const dashboardComp = ref(null);
 const dashboardContent = ref(null);
 
 const globalStore = useGlobal();
-const { showDashboard, showDashboardMobile, dashboardViewIndex, deviceType } =
-  storeToRefs(globalStore);
+const {
+  showDashboard,
+  showDashboardMobile,
+  dashboardViewIndex,
+  deviceType,
+  dashboardContentOffset
+} = storeToRefs(globalStore);
 
 const touchStartX = ref(0);
 const touchEndX = ref(0);
@@ -170,6 +186,7 @@ export default {
   justify-content: center;
   align-items: center;
   font-size: 25px;
+  color: white;
 }
 
 .dashboard-show .dashboard-hint {
@@ -199,6 +216,13 @@ export default {
   display: flex;
   flex-direction: row;
   overflow: hidden;
+}
+
+.dashboard-content-hint {
+  width: 100%;
+  padding: 40px 0;
+  display: none;
+  font-size: 25px;
 }
 
 .dashboard-content * {
@@ -237,11 +261,17 @@ export default {
     flex: 1;
     min-width: auto;
     transition: transform 0.5s ease;
+    height: calc(100% + 105px);
   }
-
   .dashboard-content-main {
     flex: 1;
     transition: transform 0.5s ease;
+    height: calc(100% + 105px);
+  }
+  .dashboard-content-hint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -252,7 +282,14 @@ export default {
 }
 
 @keyframes bounce {
-  0%,
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  12% {
+    transform: translateY(0);
+    opacity: 1;
+  }
   13%,
   15%,
   17%,
