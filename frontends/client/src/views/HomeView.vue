@@ -52,7 +52,7 @@ import ClockItem from '@/components/materials/ClockItem.vue';
 import AstraDropdown from '@/components/basics/dropdown/index.vue';
 import AstraDropdownOption from '@/components/basics/dropdown/dropdown-option.vue';
 import AstraButton from '@/components/basics/button/index.vue';
-import SearchBar from '@/components/search-bar/index.vue';
+import SearchBar from '@/components/materials/search-bar/index.vue';
 import { LOCALE_OPTIONS } from '@/locale';
 import useLocale from '@/hooks/locale';
 import useConfig from '@/config';
