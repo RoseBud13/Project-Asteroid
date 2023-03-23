@@ -12,10 +12,8 @@
     <AstraButton type="text" href="https://github.com" disabled
       >Github</AstraButton
     >
-    <AstraButton type="bubble" size="bubble" @click="sayHi">Bubble</AstraButton>
-    <AstraButton type="bubble" size="bubble" @click="sayHi" disabled
-      >Bubble</AstraButton
-    >
+    <AstraButton type="emerald">Emerald</AstraButton>
+    <AstraButton type="emerald" disabled>Emerald</AstraButton>
   </div>
   <div class="test-container">
     <AstraButton type="text" @click="sayHello">Text</AstraButton>
@@ -40,7 +38,7 @@
     <AstraButton type="text" @click="sayHello" disabled>Text</AstraButton>
     <AstraDropdown>
       <template #trigger>
-        <AstraButton type="bubble" size="bubble">Dropdown</AstraButton>
+        <AstraButton type="emerald" shape="bubble">Dropdown</AstraButton>
       </template>
       <template #content>
         <AstraDropdownOption>
@@ -66,6 +64,32 @@
   <div class="test-container" style="background-color: black">
     <AstraButton type="nav">Nav</AstraButton>
     <AstraButton type="nav" disabled>Nav</AstraButton>
+  </div>
+  <div class="test-container">
+    <AstraButton shape="circle" size="mini">+</AstraButton>
+    <AstraButton shape="circle" size="small">+</AstraButton>
+    <AstraButton shape="circle">+</AstraButton>
+    <AstraButton shape="circle" size="large">+</AstraButton>
+    <AstraButton size="mini">Button</AstraButton>
+    <AstraButton size="small">Button</AstraButton>
+    <AstraButton>Button</AstraButton>
+    <AstraButton size="large">Button</AstraButton>
+  </div>
+  <div class="test-container">
+    <AstraButton shape="bubble" size="mini">Bubble</AstraButton>
+    <AstraButton shape="bubble" size="small">Bubble</AstraButton>
+    <AstraButton shape="bubble">Bubble</AstraButton>
+    <AstraButton shape="bubble" size="large">Bubble</AstraButton>
+    <AstraButton shape="round" size="mini">Round</AstraButton>
+    <AstraButton shape="round" size="small">Round</AstraButton>
+    <AstraButton shape="round">Round</AstraButton>
+    <AstraButton shape="round" size="large">Round</AstraButton>
+  </div>
+  <div class="test-container">
+    <AstraButton type="emerald" shape="bubble">Bubble</AstraButton>
+    <AstraButton type="emerald" shape="bubble" disabled>Bubble</AstraButton>
+    <AstraButton type="emerald" shape="bubble" size="large">Bubble</AstraButton>
+    <AstraButton type="emerald" shape="bubble" size="mini">Bubble</AstraButton>
   </div>
 </template>
 

@@ -22,8 +22,8 @@ import { isString } from '@/utils/is';
 
 const props = defineProps({
   /**
-   * @zh 按钮的类型，分为六种：次要按钮、主要按钮、线性按钮、文字按钮、气泡按钮、导航按钮。
-   * @en Button types are divided into six types: secondary, primary, outline, text, bubble and nav.
+   * @zh 按钮的类型，分为六种：次要按钮、主要按钮、线性按钮、文字按钮、宝石绿按钮、导航按钮。
+   * @en Button types are divided into six types: secondary, primary, outline, text, emerald and nav.
    * @defaultValue 'secondary'
    */
   type: {
@@ -36,32 +36,33 @@ const props = defineProps({
         'secondary',
         'outline',
         'text',
-        'bubble',
+        'emerald',
         'nav'
       ].includes(value);
     }
   },
   /**
-   * @zh 按钮的形状 square - 方形（默认）、circle - 圆形、round - 全圆角
+   * @zh 按钮的形状 square - 方形（默认）、circle - 圆形、round - 全圆角、bubble - 气泡
    * @en Button shape
    */
   shape: {
     type: String,
+    default: 'square',
     validator(value) {
-      return ['circle', 'round'].includes(value);
+      return ['square', 'circle', 'round', 'bubble'].includes(value);
     }
   },
   /**
    * @zh 按钮的尺寸
    * @en Button size
-   * @values 'mini','small','medium','large', 'bubble'
+   * @values 'mini','small','medium','large'
    * @defaultValue 'medium'
    */
   size: {
     type: String,
     default: 'medium',
     validator(value) {
-      return ['mini', 'small', 'medium', 'large', 'bubble'].includes(value);
+      return ['mini', 'small', 'medium', 'large'].includes(value);
     }
   },
   /**
@@ -254,10 +255,10 @@ export default {
   cursor: not-allowed;
 }
 
-/***** Bubble *****/
-.astra-btn-bubble,
-.astra-btn-bubble[type='button'],
-.astra-btn-bubble[type='submit'] {
+/***** Emerald *****/
+.astra-btn-emerald,
+.astra-btn-emerald[type='button'],
+.astra-btn-emerald[type='submit'] {
   color: rgba(0, 0, 0, 0.8);
   background-color: #75a297;
   border: none;
@@ -265,16 +266,16 @@ export default {
   line-height: normal;
 }
 
-.astra-btn-bubble:hover,
-.astra-btn-bubble[type='button']:hover,
-.astra-btn-bubble[type='submit']:hover {
+.astra-btn-emerald:hover,
+.astra-btn-emerald[type='button']:hover,
+.astra-btn-emerald[type='submit']:hover {
   color: rgba(255, 255, 255, 0.8);
   background-color: rgb(95, 140, 128);
 }
 
-.astra-btn-bubble.astra-btn-disabled,
-.astra-btn-bubble[type='button'].astra-btn-disabled,
-.astra-btn-bubble[type='submit'].astra-btn-disabled {
+.astra-btn-emerald.astra-btn-disabled,
+.astra-btn-emerald[type='button'].astra-btn-disabled,
+.astra-btn-emerald[type='submit'].astra-btn-disabled {
   color: #5f5f5f;
   background-color: #93bcb2;
   border: 1px solid transparent;
@@ -315,12 +316,102 @@ export default {
   border-radius: var(--border-radius-small);
 }
 
-.astra-btn-size-bubble {
-  padding: 13px 45px;
-  margin: 15px 0;
-  font-size: 15px;
+.astra-btn-size-large {
+  height: 46px;
+  padding: 0 24px;
+  font-size: 16px;
+  border-radius: var(--border-radius-small);
+}
+
+.astra-btn-size-small {
+  height: 28px;
+  padding: 0 15px;
+  font-size: 14px;
+  border-radius: var(--border-radius-small);
+}
+
+.astra-btn-size-mini {
+  height: 24px;
+  padding: 0 11px;
+  font-size: 12px;
+  border-radius: var(--border-radius-small);
+}
+
+/***** SHAPE *****/
+.astra-btn-size-medium.astra-btn-shape-circle {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  text-align: center;
+  border-radius: var(--border-radius-circle);
+}
+
+.astra-btn-size-large.astra-btn-shape-circle {
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  text-align: center;
+  border-radius: var(--border-radius-circle);
+}
+
+.astra-btn-size-small.astra-btn-shape-circle {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  text-align: center;
+  border-radius: var(--border-radius-circle);
+}
+
+.astra-btn-size-mini.astra-btn-shape-circle {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  text-align: center;
+  border-radius: var(--border-radius-circle);
+}
+
+.astra-btn-size-medium.astra-btn-shape-round {
+  border-radius: 16px;
+}
+
+.astra-btn-size-large.astra-btn-shape-round {
+  border-radius: calc(46px * 0.5);
+}
+
+.astra-btn-size-small.astra-btn-shape-round {
+  border-radius: calc(28px * 0.5);
+}
+
+.astra-btn-size-mini.astra-btn-shape-round {
+  border-radius: calc(24px * 0.5);
+}
+
+.astra-btn-size-medium.astra-btn-shape-bubble {
+  padding: 0 20px;
+  margin: 3px 0;
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+.astra-btn-size-large.astra-btn-shape-bubble {
+  padding: 0 45px;
+  margin: 5px 0;
   font-weight: 700;
   border-radius: 15px;
+}
+
+.astra-btn-size-small.astra-btn-shape-bubble {
+  padding: 0 20px;
+  margin: 5px 0;
+  font-weight: 600;
+  border-radius: 9px;
+}
+
+.astra-btn-size-mini.astra-btn-shape-bubble {
+  padding: 0 15px;
+  margin: 5px 0;
+  font-weight: 500;
+  border-radius: 8px;
 }
 
 /***** Link *****/
