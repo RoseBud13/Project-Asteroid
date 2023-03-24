@@ -14,5 +14,6 @@
   "themeColor": "",
   "globalSettings": false,
   "device": "desktop",
-  "showLogo": false
+  "showLogo": false,
+  "searchEngine": "bing"
 }

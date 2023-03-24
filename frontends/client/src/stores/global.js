@@ -1,4 +1,7 @@
 import { defineStore } from 'pinia';
+import useConfig from '@/config';
+
+const { getLocalConfig } = useConfig();
 
 export const useGlobal = defineStore('global', {
   state: () => ({
@@ -7,7 +10,8 @@ export const useGlobal = defineStore('global', {
     showDashboardMobile: false,
     deviceType: '',
     dashboardViewIndex: 0,
-    dashboardViewLength: 2
+    dashboardViewLength: 2,
+    searchEngine: ''
   }),
   getters: {},
   actions: {
@@ -40,6 +44,16 @@ export const useGlobal = defineStore('global', {
       if (this.dashboardViewIndex > 0) {
         this.dashboardViewIndex--;
       }
+    },
+    setSearchEngine() {
+      this.searchEngine =
+        localStorage.getItem('search-engine') ||
+        getLocalConfig('searchEngine') ||
+        'bing';
+      localStorage.setItem('search-engine', this.searchEngine);
+    },
+    changeSearchEngine(value) {
+      this.searchEngine = value;
     }
   }
 });

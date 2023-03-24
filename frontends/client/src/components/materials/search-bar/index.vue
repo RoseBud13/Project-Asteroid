@@ -3,37 +3,85 @@
     <div class="search-input">
       <input
         v-model="keywords"
-        @keyup.enter="handleInputKeyDown"
-        :placeholder="$t('searchbar.input.placeholder.bing')"
+        @keyup.enter="handleSearch"
+        @keydown.tab="handleChangeSearchEngine"
+        :placeholder="searchPlaceholder"
         :autofocus="props.autofocus"
       />
     </div>
-    <div class="search-btn" @click="handleSearchClick">
+    <div class="search-btn" @click="handleSearch">
       <IconSearch></IconSearch>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, watch } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useGlobal } from '@/stores/global';
 import IconSearch from '@/components/icons/IconSearch.vue';
+import useSearch from './search';
+import useLocale from '@/hooks/locale';
+
+const globalStore = useGlobal();
+const { searchEngine } = storeToRefs(globalStore);
+const { changeSearchEngine, searchEngineList } = useSearch();
+const { i18 } = useLocale();
 
 const props = defineProps({
   autofocus: Boolean
 });
-const keywords = ref('');
-const searchLink = ref('https://www.bing.com/search?q=');
 
-const handleSearchClick = () => {
+const searchPlaceholder = ref();
+const keywords = ref('');
+const searchLink = ref();
+const searchEngines = Object.keys(searchEngineList);
+const searchEngineIndex = ref();
+
+const handlePlaceholder = option => {
+  switch (option) {
+    case 'bing':
+      searchPlaceholder.value = i18.t('searchbar.input.placeholder.bing');
+      break;
+    case 'google':
+      searchPlaceholder.value = i18.t('searchbar.input.placeholder.google');
+      break;
+    case 'baidu':
+      searchPlaceholder.value = i18.t('searchbar.input.placeholder.baidu');
+      break;
+  }
+};
+
+const handleChangeSearchEngine = event => {
+  if (searchEngineIndex.value === 2) {
+    searchEngineIndex.value = 0;
+  } else {
+    searchEngineIndex.value++;
+  }
+  changeSearchEngine(searchEngines[searchEngineIndex.value]);
+  event.preventDefault();
+  event.stopPropagation();
+};
+
+const handleSearch = () => {
   if (keywords.value) {
     window.open(searchLink.value + encodeURI(keywords.value));
     keywords.value = '';
   }
 };
 
-const handleInputKeyDown = () => {
-  handleSearchClick();
-};
+watch(searchEngine, () => {
+  searchLink.value = searchEngineList[searchEngine.value];
+  // console.log('search engine changed to: ', searchLink.value);
+  handlePlaceholder(searchEngine.value);
+});
+
+onMounted(() => {
+  globalStore.setSearchEngine();
+  handlePlaceholder(searchEngine.value);
+  searchLink.value = searchEngineList[searchEngine.value];
+  searchEngineIndex.value = searchEngines.indexOf(searchEngine.value);
+});
 </script>
 
 <script>
