@@ -176,6 +176,13 @@ export default {
   overflow: hidden;
 }
 
+.modal-embedded-iframe {
+  flex-grow: 1;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
 .modal-footer {
   width: 100%;
   padding: 10px 20px;
