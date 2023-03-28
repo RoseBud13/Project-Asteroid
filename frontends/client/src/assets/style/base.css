@@ -355,3 +355,10 @@
     --color-text: var(--vt-c-text-dark-2);
   }
 }
+
+.modal-embedded-iframe {
+  flex-grow: 1;
+  border: none;
+  margin: 0;
+  padding: 0;
+}

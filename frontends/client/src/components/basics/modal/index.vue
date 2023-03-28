@@ -1,0 +1,195 @@
+<template>
+  <div class="modal-container" v-if="props.visible && showModal">
+    <div class="modal-mask" @click="handleCancel"></div>
+    <div class="modal" :class="cls">
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <slot name="left"></slot>
+        </div>
+        <div class="modal-header-mid">
+          <slot name="title"></slot>
+        </div>
+        <div class="modal-header-right">
+          <slot name="right"></slot>
+        </div>
+      </div>
+      <div class="modal-content">
+        <div class="modal-content-embedded" v-if="iframeUrl">
+          <iframe :src="iframeUrl" class="modal-embedded-iframe"></iframe>
+        </div>
+        <slot v-else></slot>
+      </div>
+      <div class="modal-footer" v-if="$slots.footer">
+        <slot name="footer"></slot>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, watch, computed } from 'vue';
+import { isUrl } from '@/utils/is';
+
+const showModal = ref(false);
+
+const props = defineProps({
+  visible: {
+    type: Boolean,
+    default: false
+  },
+  fullscreen: {
+    type: Boolean,
+    default: false
+  },
+  embeddedUrl: String
+});
+
+const cls = computed(() => {
+  return props.fullscreen ? 'modal-fullscreen' : '';
+});
+
+const iframeUrl = computed(() => {
+  return isUrl(props.embeddedUrl) ? props.embeddedUrl : '';
+});
+
+watch(props, () => {
+  if (props.visible) {
+    showModal.value = true;
+  } else if (!props.visible) {
+    showModal.value = false;
+  }
+});
+
+const emit = defineEmits(['ok', 'cancel']);
+
+const handleCancel = () => {
+  showModal.value = false;
+  emit('cancel');
+};
+</script>
+
+<script>
+export default {
+  name: 'AstraModal'
+};
+</script>
+
+<style lang="scss" scoped>
+.modal-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-mask-bg);
+}
+
+.modal {
+  position: relative;
+  width: 520px;
+  line-height: 1.5715;
+  text-align: left;
+  background-color: #fff;
+  border-radius: var(--border-radius-medium);
+}
+
+.modal-fullscreen {
+  width: 100%;
+  height: 100%;
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 48px;
+  border-bottom: 1px solid var(--color-neutral-3);
+}
+
+.modal-header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 10px;
+  flex: 1;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.modal-header-mid {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex: 2;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.modal-header-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  flex: 1;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.modal-content {
+  position: relative;
+  padding: 26px 20px;
+  overflow: auto;
+  color: var(--color-text-1);
+  font-size: 14px;
+}
+
+.modal-fullscreen .modal-content {
+  width: 100%;
+  height: calc(100% - 48px);
+  padding: 0;
+  overflow: hidden;
+}
+
+.modal-content-embedded {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.modal-footer {
+  width: 100%;
+  padding: 10px 20px;
+  text-align: right;
+  border-top: 1px solid var(--color-neutral-3);
+}
+
+.modal-footer :deep(> *) {
+  margin-left: 15px;
+}
+
+.modal-fullscreen .modal-footer {
+  position: absolute;
+  bottom: 0;
+  background-color: #fff;
+}
+</style>

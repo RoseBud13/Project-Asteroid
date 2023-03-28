@@ -91,6 +91,41 @@
     <AstraButton type="emerald" shape="bubble" size="large">Bubble</AstraButton>
     <AstraButton type="emerald" shape="bubble" size="mini">Bubble</AstraButton>
   </div>
+  <div class="test-container">
+    <AstraButton type="emerald" @click="handleOpenModal"
+      >Open modal</AstraButton
+    >
+    <AstraModal :visible="modalVisible" @cancel="handleCancelModal">
+      <template #title>This is a title</template>
+      <div>
+        You can customize modal content text by the current situation. This
+        modal will be closed immediately once you press the OK button.
+      </div>
+      <template #footer>
+        <AstraButton size="mini" @click="handleCancelModal">Cancel</AstraButton>
+        <AstraButton type="emerald" size="mini" @click="handleOkModal"
+          >OK</AstraButton
+        >
+      </template>
+    </AstraModal>
+  </div>
+  <div class="test-container">
+    <AstraButton type="emerald" @click="handleOpenModal1"
+      >Open fullscreen modal</AstraButton
+    >
+    <AstraModal
+      fullscreen
+      :visible="modalVisible1"
+      :embeddedUrl="`https://bilibili.com`"
+      @cancel="handleCancelModal1"
+    >
+      <template #title>Bilibili</template>
+      <template #footer>
+        <AstraButton @click="handleCancelModal1">Cancel</AstraButton>
+        <AstraButton type="emerald" @click="handleOkModal1">OK</AstraButton>
+      </template>
+    </AstraModal>
+  </div>
 </template>
 
 <script setup>
@@ -99,6 +134,8 @@ import AstraDropdown from '@/components/basics/dropdown/index.vue';
 import AstraDropdownOption from '@/components/basics/dropdown/dropdown-option.vue';
 import IconCommunity from '@/components/icons/IconCommunity.vue';
 import ClockItem from '@/components/materials/ClockItem.vue';
+import AstraModal from '@/components/basics/modal/index.vue';
+import { ref } from 'vue';
 
 function sayHi() {
   console.log('hi there!');
@@ -107,6 +144,34 @@ function sayHi() {
 function sayHello() {
   console.log('hello world!');
 }
+
+const modalVisible = ref(false);
+
+const handleOpenModal = () => {
+  modalVisible.value = true;
+};
+
+const handleOkModal = () => {
+  modalVisible.value = false;
+};
+
+const handleCancelModal = () => {
+  modalVisible.value = false;
+};
+
+const modalVisible1 = ref(false);
+
+const handleOpenModal1 = () => {
+  modalVisible1.value = true;
+};
+
+const handleOkModal1 = () => {
+  modalVisible1.value = false;
+};
+
+const handleCancelModal1 = () => {
+  modalVisible1.value = false;
+};
 </script>
 
 <style lang="scss" scoped>

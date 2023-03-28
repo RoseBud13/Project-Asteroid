@@ -3,6 +3,14 @@
     <Background :wallpaperUrl="wallpaper" preventUserSelect>
       <template #widgetbox>
         <SearchBar autofocus></SearchBar>
+        <div style="margin-top: 20px">
+          <AstraButton
+            type="emerald"
+            shape="bubble"
+            @click="handleOpenTurntable"
+            >Bubble Turntable</AstraButton
+          >
+        </div>
       </template>
     </Background>
     <Navbar>
@@ -41,6 +49,17 @@
       </template>
     </Navbar>
     <HomeDashboard ref="dashboard"></HomeDashboard>
+    <AstraModal
+      fullscreen
+      :visible="modalVisible1"
+      :embeddedUrl="`https://www.b612.one/bubble-turntable`"
+      @cancel="handleCancelTurntable"
+    >
+      <template #left>
+        <IconArrowLeft @click="handleCancelTurntable"></IconArrowLeft>
+      </template>
+      <template #title>Bubble Turntable 🍒</template>
+    </AstraModal>
   </div>
 </template>
 
@@ -53,6 +72,8 @@ import AstraDropdown from '@/components/basics/dropdown/index.vue';
 import AstraDropdownOption from '@/components/basics/dropdown/dropdown-option.vue';
 import AstraButton from '@/components/basics/button/index.vue';
 import SearchBar from '@/components/materials/search-bar/index.vue';
+import AstraModal from '@/components/basics/modal/index.vue';
+import IconArrowLeft from '@/components/icons/IconArrowLeft.vue';
 import { LOCALE_OPTIONS } from '@/locale';
 import useLocale from '@/hooks/locale';
 import useConfig from '@/config';
@@ -82,6 +103,16 @@ const target = ref(); // distence of toggling dashbaord
 const scrollTimeoutTime = ref(800); // 0.8s is the minimum scroll interval to act as debounce
 const touchStartY = ref(0); // 触摸位置
 const touchEndY = ref(0); // 结束位置
+
+const modalVisible1 = ref(false);
+
+const handleOpenTurntable = () => {
+  modalVisible1.value = true;
+};
+
+const handleCancelTurntable = () => {
+  modalVisible1.value = false;
+};
 
 const setSize = () => {
   target.value = 0.9 * homepage.value.clientHeight; // dsshboard initial top 90vh
