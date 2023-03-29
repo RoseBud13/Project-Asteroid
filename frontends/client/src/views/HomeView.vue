@@ -50,15 +50,17 @@
     </Navbar>
     <HomeDashboard ref="dashboard"></HomeDashboard>
     <AstraModal
-      fullscreen
-      :visible="modalVisible1"
-      :embeddedUrl="`https://www.b612.one/bubble-turntable`"
-      @cancel="handleCancelTurntable"
+      :fullscreen="isEmbeddedFull"
+      :visible="showEmbedded"
+      :embeddedUrl="targetUrl"
+      @cancel="embeddedStore.closeEmbeddedModal()"
     >
       <template #left>
-        <IconArrowLeft @click="handleCancelTurntable"></IconArrowLeft>
+        <IconArrowLeft
+          @click="embeddedStore.closeEmbeddedModal()"
+        ></IconArrowLeft>
       </template>
-      <template #title>Bubble Turntable 🍒</template>
+      <template #title>{{ embeddedTitle }}</template>
     </AstraModal>
   </div>
 </template>
@@ -79,6 +81,7 @@ import useLocale from '@/hooks/locale';
 import useConfig from '@/config';
 import { useFullscreen } from '@/utils/browser';
 import { useGlobal } from '@/stores/global';
+import { useEmbedded } from '@/stores/embedded';
 import { storeToRefs } from 'pinia';
 import { ref, onMounted, onUnmounted } from 'vue';
 
@@ -94,6 +97,10 @@ const locales = [...LOCALE_OPTIONS];
 const { changeLocale } = useLocale();
 const { getLocalConfig } = useConfig();
 
+const embeddedStore = useEmbedded();
+const { showEmbedded, targetUrl, embeddedTitle, isEmbeddedFull } =
+  storeToRefs(embeddedStore);
+
 const wallpaperInfo = getLocalConfig('wallpaper');
 const wallpaper = wallpaperInfo['bing'][0];
 
@@ -104,14 +111,12 @@ const scrollTimeoutTime = ref(800); // 0.8s is the minimum scroll interval to ac
 const touchStartY = ref(0); // 触摸位置
 const touchEndY = ref(0); // 结束位置
 
-const modalVisible1 = ref(false);
-
 const handleOpenTurntable = () => {
-  modalVisible1.value = true;
-};
-
-const handleCancelTurntable = () => {
-  modalVisible1.value = false;
+  embeddedStore.openEmbeddedModal(
+    'https://www.b612.one/bubble-turntable',
+    'Bubble Turntable 🍒',
+    true
+  );
 };
 
 const setSize = () => {
