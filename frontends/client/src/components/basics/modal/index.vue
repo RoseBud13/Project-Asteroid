@@ -110,6 +110,7 @@ export default {
 .modal-fullscreen {
   width: 100%;
   height: 100%;
+  border-radius: 0;
 }
 
 .modal-header {
@@ -118,7 +119,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 48px;
+  height: 38px;
   border-bottom: 1px solid var(--color-neutral-3);
 }
 
@@ -129,8 +130,8 @@ export default {
   justify-content: flex-start;
   padding-left: 10px;
   flex: 1;
-  font-weight: 500;
-  font-size: 20px;
+  font-weight: 600;
+  font-size: 18px;
 }
 
 .modal-header-mid {
@@ -140,7 +141,7 @@ export default {
   justify-content: center;
   flex: 2;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .modal-header-right {
@@ -150,8 +151,8 @@ export default {
   justify-content: flex-end;
   padding-right: 10px;
   flex: 1;
-  font-weight: 500;
-  font-size: 20px;
+  font-weight: 600;
+  font-size: 18px;
 }
 
 .modal-content {
@@ -164,7 +165,7 @@ export default {
 
 .modal-fullscreen .modal-content {
   width: 100%;
-  height: calc(100% - 48px);
+  height: calc(100% - 38px);
   padding: 0;
   overflow: hidden;
 }
