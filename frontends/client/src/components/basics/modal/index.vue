@@ -141,7 +141,7 @@ export default {
   justify-content: center;
   flex: 2;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 17px;
 }
 
 .modal-header-right {

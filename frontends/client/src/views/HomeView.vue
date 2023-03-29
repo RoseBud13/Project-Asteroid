@@ -49,19 +49,22 @@
       </template>
     </Navbar>
     <HomeDashboard ref="dashboard"></HomeDashboard>
-    <AstraModal
-      :fullscreen="isEmbeddedFull"
-      :visible="showEmbedded"
-      :embeddedUrl="targetUrl"
-      @cancel="embeddedStore.closeEmbeddedModal()"
-    >
-      <template #left>
-        <IconArrowLeft
-          @click="embeddedStore.closeEmbeddedModal()"
-        ></IconArrowLeft>
-      </template>
-      <template #title>{{ embeddedTitle }}</template>
-    </AstraModal>
+    <Transition name="fade">
+      <AstraModal
+        :fullscreen="isEmbeddedFull"
+        :visible="showEmbedded"
+        :embeddedUrl="targetUrl"
+        @cancel="embeddedStore.closeEmbeddedModal()"
+      >
+        <template #left>
+          <IconArrowLeft
+            @click="embeddedStore.closeEmbeddedModal()"
+            style="cursor: pointer"
+          ></IconArrowLeft>
+        </template>
+        <template #title>{{ embeddedTitle }}</template>
+      </AstraModal>
+    </Transition>
   </div>
 </template>
 
@@ -252,5 +255,15 @@ onUnmounted(() => {
 
 .homepage-wrapper::-webkit-scrollbar {
   display: none;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
