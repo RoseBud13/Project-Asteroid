@@ -102,9 +102,8 @@ export default {
   height: 60%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  padding: 10px;
   margin-bottom: 20vh;
   transition: opacity 0.35s, visibility 0.35s;
   visibility: hidden;

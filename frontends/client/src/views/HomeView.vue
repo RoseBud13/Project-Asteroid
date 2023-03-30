@@ -3,14 +3,22 @@
     <Background :wallpaperUrl="wallpaper" preventUserSelect>
       <template #widgetbox>
         <SearchBar autofocus></SearchBar>
-        <div style="margin-top: 20px">
-          <AstraButton
-            type="emerald"
-            shape="bubble"
-            @click="handleOpenTurntable"
-            >Bubble Turntable</AstraButton
-          >
-        </div>
+        <AstraAppBox>
+          <AstraAppCard @click="handleOpenTurntable">
+            <template #appicon>
+              <IconMusic></IconMusic>
+            </template>
+          </AstraAppCard>
+          <AstraAppCard @click="handleOpenMhy">
+            <template #appicon>
+              <img
+                src="../assets/image/mhy.webp"
+                alt="miHoYo"
+                style="height: 25px; object-fit: contain"
+              />
+            </template>
+          </AstraAppCard>
+        </AstraAppBox>
       </template>
     </Background>
     <Navbar>
@@ -87,6 +95,9 @@ import SearchBar from '@/components/materials/search-bar/index.vue';
 import AstraModal from '@/components/basics/modal/index.vue';
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue';
 import IconArrowExternal from '@/components/icons/IconArrowExternal.vue';
+import IconMusic from '@/components/icons/IconMusic.vue';
+import AstraAppBox from '@/components/materials/app-box/index.vue';
+import AstraAppCard from '@/components/basics/app-card/index.vue';
 import { LOCALE_OPTIONS } from '@/locale';
 import useLocale from '@/hooks/locale';
 import useConfig from '@/config';
@@ -126,6 +137,14 @@ const handleOpenTurntable = () => {
   embeddedStore.openEmbeddedModal(
     'https://www.b612.one/bubble-turntable',
     'Bubble Turntable 🍒',
+    true
+  );
+};
+
+const handleOpenMhy = () => {
+  embeddedStore.openEmbeddedModal(
+    'https://bbs.mihoyo.com/ys/strategy',
+    '原神',
     true
   );
 };
