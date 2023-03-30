@@ -3,17 +3,17 @@
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
     height="1em"
-    viewBox="0 0 32 32"
+    viewBox="0 0 24 24"
   >
     <path
       fill="currentColor"
-      d="m14 26l1.41-1.41L7.83 17H28v-2H7.83l7.58-7.59L14 6L4 16l10 10z"
+      d="M11.707 5.293a1 1 0 0 1 0 1.414L7.414 11H19a1 1 0 1 1 0 2H7.414l4.293 4.293a1 1 0 0 1-1.414 1.414l-6-6a1 1 0 0 1 0-1.414l6-6a1 1 0 0 1 1.414 0z"
     ></path>
   </svg>
 </template>
 
 <script>
 export default {
-  name: 'CarbonArrowLeft'
+  name: 'MiArrowLeft'
 };
 </script>

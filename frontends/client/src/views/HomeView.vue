@@ -63,6 +63,13 @@
           ></IconArrowLeft>
         </template>
         <template #title>{{ embeddedTitle }}</template>
+        <template #right>
+          <a :href="targetUrl" target="_blank" style="height: 18px">
+            <IconArrowExternal
+              @click="embeddedStore.closeEmbeddedModal()"
+            ></IconArrowExternal>
+          </a>
+        </template>
       </AstraModal>
     </Transition>
   </div>
@@ -79,6 +86,7 @@ import AstraButton from '@/components/basics/button/index.vue';
 import SearchBar from '@/components/materials/search-bar/index.vue';
 import AstraModal from '@/components/basics/modal/index.vue';
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue';
+import IconArrowExternal from '@/components/icons/IconArrowExternal.vue';
 import { LOCALE_OPTIONS } from '@/locale';
 import useLocale from '@/hooks/locale';
 import useConfig from '@/config';
