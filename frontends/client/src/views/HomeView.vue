@@ -3,17 +3,26 @@
     <Background :wallpaperUrl="wallpaper" preventUserSelect>
       <template #widgetbox>
         <SearchBar autofocus></SearchBar>
-        <AstraAppBox>
-          <AstraAppCard @click="handleOpenTurntable">
+        <AstraAppBox v-if="widgetApps">
+          <AstraAppCard
+            v-for="widgetApp in sortedWidgetApps"
+            :key="widgetApp.id"
+            :title="widgetApp.title"
+            @click="
+              handleOpenWidgetApp(
+                widgetApp.urlRouter,
+                widgetApp.title,
+                widgetApp.external,
+                widgetApp.embedded
+              )
+            "
+          >
             <template #appicon>
-              <IconMusic></IconMusic>
-            </template>
-          </AstraAppCard>
-          <AstraAppCard @click="handleOpenMhy">
-            <template #appicon>
+              <IconMusic v-if="widgetApp.icon.startsWith('icon')"></IconMusic>
               <img
-                src="../assets/image/mhy.webp"
-                alt="miHoYo"
+                v-else
+                :src="widgetApp.icon"
+                :alt="widgetApp.title"
                 style="height: 25px; object-fit: contain"
               />
             </template>
@@ -104,8 +113,9 @@ import useConfig from '@/config';
 import { useFullscreen } from '@/utils/browser';
 import { useGlobal } from '@/stores/global';
 import { useEmbedded } from '@/stores/embedded';
+import { useWidgetboxStore } from '@/stores/widgetbox';
 import { storeToRefs } from 'pinia';
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 
 const homepage = ref(null);
 const dashboard = ref(null);
@@ -123,6 +133,9 @@ const embeddedStore = useEmbedded();
 const { showEmbedded, targetUrl, embeddedTitle, isEmbeddedFull } =
   storeToRefs(embeddedStore);
 
+const widgetboxStore = useWidgetboxStore();
+const { widgetApps } = storeToRefs(widgetboxStore);
+
 const wallpaperInfo = getLocalConfig('wallpaper');
 const wallpaper = wallpaperInfo['bing'][0];
 
@@ -133,20 +146,25 @@ const scrollTimeoutTime = ref(800); // 0.8s is the minimum scroll interval to ac
 const touchStartY = ref(0); // 触摸位置
 const touchEndY = ref(0); // 结束位置
 
-const handleOpenTurntable = () => {
-  embeddedStore.openEmbeddedModal(
-    'https://www.b612.one/bubble-turntable',
-    'Bubble Turntable 🍒',
-    true
-  );
-};
+const sortedWidgetApps = computed(() => {
+  let unsorted = widgetApps.value;
+  return unsorted.sort((a, b) => {
+    if (a['index'] > b['index']) {
+      return 1;
+    }
+    if (a['index'] < b['index']) {
+      return -1;
+    }
+    return 0;
+  });
+});
 
-const handleOpenMhy = () => {
-  embeddedStore.openEmbeddedModal(
-    'https://bbs.mihoyo.com/ys/strategy',
-    '原神',
-    true
-  );
+const handleOpenWidgetApp = (url, title, isExternal, isEmbedded) => {
+  if (isEmbedded && isExternal) {
+    embeddedStore.openEmbeddedModal(url, title, true);
+  } else if (!isEmbedded && isExternal) {
+    window.open(url);
+  }
 };
 
 const setSize = () => {
@@ -257,6 +275,7 @@ onMounted(() => {
   window.addEventListener('resize', () => {
     setSize();
   });
+  widgetboxStore.initWidgetApps();
 });
 
 onUnmounted(() => {

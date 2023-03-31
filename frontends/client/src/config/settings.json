@@ -15,5 +15,43 @@
   "globalSettings": false,
   "device": "desktop",
   "showLogo": false,
-  "searchEngine": "bing"
+  "searchEngine": "bing",
+  "widgetApps": [
+    {
+      "id": 0,
+      "index": 0,
+      "external": true,
+      "embedded": true,
+      "urlRouter": "https://www.b612.one/bubble-turntable",
+      "title": "Bubble Turntable by 🍒",
+      "icon": "iconMusic"
+    },
+    {
+      "id": 1,
+      "index": 1,
+      "external": true,
+      "embedded": true,
+      "urlRouter": "https://bbs.mihoyo.com/ys/strategy",
+      "title": "原神观测枢",
+      "icon": "src/assets/image/mhy.webp"
+    },
+    {
+      "id": 2,
+      "index": 2,
+      "external": true,
+      "embedded": false,
+      "urlRouter": "https://bilibili.com",
+      "title": "Bilibili",
+      "icon": "src/assets/image/bilibili.svg"
+    },
+    {
+      "id": 3,
+      "index": 3,
+      "external": true,
+      "embedded": false,
+      "urlRouter": "https://github.com",
+      "title": "GitHub",
+      "icon": "src/assets/image/github.svg"
+    }
+  ]
 }
