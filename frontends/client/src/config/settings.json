@@ -18,8 +18,7 @@
   "searchEngine": "bing",
   "widgetApps": [
     {
-      "id": 0,
-      "index": 0,
+      "id": 1,
       "external": true,
       "embedded": true,
       "urlRouter": "https://www.b612.one/bubble-turntable",
@@ -27,8 +26,7 @@
       "icon": "iconMusic"
     },
     {
-      "id": 1,
-      "index": 1,
+      "id": 2,
       "external": true,
       "embedded": true,
       "urlRouter": "https://bbs.mihoyo.com/ys/strategy",
@@ -36,8 +34,7 @@
       "icon": "src/assets/image/mhy.webp"
     },
     {
-      "id": 2,
-      "index": 2,
+      "id": 3,
       "external": true,
       "embedded": false,
       "urlRouter": "https://bilibili.com",
@@ -45,8 +42,7 @@
       "icon": "src/assets/image/bilibili.svg"
     },
     {
-      "id": 3,
-      "index": 3,
+      "id": 4,
       "external": true,
       "embedded": false,
       "urlRouter": "https://github.com",

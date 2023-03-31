@@ -19,7 +19,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useGlobal } from '@/stores/global';
-import { useEmbedded } from '@/stores/embedded';
+import { useModalStore } from '@/stores/modal';
 import IconSearch from '@/components/icons/IconSearch.vue';
 import useSearch from './search';
 import useLocale from '@/hooks/locale';
@@ -28,7 +28,7 @@ const globalStore = useGlobal();
 const { searchEngine, isFullscreen } = storeToRefs(globalStore);
 const { changeSearchEngine, searchEngineList } = useSearch();
 const { i18 } = useLocale();
-const embeddedStore = useEmbedded();
+const modalStore = useModalStore();
 
 const props = defineProps({
   autofocus: Boolean
@@ -72,7 +72,7 @@ const handleSearch = () => {
       searchLink.value === 'https://www.bing.com/search?q='
     ) {
       let url = searchLink.value + encodeURI(keywords.value);
-      embeddedStore.openEmbeddedModal(url, keywords.value, true);
+      modalStore.openEmbeddedModal(url, keywords.value, true);
     } else {
       window.open(searchLink.value + encodeURI(keywords.value));
     }

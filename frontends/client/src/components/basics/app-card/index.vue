@@ -1,12 +1,27 @@
 <template>
   <div class="app-card-wrapper">
-    <div class="app-icon">
+    <div class="app-card-delete" title="delete" @click="handleDelete">
+      <IconClose></IconClose>
+    </div>
+    <div class="app-icon" @click="handleClick">
       <slot name="appicon"></slot>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import IconClose from '@/components/icons/IconClose.vue';
+
+const emit = defineEmits(['openWidgetApp', 'delete']);
+
+const handleClick = ev => {
+  emit('openWidgetApp', ev);
+};
+
+const handleDelete = ev => {
+  emit('delete', ev);
+};
+</script>
 
 <script>
 export default {
@@ -30,6 +45,28 @@ export default {
 
 .app-card-wrapper:hover {
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+.app-card-delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 17px;
+  height: 17px;
+  font-size: 15px;
+  margin: 5px 5px 0 0;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-card-wrapper:hover .app-card-delete {
+  display: flex;
+}
+
+.app-card-delete:hover {
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 .app-icon {

@@ -3,12 +3,16 @@
     <Background :wallpaperUrl="wallpaper" preventUserSelect>
       <template #widgetbox>
         <SearchBar autofocus></SearchBar>
-        <AstraAppBox v-if="widgetApps">
+        <AstraAppBox
+          :addNew="widgetApps.length === 0"
+          :addShow="widgetApps.length < 10"
+          :addBtnFlex="widgetApps.length > 5"
+        >
           <AstraAppCard
             v-for="widgetApp in sortedWidgetApps"
             :key="widgetApp.id"
             :title="widgetApp.title"
-            @click="
+            @openWidgetApp="
               handleOpenWidgetApp(
                 widgetApp.urlRouter,
                 widgetApp.title,
@@ -16,6 +20,7 @@
                 widgetApp.embedded
               )
             "
+            @delete="widgetboxStore.deleteWidgetApp(widgetApp.id)"
           >
             <template #appicon>
               <IconMusic v-if="widgetApp.icon.startsWith('icon')"></IconMusic>
@@ -69,21 +74,27 @@
     <Transition name="fade">
       <AstraModal
         :fullscreen="isEmbeddedFull"
-        :visible="showEmbedded"
+        :visible="showModal"
         :embeddedUrl="targetUrl"
-        @cancel="embeddedStore.closeEmbeddedModal()"
+        :showForm="isForm"
+        @cancel="modalStore.closeModal()"
       >
         <template #left>
           <IconArrowLeft
-            @click="embeddedStore.closeEmbeddedModal()"
+            @click="modalStore.closeModal()"
             style="cursor: pointer"
           ></IconArrowLeft>
         </template>
-        <template #title>{{ embeddedTitle }}</template>
+        <template #title>{{ modalTitle }}</template>
         <template #right>
-          <a :href="targetUrl" target="_blank" style="height: 18px">
+          <a
+            v-if="targetUrl"
+            :href="targetUrl"
+            target="_blank"
+            style="height: 18px"
+          >
             <IconArrowExternal
-              @click="embeddedStore.closeEmbeddedModal()"
+              @click="modalStore.closeModal()"
             ></IconArrowExternal>
           </a>
         </template>
@@ -112,7 +123,7 @@ import useLocale from '@/hooks/locale';
 import useConfig from '@/config';
 import { useFullscreen } from '@/utils/browser';
 import { useGlobal } from '@/stores/global';
-import { useEmbedded } from '@/stores/embedded';
+import { useModalStore } from '@/stores/modal';
 import { useWidgetboxStore } from '@/stores/widgetbox';
 import { storeToRefs } from 'pinia';
 import { ref, onMounted, onUnmounted, computed } from 'vue';
@@ -129,9 +140,9 @@ const locales = [...LOCALE_OPTIONS];
 const { changeLocale } = useLocale();
 const { getLocalConfig } = useConfig();
 
-const embeddedStore = useEmbedded();
-const { showEmbedded, targetUrl, embeddedTitle, isEmbeddedFull } =
-  storeToRefs(embeddedStore);
+const modalStore = useModalStore();
+const { showModal, targetUrl, modalTitle, isEmbeddedFull, isForm } =
+  storeToRefs(modalStore);
 
 const widgetboxStore = useWidgetboxStore();
 const { widgetApps } = storeToRefs(widgetboxStore);
@@ -148,6 +159,9 @@ const touchEndY = ref(0); // 结束位置
 
 const sortedWidgetApps = computed(() => {
   let unsorted = widgetApps.value;
+  unsorted.forEach((element, index) => {
+    element['index'] = index;
+  });
   return unsorted.sort((a, b) => {
     if (a['index'] > b['index']) {
       return 1;
@@ -161,7 +175,7 @@ const sortedWidgetApps = computed(() => {
 
 const handleOpenWidgetApp = (url, title, isExternal, isEmbedded) => {
   if (isEmbedded && isExternal) {
-    embeddedStore.openEmbeddedModal(url, title, true);
+    modalStore.openEmbeddedModal(url, title, true);
   } else if (!isEmbedded && isExternal) {
     window.open(url);
   }

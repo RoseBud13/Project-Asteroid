@@ -17,6 +17,14 @@
         <div class="modal-content-embedded" v-if="iframeUrl">
           <iframe :src="iframeUrl" class="modal-embedded-iframe"></iframe>
         </div>
+        <div class="modal-form-wrapper" v-else-if="props.showForm">
+          <div class="modal-form">
+            <div class="modal-form-input-name"></div>
+            <div class="modal-form-inpur">
+              <input type="text" />
+            </div>
+          </div>
+        </div>
         <slot v-else></slot>
       </div>
       <div class="modal-footer" v-if="$slots.footer">
@@ -41,7 +49,11 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  embeddedUrl: String
+  embeddedUrl: String,
+  showForm: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const cls = computed(() => {
@@ -199,5 +211,29 @@ export default {
   position: absolute;
   bottom: 0;
   background-color: #fff;
+}
+
+.modal-form-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .modal {
+    width: 85%;
+  }
+
+  .modal-fullscreen {
+    width: 100%;
+  }
+
+  .modal-header-mid {
+    font-size: 1rem;
+  }
 }
 </style>
