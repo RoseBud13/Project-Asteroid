@@ -10,7 +10,7 @@
         size="large"
         shape="circle"
         style="font-size: 23px"
-        @click="handleAppWidgetApp"
+        @click="handleOpenAddWidgetApp"
         >+</AstraButton
       >
     </div>
@@ -20,10 +20,18 @@
 <script setup>
 import AstraButton from '@/components/basics/button/index.vue';
 import { useWidgetboxStore } from '@/stores/widgetbox';
-// import { useModalStore } from '@/stores/modal';
+import { useModalStore } from '@/stores/modal';
+import { useInputStore } from '@/stores/input';
+import { storeToRefs } from 'pinia';
+import { watch, ref } from 'vue';
 
 const widgetboxStore = useWidgetboxStore();
-// const modalStore = useModalStore();
+const modalStore = useModalStore();
+const { isForm, isConfirmed } = storeToRefs(modalStore);
+const inputStore = useInputStore();
+const { nestedInputInfo } = storeToRefs(inputStore);
+
+const newWidgetApp = ref({});
 
 const props = defineProps({
   addNew: Boolean,
@@ -31,15 +39,49 @@ const props = defineProps({
   addBtnFlex: Boolean
 });
 
-let newTest = {
-  title: 'b612',
-  url: 'https://b612.one'
+const handleOpenAddWidgetApp = () => {
+  let widgetAppsInputData = [
+    {
+      isPswd: false,
+      type: 'text',
+      placeholder: '名称',
+      modelValue: ''
+    },
+    {
+      isPswd: false,
+      type: 'text',
+      placeholder: 'URL',
+      modelValue: ''
+    }
+  ];
+  inputStore.setNestedInfo(widgetAppsInputData);
+  modalStore.openFormModal('Add New Widget App');
 };
 
-const handleAppWidgetApp = () => {
-  // modalStore.openFormModal('Add New Widget App');
-  widgetboxStore.addWidgetApp(newTest);
-};
+watch(
+  nestedInputInfo,
+  () => {
+    if (nestedInputInfo.value.length === 2) {
+      newWidgetApp.value = {
+        title: nestedInputInfo.value[0]['modelValue'],
+        url: nestedInputInfo.value[1]['modelValue']
+      };
+    }
+  },
+  { deep: true }
+);
+
+watch(isForm, () => {
+  if (!isForm.value) {
+    inputStore.clearNestedInfo();
+  }
+});
+
+watch(isConfirmed, () => {
+  if (isConfirmed.value && newWidgetApp.value.title && newWidgetApp.value.url) {
+    widgetboxStore.addWidgetApp(newWidgetApp.value);
+  }
+});
 </script>
 
 <script>

@@ -6,7 +6,8 @@ export const useModalStore = defineStore('modal', {
     modalTitle: '',
     targetUrl: '',
     isEmbeddedFull: false,
-    isForm: false
+    isForm: false,
+    isConfirmed: false
   }),
   actions: {
     openEmbeddedModal(url, title, isFull) {
@@ -21,11 +22,18 @@ export const useModalStore = defineStore('modal', {
       this.isEmbeddedFull = false;
       this.isForm = false;
       this.showModal = false;
+      this.isConfirmed = false;
     },
     openFormModal(title) {
       this.modalTitle = title;
       this.showModal = true;
       this.isForm = true;
+    },
+    handleModalOK() {
+      this.isConfirmed = true;
+      setTimeout(() => {
+        this.closeModal();
+      }, 300);
     }
   }
 });

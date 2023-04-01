@@ -81,6 +81,7 @@
       >
         <template #left>
           <IconArrowLeft
+            v-if="targetUrl"
             @click="modalStore.closeModal()"
             style="cursor: pointer"
           ></IconArrowLeft>
@@ -97,6 +98,22 @@
               @click="modalStore.closeModal()"
             ></IconArrowExternal>
           </a>
+          <IconClose
+            v-else
+            @click="modalStore.closeModal()"
+            style="cursor: pointer"
+          ></IconClose>
+        </template>
+        <template #footer>
+          <AstraButton size="mini" @click="modalStore.closeModal()"
+            >Cancel</AstraButton
+          >
+          <AstraButton
+            type="emerald"
+            size="mini"
+            @click="modalStore.handleModalOK()"
+            >OK</AstraButton
+          >
         </template>
       </AstraModal>
     </Transition>
@@ -116,6 +133,7 @@ import AstraModal from '@/components/basics/modal/index.vue';
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue';
 import IconArrowExternal from '@/components/icons/IconArrowExternal.vue';
 import IconMusic from '@/components/icons/IconMusic.vue';
+import IconClose from '@/components/icons/IconClose.vue';
 import AstraAppBox from '@/components/materials/app-box/index.vue';
 import AstraAppCard from '@/components/basics/app-card/index.vue';
 import { LOCALE_OPTIONS } from '@/locale';

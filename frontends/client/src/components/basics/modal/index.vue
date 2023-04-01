@@ -18,16 +18,11 @@
           <iframe :src="iframeUrl" class="modal-embedded-iframe"></iframe>
         </div>
         <div class="modal-form-wrapper" v-else-if="props.showForm">
-          <div class="modal-form">
-            <div class="modal-form-input-name"></div>
-            <div class="modal-form-inpur">
-              <input type="text" />
-            </div>
-          </div>
+          <AstraInput nestedInput v-model="nestedInputInfo"></AstraInput>
         </div>
         <slot v-else></slot>
       </div>
-      <div class="modal-footer" v-if="$slots.footer">
+      <div class="modal-footer" v-if="$slots.footer && props.showForm">
         <slot name="footer"></slot>
       </div>
     </div>
@@ -35,8 +30,14 @@
 </template>
 
 <script setup>
+import AstraInput from '@/components/basics/input/index.vue';
 import { ref, watch, computed } from 'vue';
 import { isUrl } from '@/utils/is';
+import { storeToRefs } from 'pinia';
+import { useInputStore } from '@/stores/input';
+
+const inputStore = useInputStore();
+const { nestedInputInfo } = storeToRefs(inputStore);
 
 const showModal = ref(false);
 

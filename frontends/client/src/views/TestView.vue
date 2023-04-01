@@ -126,6 +126,14 @@
       </template>
     </AstraModal>
   </div>
+  <div class="test-container">
+    <AstraInput v-model="message"></AstraInput>
+    <p>Message is: {{ message }}</p>
+    <p v-for="item in nestedInfo" :key="item.placeholder">
+      nested is {{ item.modelValue }}
+    </p>
+    <AstraInput nestedInput v-model="nestedInputInfo"></AstraInput>
+  </div>
 </template>
 
 <script setup>
@@ -135,7 +143,43 @@ import AstraDropdownOption from '@/components/basics/dropdown/dropdown-option.vu
 import IconCommunity from '@/components/icons/IconCommunity.vue';
 import ClockItem from '@/components/materials/ClockItem.vue';
 import AstraModal from '@/components/basics/modal/index.vue';
-import { ref } from 'vue';
+import AstraInput from '@/components/basics/input/index.vue';
+import { ref, onMounted, onUnmounted } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useInputStore } from '@/stores/input';
+
+const inputStore = useInputStore();
+const { nestedInputInfo } = storeToRefs(inputStore);
+
+const message = ref('');
+
+onMounted(() => {
+  let nestedInputData = [
+    {
+      isPswd: true,
+      type: 'text',
+      placeholder: '1',
+      modelValue: ''
+    },
+    {
+      isPswd: false,
+      type: 'text',
+      placeholder: '2',
+      modelValue: ''
+    },
+    {
+      isPswd: false,
+      type: 'text',
+      placeholder: '3',
+      modelValue: ''
+    }
+  ];
+  inputStore.setNestedInfo(nestedInputData);
+});
+
+onUnmounted(() => {
+  inputStore.clearNestedInfo();
+});
 
 function sayHi() {
   console.log('hi there!');
