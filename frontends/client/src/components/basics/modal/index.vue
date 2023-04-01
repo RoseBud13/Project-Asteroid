@@ -132,7 +132,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 38px;
+  height: 39px;
   border-bottom: 1px solid var(--color-neutral-3);
 }
 
@@ -155,6 +155,7 @@ export default {
   flex: 2;
   font-weight: 500;
   font-size: 17px;
+  text-overflow: ellipsis;
 }
 
 .modal-header-right {
@@ -178,7 +179,7 @@ export default {
 
 .modal-fullscreen .modal-content {
   width: 100%;
-  height: calc(100% - 38px);
+  height: calc(100% - 39px);
   padding: 0;
   overflow: hidden;
 }
@@ -234,7 +235,7 @@ export default {
   }
 
   .modal-header-mid {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
   }
 }
 </style>
