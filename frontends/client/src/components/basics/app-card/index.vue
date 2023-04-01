@@ -40,7 +40,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 }
 
 .app-card-wrapper:hover {
@@ -59,6 +58,7 @@ export default {
   display: none;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .app-card-wrapper:hover .app-card-delete {
@@ -79,5 +79,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 </style>

@@ -11,6 +11,7 @@
         shape="circle"
         style="font-size: 23px"
         @click="handleOpenAddWidgetApp"
+        title="Add widget app"
         >+</AstraButton
       >
     </div>
@@ -95,6 +96,7 @@ export default {
   position: relative;
   width: 80%;
   height: 40%;
+  max-width: 600px;
   margin: 20px 0;
   padding: 0 60px;
   display: flex;

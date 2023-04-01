@@ -30,7 +30,7 @@ export const useWidgetboxStore = defineStore('widgetbox', {
           embedded: false,
           urlRouter: value.url,
           title: value.title,
-          icon: 'src/assets/image/bilibili.svg'
+          icon: 'src/assets/image/b612_logo_256.png'
         };
         this.widgetApps.push(newWidgetApps);
         let localWidgetApps = Local.get('widget-apps') || [];

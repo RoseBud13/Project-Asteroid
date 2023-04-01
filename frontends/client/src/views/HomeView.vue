@@ -37,7 +37,7 @@
     </Background>
     <Navbar>
       <template #left>
-        <h2>{{ $t('home.title') }}</h2>
+        <h3>{{ tagline }}</h3>
       </template>
       <template #mid>
         <ClockItem blink textColor="#fff"></ClockItem>
@@ -174,6 +174,7 @@ const target = ref(); // distence of toggling dashbaord
 const scrollTimeoutTime = ref(800); // 0.8s is the minimum scroll interval to act as debounce
 const touchStartY = ref(0); // 触摸位置
 const touchEndY = ref(0); // 结束位置
+const tagline = ref(getLocalConfig('tagline'));
 
 const sortedWidgetApps = computed(() => {
   let unsorted = widgetApps.value;
