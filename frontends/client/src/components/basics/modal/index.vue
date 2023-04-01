@@ -234,7 +234,7 @@ export default {
   }
 
   .modal-header-mid {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 }
 </style>
