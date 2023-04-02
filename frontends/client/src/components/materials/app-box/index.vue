@@ -152,7 +152,7 @@ export default {
 
 @media (max-width: 600px) {
   .app-box-container {
-    padding: 0 15px;
+    padding: 0;
     width: 100%;
   }
 }

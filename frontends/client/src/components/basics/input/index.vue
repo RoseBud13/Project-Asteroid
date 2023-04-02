@@ -98,6 +98,7 @@ export default {
   height: 35px;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0;
   font-size: 15px;
   padding: 9px 0;
   text-indent: 15px;

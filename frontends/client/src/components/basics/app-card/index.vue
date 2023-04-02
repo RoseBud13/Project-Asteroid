@@ -81,4 +81,12 @@ export default {
   align-items: center;
   cursor: pointer;
 }
+
+@media (max-width: 600px) {
+  .app-card-delete {
+    width: 15px;
+    height: 15px;
+    font-size: 13px;
+  }
+}
 </style>
