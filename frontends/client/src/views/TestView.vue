@@ -127,9 +127,12 @@
     </AstraModal>
   </div>
   <div class="test-container">
-    <AstraInput v-model="message"></AstraInput>
+    <AstraInput v-model="message">
+      <template #prepend>https://</template>
+      <template #append>.com</template>
+    </AstraInput>
     <p>Message is: {{ message }}</p>
-    <p v-for="item in nestedInfo" :key="item.placeholder">
+    <p v-for="item in nestedInputInfo" :key="item.placeholder">
       nested is {{ item.modelValue }}
     </p>
     <AstraInput nestedInput v-model="nestedInputInfo"></AstraInput>
@@ -165,13 +168,15 @@ onMounted(() => {
       isPswd: false,
       type: 'text',
       placeholder: '2',
-      modelValue: ''
+      modelValue: '',
+      prepend: 'https://'
     },
     {
       isPswd: false,
       type: 'text',
       placeholder: '3',
-      modelValue: ''
+      modelValue: '',
+      append: '.com'
     }
   ];
   inputStore.setNestedInfo(nestedInputData);

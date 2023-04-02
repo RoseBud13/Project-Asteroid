@@ -52,7 +52,8 @@ const handleOpenAddWidgetApp = () => {
       isPswd: false,
       type: 'text',
       placeholder: 'URL',
-      modelValue: ''
+      modelValue: '',
+      prepend: 'https://'
     }
   ];
   inputStore.setNestedInfo(widgetAppsInputData);

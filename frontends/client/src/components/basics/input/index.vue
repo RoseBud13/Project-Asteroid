@@ -1,24 +1,42 @@
 <template>
-  <div class="input-wrapper" v-if="!props.nestedInput">
-    <input
-      :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
-      :type="props.isPswd ? 'password' : props.type"
-      :placeholder="props.placeholder"
-    />
+  <div class="input-outline-wrapper" v-if="!props.nestedInput">
+    <div class="input-wrapper">
+      <div class="input-prepend-wrapper" v-if="$slots.prepend">
+        <slot name="prepend"></slot>
+      </div>
+      <input
+        :value="modelValue"
+        @input="$emit('update:modelValue', $event.target.value)"
+        :type="props.isPswd ? 'password' : props.type"
+        :placeholder="props.placeholder"
+      />
+      <div class="input-append-wrapper" v-if="$slots.append">
+        <slot name="append"></slot>
+      </div>
+    </div>
   </div>
   <div
-    class="input-nested-wrapper"
+    class="nested-input-outline-wrapper"
     v-else-if="props.nestedInput && nestedInputInfo.length > 0"
   >
-    <input
+    <div
+      class="input-wrapper"
       v-for="item in nestedInputInfo"
       :key="item.placeholder"
-      :value="item.modelValue"
-      @input="item.modelValue = $event.target.value"
-      :type="item.isPswd ? 'password' : item.type"
-      :placeholder="item.placeholder"
-    />
+    >
+      <div class="input-prepend-wrapper" v-if="item.prepend">
+        {{ item.prepend }}
+      </div>
+      <input
+        :value="item.modelValue"
+        @input="item.modelValue = $event.target.value"
+        :type="item.isPswd ? 'password' : item.type"
+        :placeholder="item.placeholder"
+      />
+      <div class="input-append-wrapper" v-if="item.append">
+        {{ item.append }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -59,7 +77,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.input-wrapper {
+.input-outline-wrapper {
   position: relative;
   background-color: #fff;
   border-radius: 15px;
@@ -68,6 +86,24 @@ export default {
   width: 80%;
   min-width: 220px;
   max-width: 320px;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-prepend-wrapper {
+  background-color: #f5f7fa;
+  font-size: 15px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5px;
 }
 
 .input-wrapper input {
@@ -76,12 +112,22 @@ export default {
   height: 35px;
   border: none;
   font-size: 15px;
-  padding: 9px 0;
   text-indent: 15px;
   outline: none;
+  flex: 1;
 }
 
-.input-nested-wrapper {
+.input-append-wrapper {
+  background-color: #f5f7fa;
+  font-size: 15px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5px;
+}
+
+.nested-input-outline-wrapper {
   position: relative;
   background-color: #fff;
   border-radius: 15px;
@@ -92,20 +138,12 @@ export default {
   max-width: 320px;
 }
 
-.input-nested-wrapper input {
-  position: relative;
-  width: 100%;
-  height: 35px;
+.nested-input-outline-wrapper .input-wrapper {
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 0;
-  font-size: 15px;
-  padding: 9px 0;
-  text-indent: 15px;
-  outline: none;
 }
 
-.input-nested-wrapper input:last-child {
+.nested-input-outline-wrapper .input-wrapper:last-child {
   border-bottom: none;
 }
 
