@@ -8,7 +8,45 @@ const { getLocalConfig } = useConfig();
 export const useWidgetboxStore = defineStore('widgetbox', {
   state: () => ({
     showWidgetbox: false,
-    widgetApps: []
+    widgetApps: [],
+    astraWidgetApps: [
+      {
+        id: 'bubbleTurntable',
+        external: true,
+        embedded: true,
+        urlRouter: 'https://www.b612.one/bubble-turntable',
+        title: 'Bubble Turntable by 🍒',
+        icon: 'iconMusic',
+        tag: 'Music'
+      },
+      {
+        id: 'yuanshen',
+        external: true,
+        embedded: true,
+        urlRouter: 'https://bbs.mihoyo.com/ys/strategy',
+        title: '原神观测枢',
+        icon: 'src/assets/image/mhy.webp',
+        tag: '观测枢'
+      },
+      {
+        id: 'bilibili',
+        external: true,
+        embedded: false,
+        urlRouter: 'https://bilibili.com',
+        title: 'Bilibili',
+        icon: 'src/assets/image/bilibili.svg',
+        tag: 'Bilibili'
+      },
+      {
+        id: 'editor',
+        external: true,
+        embedded: true,
+        urlRouter: 'https://www.b612.one/web-editor',
+        title: 'JS Editor',
+        icon: 'iconCode',
+        tag: 'Editor'
+      }
+    ]
   }),
   getters: {},
   actions: {
@@ -38,6 +76,17 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         Local.set('widget-apps', localWidgetApps);
       } else {
         console.log('apps maximum');
+      }
+    },
+    addAstraWidgetApp(id) {
+      let newWidgetApp =
+        this.astraWidgetApps.find(item => item.id === id) || null;
+      let ifExisted = this.widgetApps.find(item => item.id === id) || null;
+      if (newWidgetApp && !ifExisted) {
+        this.widgetApps.push(newWidgetApp);
+        let localWidgetApps = Local.get('widget-apps') || [];
+        localWidgetApps.push(newWidgetApp);
+        Local.set('widget-apps', localWidgetApps);
       }
     },
     deleteWidgetApp(id) {

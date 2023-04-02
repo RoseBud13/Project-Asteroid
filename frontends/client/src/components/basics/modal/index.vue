@@ -13,16 +13,28 @@
           <slot name="right"></slot>
         </div>
       </div>
-      <div class="modal-content">
+      <div
+        class="modal-content"
+        :class="{ 'modal-content-multi': props.multiContent }"
+      >
         <div class="modal-content-embedded" v-if="iframeUrl">
           <iframe :src="iframeUrl" class="modal-embedded-iframe"></iframe>
         </div>
-        <div class="modal-form-wrapper" v-else-if="props.showForm">
+        <div class="modal-form-wrapper" v-if="props.hasForm">
           <AstraInput nestedInput v-model="nestedInputInfo"></AstraInput>
+        </div>
+        <div
+          class="modal-card-wrapper"
+          v-if="props.hasCard && $slots.modalcard"
+        >
+          <slot name="modalcard"></slot>
         </div>
         <slot v-else></slot>
       </div>
-      <div class="modal-footer" v-if="$slots.footer && props.showForm">
+      <div
+        class="modal-footer"
+        v-if="$slots.footer && (props.hasForm || props.hasCard)"
+      >
         <slot name="footer"></slot>
       </div>
     </div>
@@ -51,7 +63,15 @@ const props = defineProps({
     default: false
   },
   embeddedUrl: String,
-  showForm: {
+  hasForm: {
+    type: Boolean,
+    default: false
+  },
+  hasCard: {
+    type: Boolean,
+    default: false
+  },
+  multiContent: {
     type: Boolean,
     default: false
   }
@@ -225,6 +245,33 @@ export default {
   align-items: center;
 }
 
+.modal-card-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.modal-content-multi {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.modal-content-multi .modal-form-wrapper {
+  flex: 1;
+}
+
+.modal-content-multi .modal-card-wrapper {
+  flex: 1;
+}
+
 @media (max-width: 600px) {
   .modal {
     width: 85%;
@@ -236,6 +283,18 @@ export default {
 
   .modal-header-mid {
     font-size: 1.1rem;
+  }
+
+  .modal-content-multi {
+    flex-direction: column;
+  }
+
+  .modal-content-multi .modal-form-wrapper {
+    margin-bottom: 10px;
+  }
+
+  .modal-content-multi .modal-card-wrapper {
+    margin-top: 10px;
   }
 }
 </style>

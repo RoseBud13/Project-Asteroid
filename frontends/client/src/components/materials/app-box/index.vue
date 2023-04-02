@@ -28,7 +28,7 @@ import { watch, ref } from 'vue';
 
 const widgetboxStore = useWidgetboxStore();
 const modalStore = useModalStore();
-const { isForm, isConfirmed } = storeToRefs(modalStore);
+const { hasForm, isConfirmed } = storeToRefs(modalStore);
 const inputStore = useInputStore();
 const { nestedInputInfo } = storeToRefs(inputStore);
 
@@ -57,7 +57,7 @@ const handleOpenAddWidgetApp = () => {
     }
   ];
   inputStore.setNestedInfo(widgetAppsInputData);
-  modalStore.openFormModal('Add New Widget App');
+  modalStore.openModal('Add New Widget App', true, true, true);
 };
 
 watch(
@@ -77,8 +77,8 @@ watch(
   { deep: true }
 );
 
-watch(isForm, () => {
-  if (!isForm.value) {
+watch(hasForm, () => {
+  if (!hasForm.value) {
     inputStore.clearNestedInfo();
   }
 });

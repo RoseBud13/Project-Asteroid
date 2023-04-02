@@ -18,7 +18,7 @@
   "searchEngine": "bing",
   "widgetApps": [
     {
-      "id": 1,
+      "id": "bubbleTurntable",
       "external": true,
       "embedded": true,
       "urlRouter": "https://www.b612.one/bubble-turntable",
@@ -26,7 +26,7 @@
       "icon": "iconMusic"
     },
     {
-      "id": 2,
+      "id": "yuanshen",
       "external": true,
       "embedded": true,
       "urlRouter": "https://bbs.mihoyo.com/ys/strategy",
@@ -34,7 +34,7 @@
       "icon": "src/assets/image/mhy.webp"
     },
     {
-      "id": 3,
+      "id": "bilibili",
       "external": true,
       "embedded": false,
       "urlRouter": "https://bilibili.com",
@@ -42,7 +42,7 @@
       "icon": "src/assets/image/bilibili.svg"
     },
     {
-      "id": 4,
+      "id": "github",
       "external": true,
       "embedded": false,
       "urlRouter": "https://github.com",

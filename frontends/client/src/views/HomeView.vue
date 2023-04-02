@@ -12,7 +12,8 @@
             v-for="widgetApp in sortedWidgetApps"
             :key="widgetApp.id"
             :title="widgetApp.title"
-            @openWidgetApp="
+            hasDelete
+            @clickWidgetApp="
               handleOpenWidgetApp(
                 widgetApp.urlRouter,
                 widgetApp.title,
@@ -23,7 +24,8 @@
             @delete="widgetboxStore.deleteWidgetApp(widgetApp.id)"
           >
             <template #appicon>
-              <IconMusic v-if="widgetApp.icon.startsWith('icon')"></IconMusic>
+              <IconMusic v-if="widgetApp.icon === 'iconMusic'"></IconMusic>
+              <IconCode v-else-if="widgetApp.icon === 'iconCode'"></IconCode>
               <img
                 v-else
                 :src="widgetApp.icon"
@@ -76,7 +78,9 @@
         :fullscreen="isEmbeddedFull"
         :visible="showModal"
         :embeddedUrl="targetUrl"
-        :showForm="isForm"
+        :hasForm="hasForm"
+        :hasCard="hasCard"
+        :multiContent="multiContent"
         @cancel="modalStore.closeModal()"
       >
         <template #left>
@@ -103,6 +107,29 @@
             @click="modalStore.closeModal()"
             style="cursor: pointer"
           ></IconClose>
+        </template>
+        <template #modalcard>
+          <AstraAppCard
+            v-for="widgetApp in astraWidgetApps"
+            :key="widgetApp.id"
+            :title="widgetApp.title"
+            @clickWidgetApp="widgetboxStore.addAstraWidgetApp(widgetApp.id)"
+            @click="modalStore.closeModal()"
+          >
+            <template #appicon>
+              <IconMusic v-if="widgetApp.icon === 'iconMusic'"></IconMusic>
+              <IconCode v-else-if="widgetApp.icon === 'iconCode'"></IconCode>
+              <img
+                v-else
+                :src="widgetApp.icon"
+                :alt="widgetApp.title"
+                style="height: 25px; object-fit: contain"
+              />
+            </template>
+            <template #apptag>
+              {{ widgetApp.tag }}
+            </template>
+          </AstraAppCard>
         </template>
         <template #footer>
           <AstraButton size="mini" @click="modalStore.closeModal()"
@@ -134,6 +161,7 @@ import IconArrowLeft from '@/components/icons/IconArrowLeft.vue';
 import IconArrowExternal from '@/components/icons/IconArrowExternal.vue';
 import IconMusic from '@/components/icons/IconMusic.vue';
 import IconClose from '@/components/icons/IconClose.vue';
+import IconCode from '@/components/icons/IconCode.vue';
 import AstraAppBox from '@/components/materials/app-box/index.vue';
 import AstraAppCard from '@/components/basics/app-card/index.vue';
 import { LOCALE_OPTIONS } from '@/locale';
@@ -159,11 +187,18 @@ const { changeLocale } = useLocale();
 const { getLocalConfig } = useConfig();
 
 const modalStore = useModalStore();
-const { showModal, targetUrl, modalTitle, isEmbeddedFull, isForm } =
-  storeToRefs(modalStore);
+const {
+  showModal,
+  targetUrl,
+  modalTitle,
+  isEmbeddedFull,
+  hasForm,
+  hasCard,
+  multiContent
+} = storeToRefs(modalStore);
 
 const widgetboxStore = useWidgetboxStore();
-const { widgetApps } = storeToRefs(widgetboxStore);
+const { widgetApps, astraWidgetApps } = storeToRefs(widgetboxStore);
 
 const wallpaperInfo = getLocalConfig('wallpaper');
 const wallpaper = wallpaperInfo['bing'][0];

@@ -1,10 +1,18 @@
 <template>
   <div class="app-card-wrapper">
-    <div class="app-card-delete" title="delete" @click="handleDelete">
+    <div
+      class="app-card-delete"
+      title="delete"
+      v-if="props.hasDelete"
+      @click="handleDelete"
+    >
       <IconClose></IconClose>
     </div>
     <div class="app-icon" @click="handleClick">
       <slot name="appicon"></slot>
+    </div>
+    <div class="app-tag" v-if="$slots.apptag">
+      <slot name="apptag"></slot>
     </div>
   </div>
 </template>
@@ -12,15 +20,19 @@
 <script setup>
 import IconClose from '@/components/icons/IconClose.vue';
 
-const emit = defineEmits(['openWidgetApp', 'delete']);
+const emit = defineEmits(['clickWidgetApp', 'delete']);
 
 const handleClick = ev => {
-  emit('openWidgetApp', ev);
+  emit('clickWidgetApp', ev);
 };
 
 const handleDelete = ev => {
   emit('delete', ev);
 };
+
+const props = defineProps({
+  hasDelete: Boolean
+});
 </script>
 
 <script>
@@ -40,6 +52,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .app-card-wrapper:hover {
@@ -80,6 +93,16 @@ export default {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+
+.app-tag {
+  width: 150%;
+  height: 20px;
+  font-size: x-small;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 600px) {

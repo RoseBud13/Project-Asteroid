@@ -6,8 +6,10 @@ export const useModalStore = defineStore('modal', {
     modalTitle: '',
     targetUrl: '',
     isEmbeddedFull: false,
-    isForm: false,
-    isConfirmed: false
+    isConfirmed: false,
+    hasForm: false,
+    hasCard: false,
+    multiContent: false
   }),
   actions: {
     openEmbeddedModal(url, title, isFull) {
@@ -20,14 +22,18 @@ export const useModalStore = defineStore('modal', {
       this.targetUrl = '';
       this.modalTitle = '';
       this.isEmbeddedFull = false;
-      this.isForm = false;
-      this.showModal = false;
+      this.hasForm = false;
+      this.hasCard = false;
+      this.multiContent = false;
       this.isConfirmed = false;
+      this.showModal = false;
     },
-    openFormModal(title) {
+    openModal(title, hasForm, hasCard, multiContent) {
       this.modalTitle = title;
       this.showModal = true;
-      this.isForm = true;
+      this.hasForm = hasForm || false;
+      this.hasCard = hasCard || false;
+      this.multiContent = multiContent || false;
     },
     handleModalOK() {
       this.isConfirmed = true;
