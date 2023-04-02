@@ -78,6 +78,10 @@ export function isUrl(url) {
   );
 }
 
+export function isSlotHasContent(slotName, slots) {
+  return Boolean(!!slots[slotName] && slots[slotName]()[0].children.length > 0);
+}
+
 // export function isDayjs(timey) {
 //   return (
 //     isObject(time) &&
