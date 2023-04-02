@@ -66,7 +66,11 @@ watch(
     if (nestedInputInfo.value.length === 2) {
       newWidgetApp.value = {
         title: nestedInputInfo.value[0]['modelValue'],
-        url: nestedInputInfo.value[1]['modelValue']
+        url:
+          nestedInputInfo.value[1]['modelValue'].startsWith('https://') ||
+          nestedInputInfo.value[1]['modelValue'].startsWith('http://')
+            ? nestedInputInfo.value[1]['modelValue']
+            : 'https://' + nestedInputInfo.value[1]['modelValue']
       };
     }
   },
