@@ -30,7 +30,7 @@
                 v-else
                 :src="widgetApp.icon"
                 :alt="widgetApp.title"
-                style="height: 25px; object-fit: contain"
+                style="height: 25px; object-fit: contain; pointer-events: none"
                 onerror="if (this.src !== `https://b612-static-rsrcs-1306125602.cos.ap-shanghai.myqcloud.com/static-img%2Ffavicon_on_error.svg`) this.src = `https://b612-static-rsrcs-1306125602.cos.ap-shanghai.myqcloud.com/static-img%2Ffavicon_on_error.svg`;"
               />
             </template>

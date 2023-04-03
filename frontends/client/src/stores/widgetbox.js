@@ -43,7 +43,7 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         id: 'editor',
         external: true,
         embedded: true,
-        urlRouter: 'https://www.b612.one/web-editor',
+        urlRouter: 'https://www.b612.one/asteroid/web-editor',
         title: 'JS Editor',
         icon: 'iconCode',
         tag: 'Editor'
