@@ -2,8 +2,10 @@ import { defineStore } from 'pinia';
 import useConfig from '@/config';
 import { Local } from '@/utils/storage';
 import { generateUID } from '@/utils/tool';
+import { useFavicon } from '@/hooks/request';
 
 const { getLocalConfig } = useConfig();
+const { getFaviconUrl } = useFavicon();
 
 export const useWidgetboxStore = defineStore('widgetbox', {
   state: () => ({
@@ -68,7 +70,7 @@ export const useWidgetboxStore = defineStore('widgetbox', {
           embedded: false,
           urlRouter: value.url,
           title: value.title,
-          icon: 'src/assets/image/b612_logo_256.png'
+          icon: getFaviconUrl(value.url)
         };
         this.widgetApps.push(newWidgetApps);
         let localWidgetApps = Local.get('widget-apps') || [];
