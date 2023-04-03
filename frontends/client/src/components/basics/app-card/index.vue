@@ -2,7 +2,7 @@
   <div class="app-card-wrapper">
     <div
       class="app-card-delete"
-      title="delete"
+      :title="$t('appcard.button.delete')"
       v-if="props.hasDelete"
       @click="handleDelete"
     >

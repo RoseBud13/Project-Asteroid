@@ -75,7 +75,11 @@
           type="nav"
           v-if="deviceType === 'PC' || deviceType === ''"
           style="font-size: 20px"
-          :title="!isFullscreen ? 'open fullscreen' : 'exit fullscreen'"
+          :title="
+            !isFullscreen
+              ? $t('navbar.action.enterFullscreen')
+              : $t('navbar.action.exitFullscreen')
+          "
         >
           <IconFullscreen
             v-if="!isFullscreen"
@@ -106,7 +110,7 @@
             style="cursor: pointer"
           ></IconArrowLeft>
         </template>
-        <template #title>{{ modalTitle }}</template>
+        <template #title>{{ $t(modalTitle) }}</template>
         <template #right>
           <a
             v-if="targetUrl"
@@ -148,14 +152,14 @@
           </AstraAppCard>
         </template>
         <template #footer>
-          <AstraButton size="mini" @click="modalStore.closeModal()"
-            >Cancel</AstraButton
-          >
+          <AstraButton size="mini" @click="modalStore.closeModal()">{{
+            $t('modal.button.cancel')
+          }}</AstraButton>
           <AstraButton
             type="emerald"
             size="mini"
             @click="modalStore.handleModalOK()"
-            >OK</AstraButton
+            >{{ $t('modal.button.confirm') }}</AstraButton
           >
         </template>
       </AstraModal>

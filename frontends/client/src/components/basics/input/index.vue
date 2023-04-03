@@ -8,7 +8,7 @@
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
         :type="props.isPswd ? 'password' : props.type"
-        :placeholder="props.placeholder"
+        :placeholder="$t(props.placeholder)"
       />
       <div class="input-append-wrapper" v-if="$slots.append">
         <slot name="append"></slot>
@@ -31,7 +31,7 @@
         :value="item.modelValue"
         @input="item.modelValue = $event.target.value"
         :type="item.isPswd ? 'password' : item.type"
-        :placeholder="item.placeholder"
+        :placeholder="$t(item.placeholder)"
       />
       <div class="input-append-wrapper" v-if="item.append">
         {{ item.append }}

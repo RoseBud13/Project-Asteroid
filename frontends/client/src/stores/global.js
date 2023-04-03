@@ -11,7 +11,8 @@ export const useGlobal = defineStore('global', {
     deviceType: '',
     dashboardViewIndex: 0,
     dashboardViewLength: 2,
-    searchEngine: ''
+    searchEngine: '',
+    searchPlaceholder: ''
   }),
   getters: {},
   actions: {
@@ -50,10 +51,25 @@ export const useGlobal = defineStore('global', {
         localStorage.getItem('search-engine') ||
         getLocalConfig('searchEngine') ||
         'bing';
-      localStorage.setItem('search-engine', this.searchEngine);
+      if (!localStorage.getItem('search-engine')) {
+        localStorage.setItem('search-engine', this.searchEngine);
+      }
     },
     changeSearchEngine(value) {
       this.searchEngine = value;
+    },
+    setSearchPlaceholder(option) {
+      switch (option) {
+        case 'bing':
+          this.searchPlaceholder = 'searchbar.input.placeholder.bing';
+          break;
+        case 'google':
+          this.searchPlaceholder = 'searchbar.input.placeholder.google';
+          break;
+        case 'baidu':
+          this.searchPlaceholder = 'searchbar.input.placeholder.baidu';
+          break;
+      }
     }
   }
 });

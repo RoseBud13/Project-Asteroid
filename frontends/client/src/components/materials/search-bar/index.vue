@@ -5,7 +5,7 @@
         v-model="keywords"
         @keyup.enter="handleSearch"
         @keydown.tab="handleChangeSearchEngine"
-        :placeholder="searchPlaceholder"
+        :placeholder="$t(searchPlaceholder)"
         :autofocus="props.autofocus"
       />
     </div>
@@ -22,37 +22,21 @@ import { useGlobal } from '@/stores/global';
 import { useModalStore } from '@/stores/modal';
 import IconSearch from '@/components/icons/IconSearch.vue';
 import useSearch from './search';
-import useLocale from '@/hooks/locale';
 
 const globalStore = useGlobal();
-const { searchEngine, isFullscreen } = storeToRefs(globalStore);
+const { searchEngine, isFullscreen, searchPlaceholder, deviceType } =
+  storeToRefs(globalStore);
 const { changeSearchEngine, searchEngineList } = useSearch();
-const { i18 } = useLocale();
 const modalStore = useModalStore();
 
 const props = defineProps({
   autofocus: Boolean
 });
 
-const searchPlaceholder = ref();
 const keywords = ref('');
 const searchLink = ref();
 const searchEngines = Object.keys(searchEngineList);
 const searchEngineIndex = ref();
-
-const handlePlaceholder = option => {
-  switch (option) {
-    case 'bing':
-      searchPlaceholder.value = i18.t('searchbar.input.placeholder.bing');
-      break;
-    case 'google':
-      searchPlaceholder.value = i18.t('searchbar.input.placeholder.google');
-      break;
-    case 'baidu':
-      searchPlaceholder.value = i18.t('searchbar.input.placeholder.baidu');
-      break;
-  }
-};
 
 const handleChangeSearchEngine = event => {
   if (searchEngineIndex.value === 2) {
@@ -73,6 +57,12 @@ const handleSearch = () => {
     ) {
       let url = searchLink.value + encodeURI(keywords.value);
       modalStore.openEmbeddedModal(url, keywords.value, true);
+    } else if (
+      (deviceType.value === 'ios' || deviceType.value === 'mobile') &&
+      searchLink.value === 'https://www.bing.com/search?q='
+    ) {
+      let url = searchLink.value + encodeURI(keywords.value);
+      modalStore.openEmbeddedModal(url, keywords.value, true);
     } else {
       window.open(searchLink.value + encodeURI(keywords.value));
     }
@@ -83,12 +73,13 @@ const handleSearch = () => {
 watch(searchEngine, () => {
   searchLink.value = searchEngineList[searchEngine.value];
   // console.log('search engine changed to: ', searchLink.value);
-  handlePlaceholder(searchEngine.value);
+  globalStore.setSearchPlaceholder(searchEngine.value);
 });
 
+globalStore.setSearchEngine();
+globalStore.setSearchPlaceholder(searchEngine.value);
+
 onMounted(() => {
-  globalStore.setSearchEngine();
-  handlePlaceholder(searchEngine.value);
   searchLink.value = searchEngineList[searchEngine.value];
   searchEngineIndex.value = searchEngines.indexOf(searchEngine.value);
 });

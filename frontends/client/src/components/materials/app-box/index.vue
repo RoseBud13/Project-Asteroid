@@ -11,7 +11,7 @@
         shape="circle"
         style="font-size: 23px"
         @click="handleOpenAddWidgetApp"
-        title="Add widget app"
+        :title="$t('appbox.action.addNewWidgetApp')"
         >+</AstraButton
       >
     </div>
@@ -45,19 +45,19 @@ const handleOpenAddWidgetApp = () => {
     {
       isPswd: false,
       type: 'text',
-      placeholder: '名称',
+      placeholder: 'appbox.input.placeholder.title',
       modelValue: ''
     },
     {
       isPswd: false,
       type: 'text',
-      placeholder: 'URL',
+      placeholder: 'appbox.input.placeholder.url',
       modelValue: '',
       prepend: 'https://'
     }
   ];
   inputStore.setNestedInfo(widgetAppsInputData);
-  modalStore.openModal('Add New Widget App', true, true, true);
+  modalStore.openModal('appbox.action.addNewWidgetApp', true, true, true);
 };
 
 watch(
