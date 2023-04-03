@@ -13,10 +13,12 @@ const { i18, currentLocale } = useLocale();
 const globalStore = useGlobal();
 const { getDeviceType } = useUserAgent();
 
-const setDeviceVh = () => {
+const setDeviceAttr = () => {
   if (getDeviceType() === 'ios') {
     document.documentElement.style.setProperty('--90vh', '90dvh');
     document.documentElement.style.setProperty('--100vh', '100dvh');
+    document.head.querySelector('meta[name="viewport"]').content =
+      'width=device-width, initial-scale=1, maximum-scale=1';
   } else {
     document.documentElement.style.setProperty('--90vh', '90vh');
     document.documentElement.style.setProperty('--100vh', '100vh');
@@ -31,7 +33,7 @@ watch(currentLocale, () => {
 
 onBeforeMount(() => {
   globalStore.setDeviceType(getDeviceType());
-  setDeviceVh();
+  setDeviceAttr();
 });
 </script>
 
