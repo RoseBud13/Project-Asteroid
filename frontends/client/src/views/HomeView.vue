@@ -47,12 +47,15 @@
       <template #right>
         <AstraDropdown>
           <template #trigger>
-            <AstraButton type="nav">A/文</AstraButton>
+            <AstraButton type="nav" style="font-size: 20px">
+              <IconLanguage></IconLanguage>
+            </AstraButton>
           </template>
           <template #content>
             <AstraDropdownOption
               v-for="item in locales"
               :key="item.value"
+              :style="{ color: item.value === currentLocale ? '#75a297' : '' }"
               @click="changeLocale(item.value)"
             >
               {{ item.label }}
@@ -62,14 +65,26 @@
         <AstraButton
           type="nav"
           href="https://github.com/RoseBud13/Project-Asteroid"
-          >GitHub</AstraButton
+          style="font-size: 20px"
+          title="Project Asteroid"
         >
-        <AstraButton type="nav" v-if="!isFullscreen" @click="openFullscreen()"
-          >全屏</AstraButton
+          <IconGithub></IconGithub>
+        </AstraButton>
+        <AstraButton
+          type="nav"
+          v-if="deviceType === 'PC' || deviceType === ''"
+          style="font-size: 20px"
+          :title="!isFullscreen ? 'open fullscreen' : 'exit fullscreen'"
         >
-        <AstraButton type="nav" v-else @click="closeFullscreen"
-          >取消全屏</AstraButton
-        >
+          <IconFullscreen
+            v-if="!isFullscreen"
+            @click="openFullscreen()"
+          ></IconFullscreen>
+          <IconFullscreenExit
+            v-else
+            @click="closeFullscreen()"
+          ></IconFullscreenExit>
+        </AstraButton>
       </template>
     </Navbar>
     <HomeDashboard ref="dashboard"></HomeDashboard>
@@ -162,6 +177,10 @@ import IconArrowExternal from '@/components/icons/IconArrowExternal.vue';
 import IconMusic from '@/components/icons/IconMusic.vue';
 import IconClose from '@/components/icons/IconClose.vue';
 import IconCode from '@/components/icons/IconCode.vue';
+import IconFullscreen from '@/components/icons/IconFullscreen.vue';
+import IconFullscreenExit from '@/components/icons/IconFullscreenExit.vue';
+import IconGithub from '@/components/icons/IconGithub.vue';
+import IconLanguage from '@/components/icons/IconLanguage.vue';
 import AstraAppBox from '@/components/materials/app-box/index.vue';
 import AstraAppCard from '@/components/basics/app-card/index.vue';
 import { LOCALE_OPTIONS } from '@/locale';
@@ -183,7 +202,7 @@ const { isFullscreen, deviceType, showDashboardMobile } =
   storeToRefs(globalStore);
 
 const locales = [...LOCALE_OPTIONS];
-const { changeLocale } = useLocale();
+const { changeLocale, currentLocale } = useLocale();
 const { getLocalConfig } = useConfig();
 
 const modalStore = useModalStore();
