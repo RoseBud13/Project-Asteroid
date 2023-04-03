@@ -78,10 +78,10 @@ export const useWidgetboxStore = defineStore('widgetbox', {
       {
         id: 'yige',
         external: true,
-        embedded: true,
+        embedded: false,
         urlRouter: 'http://wufazhuce.com/',
         title: 'ONE·一个',
-        icon: 'http://image.wufazhuce.com/favicon.ico',
+        icon: 'https://b612.one/oneapi/img/favicon.ico',
         tag: 'ONE·一个'
       }
     ]
