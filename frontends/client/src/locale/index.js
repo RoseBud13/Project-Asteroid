@@ -17,7 +17,9 @@ const i18n = createI18n({
   messages: {
     'zh-CN': zhCN,
     'en-US': enUS
-  }
+  },
+  missingWarn: false,
+  fallbackWarn: false
 });
 
 export default i18n;
