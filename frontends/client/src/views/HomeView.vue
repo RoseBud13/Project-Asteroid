@@ -314,7 +314,7 @@ const setScrollOrTouch = () => {
 };
 
 const removeScrollOrTouch = () => {
-  if (deviceType === 'PC' || deviceType === '') {
+  if (deviceType.value === 'PC' || deviceType.value === '') {
     homepage.value.removeEventListener('scroll', handleScroll);
     homepage.value.removeEventListener('scroll', handleScrollEnd);
   } else {
