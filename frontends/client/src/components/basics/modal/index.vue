@@ -18,7 +18,11 @@
         :class="{ 'modal-content-multi': props.multiContent }"
       >
         <div class="modal-content-embedded" v-if="iframeUrl">
-          <iframe :src="iframeUrl" class="modal-embedded-iframe"></iframe>
+          <iframe
+            :src="iframeUrl"
+            class="modal-embedded-iframe"
+            sandbox="allow-same-origin allow-scripts"
+          ></iframe>
         </div>
         <div class="modal-form-wrapper" v-if="props.hasForm">
           <AstraInput nestedInput v-model="nestedInputInfo"></AstraInput>

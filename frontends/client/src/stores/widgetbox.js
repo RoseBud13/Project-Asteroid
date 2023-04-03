@@ -76,14 +76,23 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         tag: '豆瓣图书'
       },
       {
-        id: 'yige',
+        id: 'weibo',
         external: true,
-        embedded: false,
-        urlRouter: 'http://wufazhuce.com/',
-        title: 'ONE·一个',
-        icon: 'https://b612.one/oneapi/img/favicon.ico',
-        tag: 'ONE·一个'
+        embedded: true,
+        urlRouter: 'https://m.weibo.cn/',
+        title: '微博',
+        icon: 'https://weibo.com/favicon.ico',
+        tag: '微博'
       }
+      // {
+      //   id: 'yige',
+      //   external: true,
+      //   embedded: false,
+      //   urlRouter: 'http://wufazhuce.com/',
+      //   title: 'ONE·一个',
+      //   icon: 'https://b612.one/oneapi/img/favicon.ico',
+      //   tag: 'ONE·一个'
+      // }
     ]
   }),
   getters: {},
