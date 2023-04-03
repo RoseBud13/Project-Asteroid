@@ -19,7 +19,16 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         urlRouter: 'https://www.b612.one/bubble-turntable',
         title: 'Bubble Turntable by 🍒',
         icon: 'iconMusic',
-        tag: 'Music'
+        tag: '唱片机'
+      },
+      {
+        id: 'editor',
+        external: true,
+        embedded: true,
+        urlRouter: 'https://www.b612.one/asteroid/web-editor',
+        title: 'JS Editor by 🍒',
+        icon: 'iconCode',
+        tag: 'Editor'
       },
       {
         id: 'yuanshen',
@@ -27,26 +36,53 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         embedded: true,
         urlRouter: 'https://bbs.mihoyo.com/ys/strategy',
         title: '原神观测枢',
-        icon: 'src/assets/image/mhy.webp',
+        icon: 'src/assets/image/ys-logo.png',
         tag: '观测枢'
       },
       {
-        id: 'bilibili',
-        external: true,
-        embedded: false,
-        urlRouter: 'https://bilibili.com',
-        title: 'Bilibili',
-        icon: 'src/assets/image/bilibili.svg',
-        tag: 'Bilibili'
-      },
-      {
-        id: 'editor',
+        id: 'miyoushe',
         external: true,
         embedded: true,
-        urlRouter: 'https://www.b612.one/asteroid/web-editor',
-        title: 'JS Editor',
-        icon: 'iconCode',
-        tag: 'Editor'
+        urlRouter: 'https://www.miyoushe.com/ys/',
+        title: '米游社',
+        icon: 'src/assets/image/mhy.webp',
+        tag: '米游社'
+      },
+      {
+        id: 'doubanmovie',
+        external: true,
+        embedded: true,
+        urlRouter: 'https://m.douban.com/movie/',
+        title: '豆瓣电影',
+        icon: 'https://douban.com/favicon.ico',
+        tag: '豆瓣电影'
+      },
+      {
+        id: 'doubanmusic',
+        external: true,
+        embedded: true,
+        urlRouter: 'https://m.douban.com/music/',
+        title: '音乐-豆瓣',
+        icon: 'https://douban.com/favicon.ico',
+        tag: '豆瓣音乐'
+      },
+      {
+        id: 'doubanbook',
+        external: true,
+        embedded: true,
+        urlRouter: 'https://m.douban.com/book/',
+        title: '图书-豆瓣',
+        icon: 'https://douban.com/favicon.ico',
+        tag: '豆瓣图书'
+      },
+      {
+        id: 'yige',
+        external: true,
+        embedded: true,
+        urlRouter: 'http://wufazhuce.com/',
+        title: 'ONE·一个',
+        icon: 'http://image.wufazhuce.com/favicon.ico',
+        tag: 'ONE·一个'
       }
     ]
   }),

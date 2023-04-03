@@ -31,7 +31,7 @@
       "embedded": true,
       "urlRouter": "https://bbs.mihoyo.com/ys/strategy",
       "title": "原神观测枢",
-      "icon": "src/assets/image/mhy.webp"
+      "icon": "src/assets/image/ys-logo.png"
     },
     {
       "id": "bilibili",

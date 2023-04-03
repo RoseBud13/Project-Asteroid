@@ -6,6 +6,10 @@ export function useFavicon() {
       return 'https://b612-static-rsrcs-1306125602.cos.ap-shanghai.myqcloud.com/static-img%2FTwitter_logo_blue_32.png';
     } else if (domain.includes('youtube')) {
       return 'https://b612-static-rsrcs-1306125602.cos.ap-shanghai.myqcloud.com/static-img%2F32x32-youtube-icon-24.png';
+    } else if (domain.includes('github')) {
+      return 'https://b612.one/asteroid/assets/image/github.svg';
+    } else if (domain.includes('instagram')) {
+      return 'https://b612-static-rsrcs-1306125602.cos.ap-shanghai.myqcloud.com/static-img%2Fig.ico';
     } else {
       return domain + '/favicon.ico';
     }

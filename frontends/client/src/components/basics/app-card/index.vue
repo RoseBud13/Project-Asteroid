@@ -105,6 +105,10 @@ export default {
   text-overflow: ellipsis;
 }
 
+.modal-content-multi .app-card-wrapper {
+  width: 25%;
+}
+
 @media (max-width: 600px) {
   .app-card-delete {
     width: 15px;

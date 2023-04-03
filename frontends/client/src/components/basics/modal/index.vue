@@ -18,7 +18,11 @@
         :class="{ 'modal-content-multi': props.multiContent }"
       >
         <div class="modal-content-embedded" v-if="iframeUrl">
-          <iframe :src="iframeUrl" class="modal-embedded-iframe"></iframe>
+          <iframe
+            :src="iframeUrl"
+            class="modal-embedded-iframe"
+            sandbox="allow-same-origin allow-scripts"
+          ></iframe>
         </div>
         <div class="modal-form-wrapper" v-if="props.hasForm">
           <AstraInput nestedInput v-model="nestedInputInfo"></AstraInput>
@@ -133,11 +137,11 @@ export default {
 
 .modal {
   position: relative;
-  width: 520px;
+  width: 550px;
   line-height: 1.5715;
   text-align: left;
   background-color: #fff;
-  border-radius: var(--border-radius-medium);
+  border-radius: 13px;
 }
 
 .modal-fullscreen {
@@ -253,6 +257,7 @@ export default {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .modal-content-multi {
@@ -283,6 +288,10 @@ export default {
 
   .modal-header-mid {
     font-size: 1.1rem;
+  }
+
+  .modal-content {
+    padding: 26px 15px;
   }
 
   .modal-content-multi {
