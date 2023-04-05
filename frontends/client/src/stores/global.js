@@ -12,7 +12,8 @@ export const useGlobal = defineStore('global', {
     dashboardViewIndex: 0,
     dashboardViewLength: 2,
     searchEngine: '',
-    searchPlaceholder: ''
+    searchPlaceholder: '',
+    tagline: getLocalConfig('tagline')
   }),
   getters: {},
   actions: {

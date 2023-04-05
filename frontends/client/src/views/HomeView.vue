@@ -1,6 +1,9 @@
 <template>
   <div class="homepage-wrapper" ref="homepage">
-    <Background :wallpaperUrl="wallpaper" preventUserSelect>
+    <Background
+      :wallpaperUrl="wallpaperList[currentWallpaper]"
+      preventUserSelect
+    >
       <template #widgetbox>
         <SearchBar autofocus></SearchBar>
         <AstraAppBox
@@ -40,15 +43,34 @@
     </Background>
     <Navbar>
       <template #left>
-        <h3>{{ tagline }}</h3>
+        <h3
+          :style="{
+            color:
+              currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+          }"
+        >
+          {{ tagline }}
+        </h3>
       </template>
       <template #mid>
-        <ClockItem blink textColor="#fff"></ClockItem>
+        <ClockItem
+          blink
+          :textColor="
+            currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+          "
+        ></ClockItem>
       </template>
       <template #right>
         <AstraDropdown>
           <template #trigger>
-            <AstraButton type="nav" style="font-size: 20px">
+            <AstraButton
+              type="nav"
+              :style="{
+                'font-size': '20px',
+                color:
+                  currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+              }"
+            >
               <IconLanguage></IconLanguage>
             </AstraButton>
           </template>
@@ -66,15 +88,47 @@
         <AstraButton
           type="nav"
           href="https://github.com/RoseBud13/Project-Asteroid"
-          style="font-size: 20px"
+          :style="{
+            'font-size': '20px',
+            color:
+              currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+          }"
           title="Project Asteroid"
         >
           <IconGithub></IconGithub>
         </AstraButton>
+        <AstraDropdown>
+          <template #trigger>
+            <AstraButton
+              type="nav"
+              :style="{
+                'font-size': '20px',
+                color:
+                  currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+              }"
+            >
+              <IconWallpaper></IconWallpaper>
+            </AstraButton>
+          </template>
+          <template #content>
+            <AstraDropdownOption
+              v-for="item in Object.keys(wallpaperList)"
+              :key="item"
+              :style="{ color: item === currentWallpaper ? '#75a297' : '' }"
+              @click="wallpaperStore.changeWallpaper(item)"
+            >
+              {{ $t(item) }}
+            </AstraDropdownOption>
+          </template>
+        </AstraDropdown>
         <AstraButton
           type="nav"
           v-if="deviceType === 'PC' || deviceType === ''"
-          style="font-size: 20px"
+          :style="{
+            'font-size': '20px',
+            color:
+              currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+          }"
           :title="
             !isFullscreen
               ? $t('navbar.action.enterFullscreen')
@@ -186,15 +240,16 @@ import IconFullscreen from '@/components/icons/IconFullscreen.vue';
 import IconFullscreenExit from '@/components/icons/IconFullscreenExit.vue';
 import IconGithub from '@/components/icons/IconGithub.vue';
 import IconLanguage from '@/components/icons/IconLanguage.vue';
+import IconWallpaper from '@/components/icons/IconWallpaper.vue';
 import AstraAppBox from '@/components/materials/app-box/index.vue';
 import AstraAppCard from '@/components/basics/app-card/index.vue';
 import { LOCALE_OPTIONS } from '@/locale';
 import useLocale from '@/hooks/locale';
-import useConfig from '@/config';
 import { useFullscreen } from '@/utils/browser';
 import { useGlobal } from '@/stores/global';
 import { useModalStore } from '@/stores/modal';
 import { useWidgetboxStore } from '@/stores/widgetbox';
+import { useWallpaperStore } from '@/stores/wallpaper';
 import { storeToRefs } from 'pinia';
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 
@@ -203,12 +258,11 @@ const dashboard = ref(null);
 
 const { openFullscreen, closeFullscreen } = useFullscreen();
 const globalStore = useGlobal();
-const { isFullscreen, deviceType, showDashboardMobile } =
+const { isFullscreen, deviceType, showDashboardMobile, tagline } =
   storeToRefs(globalStore);
 
 const locales = [...LOCALE_OPTIONS];
 const { changeLocale, currentLocale } = useLocale();
-const { getLocalConfig } = useConfig();
 
 const modalStore = useModalStore();
 const {
@@ -224,8 +278,8 @@ const {
 const widgetboxStore = useWidgetboxStore();
 const { widgetApps, astraWidgetApps } = storeToRefs(widgetboxStore);
 
-const wallpaperInfo = getLocalConfig('wallpaper');
-const wallpaper = wallpaperInfo['bing'][0];
+const wallpaperStore = useWallpaperStore();
+const { currentWallpaper, wallpaperList } = storeToRefs(wallpaperStore);
 
 const scrollTop = ref(0);
 const scrollStart = ref(0);
@@ -233,7 +287,6 @@ const target = ref(); // distence of toggling dashbaord
 const scrollTimeoutTime = ref(800); // 0.8s is the minimum scroll interval to act as debounce
 const touchStartY = ref(0); // 触摸位置
 const touchEndY = ref(0); // 结束位置
-const tagline = ref(getLocalConfig('tagline'));
 
 const sortedWidgetApps = computed(() => {
   let unsorted = widgetApps.value;
@@ -368,6 +421,7 @@ onMounted(() => {
     setSize();
   });
   widgetboxStore.initWidgetApps();
+  wallpaperStore.initWallpaper();
 });
 
 onUnmounted(() => {

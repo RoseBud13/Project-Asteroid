@@ -14,5 +14,10 @@ export default {
   'appbox.input.placeholder.url': 'URL',
   'modal.button.confirm': '确定',
   'modal.button.cancel': '取消',
-  'appcard.button.delete': '删除'
+  'appcard.button.delete': '删除',
+  'wallpaper.bing': '必应壁纸',
+  'wallpaper.oneapp': 'ONE·一个',
+  'wallpaper.ghibli': '吉卜力',
+  'wallpaper.yuanshen': '原神',
+  'wallpaper.color': '纯色 Astra'
 };

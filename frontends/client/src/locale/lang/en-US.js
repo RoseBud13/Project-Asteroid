@@ -14,5 +14,10 @@ export default {
   'appbox.input.placeholder.url': 'URL',
   'modal.button.confirm': 'Confirm',
   'modal.button.cancel': 'Cancel',
-  'appcard.button.delete': 'Delete'
+  'appcard.button.delete': 'Delete',
+  'wallpaper.bing': 'Bing wallpaper',
+  'wallpaper.oneapp': 'ONE·一个',
+  'wallpaper.ghibli': 'Ghibli',
+  'wallpaper.yuanshen': 'Genshin Impact',
+  'wallpaper.color': 'Astremerald'
 };

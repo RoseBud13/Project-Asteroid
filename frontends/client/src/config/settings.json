@@ -7,9 +7,13 @@
   "locale": "zh-CN",
   "theme": "light",
   "wallpaper": {
-    "bing": ["https://api.dujin.org/bing/1920.php"],
-    "oneApp": ["https://b612.one/oneapi/img/FvNvpKLF74mqdlKqAnhaNWhlToQ6"]
+    "wallpaper.bing": "https://api.dujin.org/bing/1920.php",
+    "wallpaper.oneapp": "https://b612.one/oneapi/img/Fh5NZm2cRYJtvIurGJ6sfW-bGP3F",
+    "wallpaper.ghibli": "https://api.dujin.org/pic/ghibli",
+    "wallpaper.yuanshen": "https://api.dujin.org/pic/yuanshen/",
+    "wallpaper.color": ""
   },
+  "defaultWallpaper": "wallpaper.bing",
   "footer": true,
   "themeColor": "",
   "globalSettings": false,
