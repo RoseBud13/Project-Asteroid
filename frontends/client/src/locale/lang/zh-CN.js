@@ -1,4 +1,27 @@
 export default {
+  'global.title': '小行星',
+  'home.title': '主页',
+  'about.text.title': '小行星计划',
+  'about.text.desc': '起始页',
+  'about.text.content':
+    '想到了万物理论\n想到了Drops of Jupiter\n想到了在群星下起舞\n想到了Major Tom在银河中漫游\n“现在，终于可以停下来，四处看看：瞧，这是房子，这是人间，这是我自己。”',
+  'about.text.tagline': 'Ad astra abyssosque.',
   'navbar.docs': '文档',
-  'navbar.action.locale': '切换为中文'
+  'navbar.action.locale': '切换为中文',
+  'navbar.action.enterFullscreen': '进入全屏',
+  'navbar.action.exitFullscreen': '退出全屏',
+  'searchbar.input.placeholder.bing': '搜索由 bing.com 提供',
+  'searchbar.input.placeholder.google': '搜索由 google.com 提供',
+  'searchbar.input.placeholder.baidu': '搜索由 baidu.com 提供',
+  'appbox.action.addNewWidgetApp': '添加小组件',
+  'appbox.input.placeholder.title': '名称',
+  'appbox.input.placeholder.url': 'URL',
+  'modal.button.confirm': '确定',
+  'modal.button.cancel': '取消',
+  'appcard.button.delete': '删除',
+  'wallpaper.bing': '必应壁纸',
+  'wallpaper.oneapp': 'ONE·一个',
+  'wallpaper.ghibli': '吉卜力',
+  'wallpaper.yuanshen': '原神',
+  'wallpaper.color': '纯色 Astra'
 };

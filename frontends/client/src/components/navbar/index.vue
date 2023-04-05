@@ -1,0 +1,110 @@
+<template>
+  <div :class="[cls]">
+    <div class="navbar-container">
+      <div class="navbar-left">
+        <slot name="left"></slot>
+      </div>
+      <div class="navbar-mid">
+        <slot name="mid"></slot>
+      </div>
+      <div class="navbar-right">
+        <slot name="right"></slot>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  /**
+   * @zh Navbar position 属性（fixed | absolute)
+   * @en Navbar position property（fixed | absolute)
+   * @values 'fixed', 'absolute'
+   * @defaultValue 'fixed'
+   */
+  position: {
+    type: String,
+    default: 'fixed',
+    validator(value) {
+      return ['fixed', 'absolute'].includes(value);
+    }
+  }
+});
+
+const prefixCls = 'astra-navbar';
+
+const cls = computed(() => [
+  prefixCls,
+  `${prefixCls}-${props.position ? props.position : 'fixed'}`
+]);
+</script>
+
+<script>
+export default {
+  name: 'NavbarItem'
+};
+</script>
+
+<style lang="scss" scoped>
+.astra-navbar {
+  width: 100vw;
+  height: 50px;
+  top: 0;
+  z-index: 2;
+}
+
+.astra-navbar-fixed {
+  position: fixed;
+}
+
+.astra-navbar-absolute {
+  position: absolute;
+}
+
+.navbar-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.navbar-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 10px;
+  flex: 1;
+}
+
+.navbar-mid {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex: 2;
+}
+
+.navbar-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  flex: 1;
+}
+
+.navbar-right :deep(> *) {
+  margin-right: 10px;
+}
+
+@media (max-width: 480px) {
+  .navbar-mid {
+    display: none;
+  }
+}
+</style>

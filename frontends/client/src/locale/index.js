@@ -11,13 +11,15 @@ const defaultLocale = localStorage.getItem('locale') || 'zh-CN';
 
 // Create i18n instance with options
 const i18n = createI18n({
+  legacy: false, // use Composition API
   locale: defaultLocale, // set locale
-  fallbackLocale: 'en-US', // set fallback locale
-  allowComposition: true, // use Composition API
+  fallbackLocale: 'zh-CN', // set fallback locale
   messages: {
     'zh-CN': zhCN,
     'en-US': enUS
-  }
+  },
+  missingWarn: false,
+  fallbackWarn: false
 });
 
 export default i18n;
