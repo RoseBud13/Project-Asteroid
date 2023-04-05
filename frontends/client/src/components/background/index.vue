@@ -90,6 +90,7 @@ export default {
   object-fit: cover;
   opacity: 1;
   pointer-events: none;
+  background: var(--vt-c-gray-light-5);
 }
 
 .wallpaper-placeholder {
