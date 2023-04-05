@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia';
 import useConfig from '@/config';
+import { useFullscreen } from '@/utils/browser';
 
 const { getLocalConfig } = useConfig();
+const { openFullscreen, closeFullscreen } = useFullscreen();
 
 export const useGlobal = defineStore('global', {
   state: () => ({
@@ -17,12 +19,16 @@ export const useGlobal = defineStore('global', {
   }),
   getters: {},
   actions: {
-    toggleFullscreen(fullscreenState) {
-      if (fullscreenState) {
-        this.isFullscreen = fullscreenState;
-      } else {
-        this.isFullscreen = !this.isFullscreen;
-      }
+    enterFullscreen() {
+      this.isFullscreen = true;
+      openFullscreen();
+    },
+    exitFullscreen() {
+      this.isFullscreen = false;
+      closeFullscreen();
+    },
+    setFullscreenState(value) {
+      this.isFullscreen = value;
     },
     toggleDashboard() {
       this.showDashboard = !this.showDashboard;

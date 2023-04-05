@@ -1,7 +1,11 @@
 export default {
   'global.title': 'Asteroid',
   'home.title': 'Homepage',
-  'about.text': 'This is an about page',
+  'about.text.title': 'Project Asteroid',
+  'about.text.desc': 'Startpage',
+  'about.text.content':
+    'Think of The Theory of Everything\nThink of Drops of Jupiter\nThink of dancing underneath the starry sky\nThink of Major Tom floating through the milky way\n"Можно остановиться, оглядеться по сторонам: вот дома, вот люди, вот я."',
+  'about.text.tagline': 'Ad astra abyssosque.',
   'navbar.docs': 'Docs',
   'navbar.action.locale': 'Switched to English',
   'navbar.action.enterFullscreen': 'Enter fullscreen',

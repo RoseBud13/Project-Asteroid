@@ -1,7 +1,11 @@
 export default {
   'global.title': '小行星',
   'home.title': '主页',
-  'about.text': '这是 About 页面',
+  'about.text.title': '小行星计划',
+  'about.text.desc': '起始页',
+  'about.text.content':
+    '想到了万物理论\n想到了Drops of Jupiter\n想到了在群星下起舞\n想到了Major Tom在银河中漫游\n“现在，终于可以停下来，四处看看：瞧，这是房子，这是人间，这是我自己。”',
+  'about.text.tagline': 'Ad astra abyssosque.',
   'navbar.docs': '文档',
   'navbar.action.locale': '切换为中文',
   'navbar.action.enterFullscreen': '进入全屏',

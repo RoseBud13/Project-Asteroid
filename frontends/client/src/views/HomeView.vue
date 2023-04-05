@@ -43,14 +43,16 @@
     </Background>
     <Navbar>
       <template #left>
-        <h3
-          :style="{
-            color:
-              currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
-          }"
-        >
-          {{ tagline }}
-        </h3>
+        <router-link to="/about">
+          <h3
+            :style="{
+              color:
+                currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+            }"
+          >
+            {{ tagline }}
+          </h3>
+        </router-link>
       </template>
       <template #mid>
         <ClockItem
@@ -85,18 +87,6 @@
             </AstraDropdownOption>
           </template>
         </AstraDropdown>
-        <AstraButton
-          type="nav"
-          href="https://github.com/RoseBud13/Project-Asteroid"
-          :style="{
-            'font-size': '20px',
-            color:
-              currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
-          }"
-          title="Project Asteroid"
-        >
-          <IconGithub></IconGithub>
-        </AstraButton>
         <AstraDropdown>
           <template #trigger>
             <AstraButton
@@ -137,11 +127,11 @@
         >
           <IconFullscreen
             v-if="!isFullscreen"
-            @click="openFullscreen()"
+            @click="globalStore.enterFullscreen()"
           ></IconFullscreen>
           <IconFullscreenExit
             v-else
-            @click="closeFullscreen()"
+            @click="globalStore.exitFullscreen()"
           ></IconFullscreenExit>
         </AstraButton>
       </template>
@@ -238,25 +228,22 @@ import IconClose from '@/components/icons/IconClose.vue';
 import IconCode from '@/components/icons/IconCode.vue';
 import IconFullscreen from '@/components/icons/IconFullscreen.vue';
 import IconFullscreenExit from '@/components/icons/IconFullscreenExit.vue';
-import IconGithub from '@/components/icons/IconGithub.vue';
 import IconLanguage from '@/components/icons/IconLanguage.vue';
 import IconWallpaper from '@/components/icons/IconWallpaper.vue';
 import AstraAppBox from '@/components/materials/app-box/index.vue';
 import AstraAppCard from '@/components/basics/app-card/index.vue';
 import { LOCALE_OPTIONS } from '@/locale';
 import useLocale from '@/hooks/locale';
-import { useFullscreen } from '@/utils/browser';
 import { useGlobal } from '@/stores/global';
 import { useModalStore } from '@/stores/modal';
 import { useWidgetboxStore } from '@/stores/widgetbox';
 import { useWallpaperStore } from '@/stores/wallpaper';
 import { storeToRefs } from 'pinia';
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 
 const homepage = ref(null);
 const dashboard = ref(null);
 
-const { openFullscreen, closeFullscreen } = useFullscreen();
 const globalStore = useGlobal();
 const { isFullscreen, deviceType, showDashboardMobile, tagline } =
   storeToRefs(globalStore);
@@ -414,24 +401,30 @@ onMounted(() => {
   setSize();
   setScrollOrTouch();
   document.addEventListener('fullscreenchange', () => {
-    globalStore.toggleFullscreen();
-    setSize();
+    if (!document.fullscreenElement) {
+      globalStore.setFullscreenState(false);
+    }
   });
   window.addEventListener('resize', () => {
-    setSize();
+    if (homepage.value) {
+      setSize();
+    }
   });
   widgetboxStore.initWidgetApps();
   wallpaperStore.initWallpaper();
 });
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   removeScrollOrTouch();
   document.removeEventListener('fullscreenchange', () => {
-    globalStore.toggleFullscreen();
-    setSize();
+    if (!document.fullscreenElement) {
+      globalStore.setFullscreenState(false);
+    }
   });
   window.removeEventListener('resize', () => {
-    setSize();
+    if (homepage.value) {
+      setSize();
+    }
   });
 });
 </script>

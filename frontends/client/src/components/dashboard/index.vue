@@ -72,7 +72,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useGlobal } from '@/stores/global';
 import IconArrowUp from '@/components/icons/IconArrowUp.vue';
@@ -122,10 +122,12 @@ onMounted(() => {
   changeDashboardView();
 });
 
-onUnmounted(() => {
-  dashboardContent.value.addEventListener('touchstart', handleTouchStart);
-  dashboardContent.value.addEventListener('touchmove', handleTouchMove);
-  dashboardContent.value.addEventListener('touchend', handleTouchEnd);
+onBeforeUnmount(() => {
+  if (!deviceType.value === 'PC' && !deviceType.value === '') {
+    dashboardContent.value.removeEventListener('touchstart', handleTouchStart);
+    dashboardContent.value.removeEventListener('touchmove', handleTouchMove);
+    dashboardContent.value.removeEventListener('touchend', handleTouchEnd);
+  }
 });
 
 defineExpose({
@@ -218,9 +220,9 @@ export default {
   font-size: 25px;
 }
 
-.dashboard-content * {
-  border: 1px red solid;
-}
+// .dashboard-content * {
+//   border: 1px red solid;
+// }
 
 .dashboard-content-widget {
   flex: 3;
