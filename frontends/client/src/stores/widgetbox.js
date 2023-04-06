@@ -34,10 +34,10 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         id: 'yuanshen',
         external: true,
         embedded: true,
-        urlRouter: 'https://bbs.mihoyo.com/ys/strategy',
-        title: '原神观测枢',
+        urlRouter: 'https://wiki.biligame.com/ys',
+        title: '原神WIKI',
         icon: 'src/assets/image/ys-logo.png',
-        tag: '观测枢'
+        tag: '原神WIKI'
       },
       {
         id: 'miyoushe',

@@ -21,7 +21,7 @@
           <iframe
             :src="iframeUrl"
             class="modal-embedded-iframe"
-            sandbox="allow-same-origin allow-scripts"
+            sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
           ></iframe>
         </div>
         <div class="modal-form-wrapper" v-if="props.hasForm">
