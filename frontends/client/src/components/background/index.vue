@@ -5,8 +5,19 @@
     :style="{ userSelect: props.preventUserSelect ? 'none' : 'auto' }"
   >
     <div class="wallpaper-wrapper">
+      <video
+        v-if="videoUrl"
+        class="wallpaper-vid"
+        autoplay
+        webkit-playsinline="true"
+        playsinline="true"
+        x5-video-player-type="h5-page"
+        :onended="handleVideoEnd"
+      >
+        <source :src="videoUrl" type="video/mp4" />
+      </video>
       <img
-        v-if="imgUrl"
+        v-else-if="imgUrl"
         class="wallpaper-img"
         :src="imgUrl"
         draggable="false"
@@ -27,10 +38,13 @@ import { computed, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { isUrl } from '@/utils/is';
 import { useWidgetboxStore } from '@/stores/widgetbox';
+import { useWallpaperStore } from '@/stores/wallpaper';
 
 const widgetboxStore = useWidgetboxStore();
 
 const { showWidgetbox } = storeToRefs(widgetboxStore);
+
+const wallpaperStore = useWallpaperStore();
 
 watch(showWidgetbox, () => {
   if (showWidgetbox.value) {
@@ -45,12 +59,17 @@ const props = defineProps({
   preventUserSelect: {
     type: Boolean,
     default: false
-  }
+  },
+  videoUrl: String
 });
 
 const imgUrl = computed(() => {
   return isUrl(props.wallpaperUrl) ? props.wallpaperUrl : '';
 });
+
+const handleVideoEnd = () => {
+  wallpaperStore.setVideoWallpaper('');
+};
 </script>
 
 <script>
@@ -91,6 +110,16 @@ export default {
   opacity: 1;
   pointer-events: none;
   background: var(--vt-c-gray-light-5);
+}
+
+.wallpaper-vid {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 
 .wallpaper-placeholder {

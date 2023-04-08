@@ -5,6 +5,7 @@
         v-model="keywords"
         @keyup.enter="handleSearch"
         @keydown.tab="handleChangeSearchEngine"
+        @input="hanldeInput"
         :placeholder="$t(searchPlaceholder)"
         :autofocus="props.autofocus"
       />
@@ -13,14 +14,25 @@
       <IconSearch></IconSearch>
     </div>
   </div>
+  <div class="search-assist-wrapper" v-if="showSearchAssist">
+    <AstraDropdownOption
+      v-for="item in filteredSearchAssistList"
+      :key="item.id"
+      @click="handleSearchAssist(item.id)"
+      >{{ item.name }}</AstraDropdownOption
+    >
+  </div>
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useGlobal } from '@/stores/global';
 import { useModalStore } from '@/stores/modal';
+import { useWallpaperStore } from '@/stores/wallpaper';
+import { useSearchAssistStore } from '@/stores/search_assist';
 import IconSearch from '@/components/icons/IconSearch.vue';
+import AstraDropdownOption from '@/components/basics/dropdown/dropdown-option.vue';
 import useSearch from './search';
 
 const globalStore = useGlobal();
@@ -28,6 +40,9 @@ const { searchEngine, isFullscreen, searchPlaceholder, deviceType } =
   storeToRefs(globalStore);
 const { changeSearchEngine, searchEngineList } = useSearch();
 const modalStore = useModalStore();
+const wallpaperStore = useWallpaperStore();
+const searchAssistStore = useSearchAssistStore();
+const { searchAssistList, moonshinerUrl } = storeToRefs(searchAssistStore);
 
 const props = defineProps({
   autofocus: Boolean
@@ -37,6 +52,8 @@ const keywords = ref('');
 const searchLink = ref();
 const searchEngines = Object.keys(searchEngineList);
 const searchEngineIndex = ref();
+const showSearchAssist = ref(false);
+const inputValue = ref('');
 
 const handleChangeSearchEngine = event => {
   if (searchEngineIndex.value === 2) {
@@ -68,6 +85,38 @@ const handleSearch = () => {
     }
     keywords.value = '';
   }
+};
+
+const filteredSearchAssistList = computed(() => {
+  let unFiltered = searchAssistList.value;
+  let filtered = [];
+  unFiltered.forEach(item => {
+    if (
+      item['name'].startsWith(inputValue.value) ||
+      item['alt'].startsWith(inputValue.value)
+    ) {
+      filtered.push(item);
+    }
+  });
+  return filtered;
+});
+
+const hanldeInput = event => {
+  if (event.target.value.startsWith('/')) {
+    showSearchAssist.value = true;
+    inputValue.value = event.target.value;
+  } else {
+    showSearchAssist.value = false;
+    inputValue.value = '';
+  }
+};
+
+const handleSearchAssist = assistId => {
+  if (assistId === 'starry-eyed-moonshiner') {
+    wallpaperStore.setVideoWallpaper(moonshinerUrl.value);
+  }
+  showSearchAssist.value = false;
+  keywords.value = '';
 };
 
 watch(searchEngine, () => {
@@ -129,14 +178,34 @@ export default {
   color: rgb(120, 120, 120);
 }
 
+.search-assist-wrapper {
+  position: absolute;
+  bottom: calc(100vh * 0.4 * 0.6 + 20px);
+  transform: translateY(100%);
+  width: 400px;
+  min-height: 60px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 20px;
+  z-index: 1;
+}
+
 @media (max-width: 820px) {
   .search-box {
+    width: 60vw;
+  }
+
+  .search-extension-wrapper {
     width: 60vw;
   }
 }
 
 @media (max-width: 600px) {
   .search-box {
+    width: 70vw;
+  }
+
+  .search-extension-wrapper {
     width: 70vw;
   }
 }

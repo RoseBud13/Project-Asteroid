@@ -2,6 +2,7 @@
   <div class="homepage-wrapper" ref="homepage">
     <Background
       :wallpaperUrl="wallpaperList[currentWallpaper]"
+      :videoUrl="videoWallpaper"
       preventUserSelect
     >
       <template #widgetbox>
@@ -266,7 +267,8 @@ const widgetboxStore = useWidgetboxStore();
 const { widgetApps, astraWidgetApps } = storeToRefs(widgetboxStore);
 
 const wallpaperStore = useWallpaperStore();
-const { currentWallpaper, wallpaperList } = storeToRefs(wallpaperStore);
+const { currentWallpaper, wallpaperList, videoWallpaper } =
+  storeToRefs(wallpaperStore);
 
 const scrollTop = ref(0);
 const scrollStart = ref(0);

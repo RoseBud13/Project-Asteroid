@@ -15,7 +15,8 @@ export const useWallpaperStore = defineStore('wallpaper', {
       'wallpaper.ghibli': 'https://api.dujin.org/pic/ghibli',
       'wallpaper.yuanshen': 'https://api.dujin.org/pic/yuanshen/',
       'wallpaper.color': ''
-    }
+    },
+    videoWallpaper: null
   }),
   actions: {
     initWallpaper() {
@@ -35,6 +36,13 @@ export const useWallpaperStore = defineStore('wallpaper', {
     changeWallpaper(value) {
       this.currentWallpaper = value;
       localStorage.setItem('wallpaper', this.currentWallpaper);
+    },
+    setVideoWallpaper(url) {
+      if (url) {
+        this.videoWallpaper = url;
+      } else {
+        this.videoWallpaper = null;
+      }
     }
   }
 });
