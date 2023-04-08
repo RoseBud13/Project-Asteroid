@@ -113,7 +113,13 @@ const hanldeInput = event => {
 
 const handleSearchAssist = assistId => {
   if (assistId === 'starry-eyed-moonshiner') {
-    wallpaperStore.setVideoWallpaper(moonshinerUrl.value);
+    if (moonshinerUrl.value.length > 0) {
+      wallpaperStore.setVideoWallpaper(
+        moonshinerUrl.value[
+          Math.floor(Math.random() * moonshinerUrl.value.length)
+        ]
+      );
+    }
   }
   showSearchAssist.value = false;
   keywords.value = '';
@@ -131,6 +137,7 @@ globalStore.setSearchPlaceholder(searchEngine.value);
 onMounted(() => {
   searchLink.value = searchEngineList[searchEngine.value];
   searchEngineIndex.value = searchEngines.indexOf(searchEngine.value);
+  searchAssistStore.initMoonshiner();
 });
 </script>
 
