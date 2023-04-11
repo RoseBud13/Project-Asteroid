@@ -102,12 +102,14 @@ const filteredSearchAssistList = computed(() => {
 });
 
 const hanldeInput = event => {
-  if (event.target.value.startsWith('/')) {
+  inputValue.value = event.target.value;
+  if (
+    event.target.value.startsWith('/') &&
+    filteredSearchAssistList.value.length > 0
+  ) {
     showSearchAssist.value = true;
-    inputValue.value = event.target.value;
   } else {
     showSearchAssist.value = false;
-    inputValue.value = '';
   }
 };
 
@@ -202,7 +204,7 @@ export default {
     width: 60vw;
   }
 
-  .search-extension-wrapper {
+  .search-assist-wrapper {
     width: 60vw;
   }
 }
@@ -212,7 +214,7 @@ export default {
     width: 70vw;
   }
 
-  .search-extension-wrapper {
+  .search-assist-wrapper {
     width: 70vw;
   }
 }
