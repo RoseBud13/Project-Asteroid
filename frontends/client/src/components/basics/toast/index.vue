@@ -27,7 +27,7 @@ defineProps({
   },
   topOffset: {
     type: String,
-    default: '40px'
+    default: '60px'
   },
   toastType: {
     type: String,
@@ -56,7 +56,7 @@ export default {
 <style lang="scss" scoped>
 .astra-toast-wrapper {
   position: fixed;
-  // top: 40px; // default
+  // top: 60px; // default
   left: 50%;
   transform: translateX(-50%);
   min-height: 35px;
