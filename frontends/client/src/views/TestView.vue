@@ -162,6 +162,7 @@
         <AstraButton type="text" href="https://github.com">Github</AstraButton>
       </template>
     </AstraToast>
+    <AstraNotes></AstraNotes>
   </div>
 </template>
 
@@ -170,10 +171,12 @@ import AstraButton from '@/components/basics/button/index.vue';
 import AstraDropdown from '@/components/basics/dropdown/index.vue';
 import AstraDropdownOption from '@/components/basics/dropdown/dropdown-option.vue';
 import IconCommunity from '@/components/icons/IconCommunity.vue';
-import ClockItem from '@/components/materials/ClockItem.vue';
+import ClockItem from '@/components/gadgets/clock/ClockItem.vue';
 import AstraModal from '@/components/basics/modal/index.vue';
 import AstraInput from '@/components/basics/input/index.vue';
 import AstraToast from '@/components/basics/toast/index.vue';
+import AstraNotes from '@/components/applications/notes/index.vue';
+
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useInputStore } from '@/stores/input';
