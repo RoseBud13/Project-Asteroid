@@ -13,7 +13,8 @@ const notesHeader = ref(null);
 const notesPosition = Local.get('notes-position');
 
 const { style, handleMousedown } = useDraggable(notesHeader, {
-  initPosition: notesPosition
+  initPosition: notesPosition,
+  savePosition: true
 });
 
 onBeforeUnmount(() => {

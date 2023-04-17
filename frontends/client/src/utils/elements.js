@@ -2,7 +2,7 @@ import { reactive, computed } from 'vue';
 import { Local } from './storage';
 
 export function useDraggable(targetEle, options) {
-  const { initPosition } = options || {};
+  const { initPosition, savePosition } = options || {};
 
   const originPosition = reactive(initPosition || { x: 0, y: 0 });
 
@@ -42,10 +42,12 @@ export function useDraggable(targetEle, options) {
     document.removeEventListener('mousemove', handleMousemove, true);
     document.removeEventListener('mouseup', handleMouseup, true);
     updatePosition();
-    Local.set(targetEle.value.className.split('-')[0] + '-position', {
-      x: originPosition.x,
-      y: originPosition.y
-    });
+    if (savePosition) {
+      Local.set(targetEle.value.className.split('-')[0] + '-position', {
+        x: originPosition.x,
+        y: originPosition.y
+      });
+    }
   };
 
   setTimeout(() => {
