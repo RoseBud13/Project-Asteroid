@@ -1,5 +1,5 @@
 import AstraToast from './index.vue';
-import { useMountComponent } from '@/hooks/mount-component';
+import { useMountComponent } from '@/hooks/mountComponent';
 import { nextTick } from 'vue';
 
 const toastPlugin = (message, type, duration, top) => {

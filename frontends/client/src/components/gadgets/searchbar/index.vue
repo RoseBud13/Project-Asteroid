@@ -30,9 +30,9 @@ import { storeToRefs } from 'pinia';
 import { useGlobal } from '@/stores/global';
 import { useModalStore } from '@/stores/modal';
 import { useWallpaperStore } from '@/stores/wallpaper';
-import { useSearchAssistStore } from '@/stores/search_assist';
+import { useSearchAssistStore } from '@/stores/searchAssist';
 import IconSearch from '@/components/icons/IconSearch.vue';
-import AstraDropdownOption from '@/components/basics/dropdown/dropdown-option.vue';
+import AstraDropdownOption from '@/components/basics/dropdown/DropdownOption.vue';
 import useSearch from './search';
 
 const globalStore = useGlobal();

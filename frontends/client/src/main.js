@@ -4,7 +4,7 @@ import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
 import i18n from './locale';
-import toast from './components/basics/toast/toast-plugin';
+import toast from './components/basics/toast/toastPlugin';
 
 import './assets/style/main.css';
 

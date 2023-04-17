@@ -140,11 +140,6 @@
   </div>
   <div class="test-container-full">
     <AstraButton type="emerald" @click="toggleToast">toggle toast</AstraButton>
-    <!-- <AstraToast msg="你好世界"></AstraToast>
-    <AstraToast topOffset="90px"></AstraToast>
-    <AstraToast toastType="success" topOffset="140px"></AstraToast>
-    <AstraToast toastType="warn" topOffset="190px"></AstraToast>
-    <AstraToast toastType="error" topOffset="240px"></AstraToast> -->
     <AstraToast
       v-for="toast in toastList"
       :key="toast.id"
@@ -169,7 +164,7 @@
 <script setup>
 import AstraButton from '@/components/basics/button/index.vue';
 import AstraDropdown from '@/components/basics/dropdown/index.vue';
-import AstraDropdownOption from '@/components/basics/dropdown/dropdown-option.vue';
+import AstraDropdownOption from '@/components/basics/dropdown/DropdownOption.vue';
 import IconCommunity from '@/components/icons/IconCommunity.vue';
 import ClockItem from '@/components/gadgets/clock/ClockItem.vue';
 import AstraModal from '@/components/basics/modal/index.vue';
