@@ -233,7 +233,7 @@ export default {
 .astra-btn-text,
 .astra-btn-text[type='button'],
 .astra-btn-text[type='submit'] {
-  color: var(--primary-6);
+  color: rgb(95, 140, 128);
   background-color: transparent;
   border: 1px solid transparent;
 }
@@ -241,15 +241,15 @@ export default {
 .astra-btn-text:hover,
 .astra-btn-text[type='button']:hover,
 .astra-btn-text[type='submit']:hover {
-  color: var(--primary-6);
-  background-color: var(--color-fill-2);
+  color: #75a297;
+  background-color: transparent;
   border: 1px solid transparent;
 }
 
 .astra-btn-text.astra-btn-disabled,
 .astra-btn-text[type='button'].astra-btn-disabled,
 .astra-btn-text[type='submit'].astra-btn-disabled {
-  color: var(--color-primary-light-3);
+  color: #93bcb2;
   background-color: transparent;
   border: 1px solid transparent;
   cursor: not-allowed;
