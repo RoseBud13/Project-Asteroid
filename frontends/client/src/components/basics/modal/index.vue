@@ -1,48 +1,50 @@
 <template>
-  <div class="modal-container" v-if="props.visible && showModal">
-    <div class="modal-mask" @click="handleCancel"></div>
-    <div class="modal" :class="cls">
-      <div class="modal-header">
-        <div class="modal-header-left">
-          <slot name="left"></slot>
-        </div>
-        <div class="modal-header-mid">
-          <slot name="title"></slot>
-        </div>
-        <div class="modal-header-right">
-          <slot name="right"></slot>
-        </div>
-      </div>
-      <div
-        class="modal-content"
-        :class="{ 'modal-content-multi': props.multiContent }"
-      >
-        <div class="modal-content-embedded" v-if="iframeUrl">
-          <iframe
-            :src="iframeUrl"
-            class="modal-embedded-iframe"
-            sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
-          ></iframe>
-        </div>
-        <div class="modal-form-wrapper" v-if="props.hasForm">
-          <AstraInput nestedInput v-model="nestedInputInfo"></AstraInput>
+  <Transition name="fade">
+    <div class="modal-container" v-if="props.visible && showModal">
+      <div class="modal-mask" @click="handleCancel"></div>
+      <div class="modal" :class="cls">
+        <div class="modal-header">
+          <div class="modal-header-left">
+            <slot name="left"></slot>
+          </div>
+          <div class="modal-header-mid">
+            <slot name="title"></slot>
+          </div>
+          <div class="modal-header-right">
+            <slot name="right"></slot>
+          </div>
         </div>
         <div
-          class="modal-card-wrapper"
-          v-if="props.hasCard && $slots.modalcard"
+          class="modal-content"
+          :class="{ 'modal-content-multi': props.multiContent }"
         >
-          <slot name="modalcard"></slot>
+          <div class="modal-content-embedded" v-if="iframeUrl">
+            <iframe
+              :src="iframeUrl"
+              class="modal-embedded-iframe"
+              sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+            ></iframe>
+          </div>
+          <div class="modal-form-wrapper" v-if="props.hasForm">
+            <AstraInput nestedInput v-model="nestedInputInfo"></AstraInput>
+          </div>
+          <div
+            class="modal-card-wrapper"
+            v-if="props.hasCard && $slots.modalcard"
+          >
+            <slot name="modalcard"></slot>
+          </div>
+          <slot v-else></slot>
         </div>
-        <slot v-else></slot>
-      </div>
-      <div
-        class="modal-footer"
-        v-if="$slots.footer && (props.hasForm || props.hasCard)"
-      >
-        <slot name="footer"></slot>
+        <div
+          class="modal-footer"
+          v-if="$slots.footer && (props.hasForm || props.hasCard)"
+        >
+          <slot name="footer"></slot>
+        </div>
       </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script setup>
@@ -305,5 +307,15 @@ export default {
   .modal-content-multi .modal-card-wrapper {
     margin-top: 10px;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

@@ -138,77 +138,75 @@
       </template>
     </Navbar>
     <HomeDashboard ref="dashboard"></HomeDashboard>
-    <Transition name="fade">
-      <AstraModal
-        :fullscreen="isEmbeddedFull"
-        :visible="showModal"
-        :embeddedUrl="targetUrl"
-        :hasForm="hasForm"
-        :hasCard="hasCard"
-        :multiContent="multiContent"
-        @cancel="modalStore.closeModal()"
-      >
-        <template #left>
-          <IconArrowLeft
-            v-if="targetUrl"
+    <AstraModal
+      :fullscreen="isEmbeddedFull"
+      :visible="showModal"
+      :embeddedUrl="targetUrl"
+      :hasForm="hasForm"
+      :hasCard="hasCard"
+      :multiContent="multiContent"
+      @cancel="modalStore.closeModal()"
+    >
+      <template #left>
+        <IconArrowLeft
+          v-if="targetUrl"
+          @click="modalStore.closeModal()"
+          style="cursor: pointer"
+        ></IconArrowLeft>
+      </template>
+      <template #title>{{ $t(modalTitle) }}</template>
+      <template #right>
+        <a
+          v-if="targetUrl"
+          :href="targetUrl"
+          target="_blank"
+          style="height: 18px"
+        >
+          <IconArrowExternal
             @click="modalStore.closeModal()"
-            style="cursor: pointer"
-          ></IconArrowLeft>
-        </template>
-        <template #title>{{ $t(modalTitle) }}</template>
-        <template #right>
-          <a
-            v-if="targetUrl"
-            :href="targetUrl"
-            target="_blank"
-            style="height: 18px"
-          >
-            <IconArrowExternal
-              @click="modalStore.closeModal()"
-            ></IconArrowExternal>
-          </a>
-          <IconClose
-            v-else
-            @click="modalStore.closeModal()"
-            style="cursor: pointer"
-          ></IconClose>
-        </template>
-        <template #modalcard>
-          <AstraAppCard
-            v-for="widgetApp in astraWidgetApps"
-            :key="widgetApp.id"
-            :title="widgetApp.title"
-            @clickWidgetApp="widgetboxStore.addAstraWidgetApp(widgetApp.id)"
-            @click="modalStore.closeModal()"
-          >
-            <template #appicon>
-              <IconMusic v-if="widgetApp.icon === 'iconMusic'"></IconMusic>
-              <IconCode v-else-if="widgetApp.icon === 'iconCode'"></IconCode>
-              <img
-                v-else
-                :src="widgetApp.icon"
-                :alt="widgetApp.title"
-                style="height: 25px; object-fit: contain"
-              />
-            </template>
-            <template #apptag>
-              {{ widgetApp.tag }}
-            </template>
-          </AstraAppCard>
-        </template>
-        <template #footer>
-          <AstraButton size="mini" @click="modalStore.closeModal()">{{
-            $t('modal.button.cancel')
-          }}</AstraButton>
-          <AstraButton
-            type="emerald"
-            size="mini"
-            @click="modalStore.handleModalOK()"
-            >{{ $t('modal.button.confirm') }}</AstraButton
-          >
-        </template>
-      </AstraModal>
-    </Transition>
+          ></IconArrowExternal>
+        </a>
+        <IconClose
+          v-else
+          @click="modalStore.closeModal()"
+          style="cursor: pointer"
+        ></IconClose>
+      </template>
+      <template #modalcard>
+        <AstraAppCard
+          v-for="widgetApp in astraWidgetApps"
+          :key="widgetApp.id"
+          :title="widgetApp.title"
+          @clickWidgetApp="widgetboxStore.addAstraWidgetApp(widgetApp.id)"
+          @click="modalStore.closeModal()"
+        >
+          <template #appicon>
+            <IconMusic v-if="widgetApp.icon === 'iconMusic'"></IconMusic>
+            <IconCode v-else-if="widgetApp.icon === 'iconCode'"></IconCode>
+            <img
+              v-else
+              :src="widgetApp.icon"
+              :alt="widgetApp.title"
+              style="height: 25px; object-fit: contain"
+            />
+          </template>
+          <template #apptag>
+            {{ widgetApp.tag }}
+          </template>
+        </AstraAppCard>
+      </template>
+      <template #footer>
+        <AstraButton size="mini" @click="modalStore.closeModal()">{{
+          $t('modal.button.cancel')
+        }}</AstraButton>
+        <AstraButton
+          type="emerald"
+          size="mini"
+          @click="modalStore.handleModalOK()"
+          >{{ $t('modal.button.confirm') }}</AstraButton
+        >
+      </template>
+    </AstraModal>
   </div>
 </template>
 
@@ -442,15 +440,5 @@ onBeforeUnmount(() => {
 
 .homepage-wrapper::-webkit-scrollbar {
   display: none;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>
