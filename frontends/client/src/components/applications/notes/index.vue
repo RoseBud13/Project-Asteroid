@@ -22,7 +22,7 @@
 import { ref, onBeforeUnmount } from 'vue';
 import { useDraggable } from '@/utils/elements';
 import { Local } from '@/utils/storage';
-import Navbar from '@/components/navbar/index.vue';
+import Navbar from '@/components/basics/navbar/index.vue';
 import AstraButton from '@/components/basics/button/index.vue';
 import IconFullscreen from '@/components/icons/IconFullscreen.vue';
 import IconFullscreenExit from '@/components/icons/IconFullscreenExit.vue';

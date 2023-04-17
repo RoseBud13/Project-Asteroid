@@ -214,7 +214,7 @@
 
 <script setup>
 import Background from '@/components/background/index.vue';
-import Navbar from '@/components/navbar/index.vue';
+import Navbar from '@/components/basics/navbar/index.vue';
 import HomeDashboard from '@/components/dashboard/index.vue';
 import ClockItem from '@/components/gadgets/clock/ClockItem.vue';
 import AstraDropdown from '@/components/basics/dropdown/index.vue';
