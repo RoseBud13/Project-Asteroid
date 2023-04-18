@@ -139,6 +139,9 @@
     <AstraInput nestedInput v-model="nestedInputInfo"></AstraInput>
   </div>
   <div class="test-container-full">
+    <AstraButton type="emerald" @click="appNotesStore.toggleNotes()"
+      >toggle notes</AstraButton
+    >
     <AstraButton type="emerald" @click="toggleToast">toggle toast</AstraButton>
     <AstraToast
       v-for="toast in toastList"
@@ -157,11 +160,15 @@
         <AstraButton type="text" href="https://github.com">Github</AstraButton>
       </template>
     </AstraToast>
-    <AstraNotes></AstraNotes>
+    <AstraNotes v-if="showNotes"></AstraNotes>
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useInputStore } from '@/stores/input';
+import { useAppNotesStore } from '@/stores/appNotes';
 import AstraButton from '@/components/basics/button/index.vue';
 import AstraDropdown from '@/components/basics/dropdown/index.vue';
 import AstraDropdownOption from '@/components/basics/dropdown/DropdownOption.vue';
@@ -170,14 +177,16 @@ import ClockItem from '@/components/gadgets/clock/ClockItem.vue';
 import AstraModal from '@/components/basics/modal/index.vue';
 import AstraInput from '@/components/basics/input/index.vue';
 import AstraToast from '@/components/basics/toast/index.vue';
-import AstraNotes from '@/components/applications/notes/index.vue';
 
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useInputStore } from '@/stores/input';
+const AstraNotes = defineAsyncComponent(() =>
+  import('@/components/applications/notes/index.vue')
+);
 
 const inputStore = useInputStore();
 const { nestedInputInfo } = storeToRefs(inputStore);
+
+const appNotesStore = useAppNotesStore();
+const { showNotes } = storeToRefs(appNotesStore);
 
 const inputMessage = ref('');
 
@@ -295,7 +304,7 @@ const handleCancelModal1 = () => {
   background-color: var(--color-background-soft);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 @media (max-width: 800px) {

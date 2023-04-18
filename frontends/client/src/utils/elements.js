@@ -52,7 +52,7 @@ export function useDraggable(targetEle, options) {
 
   setTimeout(() => {
     targetEle.value.addEventListener('mousedown', handleMousedown, true);
-  }, 1000);
+  }, 800);
 
   return {
     style: computed(

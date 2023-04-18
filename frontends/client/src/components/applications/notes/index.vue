@@ -1,16 +1,32 @@
 <template>
-  <div class="astra-notes-container" :style="style">
+  <div ref="notes" class="astra-notes-container" :style="style">
     <div ref="notesHeader" class="notes-header">
-      <Navbar size="containerWidth">
+      <Navbar position="absolute" size="containerWidth">
         <template #right>
+          <AstraButton
+            class="notes-enlarge-btn"
+            type="text"
+            :style="{
+              'font-size': '23px'
+            }"
+          >
+            <IconFullscreen
+              v-if="!enlarged"
+              @click="appNotesStore.toggleEnlarge()"
+            ></IconFullscreen>
+            <IconFullscreenExit
+              v-else
+              @click="appNotesStore.toggleEnlarge()"
+            ></IconFullscreenExit>
+          </AstraButton>
           <AstraButton
             type="text"
             :style="{
-              'font-size': '20px'
+              'font-size': '23px'
             }"
+            @click="appNotesStore.toggleNotes()"
           >
-            <IconFullscreen></IconFullscreen>
-            <IconFullscreenExit></IconFullscreenExit>
+            <IconClose></IconClose>
           </AstraButton>
         </template>
       </Navbar>
@@ -19,20 +35,47 @@
 </template>
 
 <script setup>
-import { ref, onBeforeUnmount } from 'vue';
-import { useDraggable } from '@/utils/elements';
-import { Local } from '@/utils/storage';
 import Navbar from '@/components/basics/navbar/index.vue';
 import AstraButton from '@/components/basics/button/index.vue';
 import IconFullscreen from '@/components/icons/IconFullscreen.vue';
 import IconFullscreenExit from '@/components/icons/IconFullscreenExit.vue';
+import IconClose from '@/components/icons/IconClose.vue';
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
+import { useDraggable } from '@/utils/elements';
+import { Local } from '@/utils/storage';
+import { useAppNotesStore } from '@/stores/appNotes';
+import { storeToRefs } from 'pinia';
 
+const appNotesStore = useAppNotesStore();
+const { enlarged } = storeToRefs(appNotesStore);
+
+const notes = ref(null);
 const notesHeader = ref(null);
 const notesPosition = Local.get('notes-position');
 
 const { style, handleMousedown } = useDraggable(notesHeader, {
   initPosition: notesPosition,
   savePosition: true
+});
+
+watch(enlarged, () => {
+  if (enlarged.value) {
+    notes.value.style =
+      'top:0px;left:0px;width:100%;height:100%;transition: all 0.5s ease';
+    notesHeader.value.removeEventListener('mousedown', handleMousedown, true);
+  } else {
+    notes.value.style = style.value + ';transition:all 0.5s ease';
+    notesHeader.value.addEventListener('mousedown', handleMousedown, true);
+  }
+});
+
+onMounted(() => {
+  if (window.innerWidth < 1100) {
+    notes.value.style = 'top:0px;left:0px';
+    setTimeout(() => {
+      notesHeader.value.removeEventListener('mousedown', handleMousedown, true);
+    }, 1000);
+  }
 });
 
 onBeforeUnmount(() => {
@@ -49,9 +92,6 @@ export default {
 <style lang="scss" scoped>
 .astra-notes-container {
   position: fixed;
-  // top: 50%;
-  // left: 50%;
-  // transform: translate(-50%, -50%);
   width: 1100px;
   height: 750px;
   background-color: #fff;
@@ -69,10 +109,6 @@ export default {
   border-radius: 15px 15px 0 0;
 }
 
-// .notes-header:hover {
-//   background-color: var(--color-neutral-1);
-// }
-
 @media (max-width: 1100px) {
   .astra-notes-container {
     top: 0;
@@ -84,6 +120,10 @@ export default {
 
   .notes-header {
     border-radius: 0;
+  }
+
+  .notes-enlarge-btn {
+    display: none;
   }
 }
 </style>
