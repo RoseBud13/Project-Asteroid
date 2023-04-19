@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { Local } from '@/utils/storage';
+import { generateUID } from '@/utils/tool';
 
 export const useAppNotesStore = defineStore('appNotes', {
   state: () => ({
@@ -7,57 +8,66 @@ export const useAppNotesStore = defineStore('appNotes', {
     enlarged: false,
     testNoteList: [
       {
-        id: 1,
-        time: '2023/4/15',
+        id: '1',
+        createTime: '2023/4/15',
+        updateTime: '2023/4/15',
         content:
           '你好呀！\n这是测试，功能待完善。\nLorem ipsum dolor sit amet consectetur adipisicing elit. Placeat necessitatibus repellendus iusto cupiditate aliquam accusamus delectus molestiae fugiat perspiciatis in! Autem dolores corporis eius voluptatum temporibus vero quos! Dignissimos, dolorem?'
       },
       {
-        id: 2,
-        time: '2023/3/27',
+        id: '2',
+        createTime: '2023/4/15',
+        updateTime: '2023/4/15',
         content:
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non a placeat architecto officiis aperiam quam dignissimos nemo dolorem minus. Molestiae, rem labore tenetur expedita modi est excepturi inventore beatae dolore!'
       },
       {
-        id: 3,
-        time: '2023/3/24',
+        id: '3',
+        createTime: '2023/4/15',
+        updateTime: '2023/4/15',
         content:
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non a placeat architecto officiis aperiam quam dignissimos nemo dolorem minus. Molestiae'
       },
       {
-        id: 4,
-        time: '2023/3/20',
+        id: '4',
+        createTime: '2023/4/15',
+        updateTime: '2023/4/15',
         content:
           'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, sequi, quisquam provident consequuntur numquam eos quos facere natus quidem suscipit repudiandae earum aut illum! Accusamus illo accusantium architecto vero soluta!'
       },
       {
-        id: 5,
-        time: '2023/2/25',
+        id: '5',
+        createTime: '2023/4/15',
+        updateTime: '2023/4/15',
         content:
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat necessitatibus repellendus iusto cupiditate aliquam accusamus delectus molestiae fugiat perspiciatis in! Autem dolores corporis eius voluptatum temporibus vero quos! Dignissimos, dolorem?'
       },
       {
-        id: 6,
-        time: '2023/2/17',
+        id: '6',
+        createTime: '2023/4/15',
+        updateTime: '2023/4/15',
         content:
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non a placeat architecto officiis aperiam quam dignissimos nemo dolorem minus. Molestiae, rem labore tenetur expedita modi est excepturi inventore beatae dolore!'
       },
       {
-        id: 7,
-        time: '2023/1/24',
+        id: '7',
+        createTime: '2023/4/15',
+        updateTime: '2023/4/15',
         content:
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non a placeat architecto officiis aperiam quam dignissimos nemo dolorem minus. Molestiae'
       },
       {
-        id: 8,
-        time: '2023/1/20',
+        id: '8',
+        createTime: '2023/4/15',
+        updateTime: '2023/4/15',
         content:
           'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, sequi, quisquam provident consequuntur numquam eos quos facere natus quidem suscipit repudiandae earum aut illum! Accusamus illo accusantium architecto vero soluta!'
       }
     ],
     noteList: [],
-    noteContent: '',
-    selectedNoteId: ''
+    editorContent: '',
+    selectedNoteID: '',
+    selectedNoteIndex: null
   }),
   actions: {
     toggleNotes() {
@@ -73,17 +83,35 @@ export const useAppNotesStore = defineStore('appNotes', {
     setNoteEditorContent(id) {
       let selected = this.noteList.find(item => item.id === id);
       if (selected) {
-        this.noteContent = selected.content;
-        this.selectedNoteId = selected.id;
+        this.editorContent = selected.content;
+        this.selectedNoteID = selected.id;
+        this.selectedNoteIndex = this.noteList.indexOf(selected);
       }
     },
-    updateNoteContent(id, content) {
+    updateNoteContent(id, newContent) {
       let selected = this.noteList.find(item => item.id === id);
       if (selected) {
-        selected.content = content;
-        setTimeout(() => {
-          Local.set('notes', this.noteList);
-        }, 500);
+        selected.content = newContent;
+        selected.updateTime = Date.now();
+        Local.set('notes', this.noteList);
+      }
+    },
+    addNewNote() {
+      let newNote = {
+        id: 'note-' + generateUID(5),
+        createTime: Date.now(),
+        updateTime: Date.now(),
+        content: ''
+      };
+      this.noteList.unshift(newNote);
+      this.setNoteEditorContent(newNote.id);
+      Local.set('notes', this.noteList);
+    },
+    deleteNote(id) {
+      let selected = this.noteList.find(item => item.id === id);
+      if (selected) {
+        this.noteList = this.noteList.filter(item => item.id !== id);
+        Local.set('notes', this.noteList);
       }
     }
   }

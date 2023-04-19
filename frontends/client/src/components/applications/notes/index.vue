@@ -2,6 +2,17 @@
   <div ref="notes" class="astra-notes-container" :style="style">
     <div ref="notesHeader" class="notes-header">
       <Navbar position="absolute" size="containerWidth">
+        <template #left>
+          <AstraButton
+            type="text"
+            :style="{
+              'font-size': '23px'
+            }"
+            @click="appNotesStore.addNewNote()"
+          >
+            <IconEdit></IconEdit>
+          </AstraButton>
+        </template>
         <template #right>
           <AstraButton
             class="notes-enlarge-btn"
@@ -32,15 +43,19 @@
       </Navbar>
     </div>
     <div class="notes-main">
-      <div class="notes-main-timeline-wrapper">
-        <ol class="notes-main-timeline">
+      <div class="notes-timeline-wrapper">
+        <ol class="notes-timeline">
           <li
             class="notes-timeline-item"
+            :class="[note.id === selectedNoteID ? 'notes-item-selected' : '']"
             v-for="note in noteList"
             :key="note.id"
           >
-            <span class="notes-timeline-time">{{ note.time }}</span>
-            <NotesCard @click="appNotesStore.setNoteEditorContent(note.id)">
+            <span class="notes-timeline-time">{{ note.updateTime }}</span>
+            <NotesCard
+              :noteID="note.id"
+              @click="appNotesStore.setNoteEditorContent(note.id)"
+            >
               <template #text>
                 {{ note.content }}
               </template>
@@ -48,9 +63,12 @@
           </li>
         </ol>
       </div>
-      <div class="notes-main-content-wrapper">
-        <div class="notes-main-content">
-          <textarea v-model="noteContent" @input="handleNoteEditor"></textarea>
+      <div class="notes-editor-wrapper">
+        <div class="notes-editor">
+          <textarea
+            v-model="editorContent"
+            @input="handleNoteEditor()"
+          ></textarea>
         </div>
       </div>
     </div>
@@ -60,10 +78,11 @@
 <script setup>
 import Navbar from '@/components/basics/navbar/index.vue';
 import AstraButton from '@/components/basics/button/index.vue';
+import NotesCard from './NotesCard.vue';
 import IconFullscreen from '@/components/icons/IconFullscreen.vue';
 import IconFullscreenExit from '@/components/icons/IconFullscreenExit.vue';
 import IconClose from '@/components/icons/IconClose.vue';
-import NotesCard from './NotesCard.vue';
+import IconEdit from '@/components/icons/IconEdit.vue';
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { useDraggable } from '@/utils/elements';
 import { Local } from '@/utils/storage';
@@ -71,7 +90,7 @@ import { useAppNotesStore } from '@/stores/appNotes';
 import { storeToRefs } from 'pinia';
 
 const appNotesStore = useAppNotesStore();
-const { enlarged, noteList, noteContent, selectedNoteId } =
+const { enlarged, noteList, editorContent, selectedNoteID } =
   storeToRefs(appNotesStore);
 
 const notes = ref(null);
@@ -84,7 +103,7 @@ const { style, handleMousedown } = useDraggable(notesHeader, {
 });
 
 const handleNoteEditor = () => {
-  appNotesStore.updateNoteContent(selectedNoteId.value, noteContent.value);
+  appNotesStore.updateNoteContent(selectedNoteID.value, editorContent.value);
 };
 
 watch(enlarged, () => {
@@ -152,21 +171,21 @@ export default {
   display: flex;
 }
 
-.notes-main-timeline-wrapper {
+.notes-timeline-wrapper {
   flex: 1;
   overflow: auto;
   max-width: 400px;
 }
 
-.notes-main-timeline-wrapper::-webkit-scrollbar {
+.notes-timeline-wrapper::-webkit-scrollbar {
   display: none;
 }
 
-.notes-main-timeline {
+.notes-timeline {
   padding: 100px 0 20px;
 }
 
-.notes-main-timeline:before {
+.notes-timeline:before {
   content: '';
   width: 4px;
   position: absolute;
@@ -191,6 +210,16 @@ export default {
   background-color: rgb(95, 140, 128);
 }
 
+.notes-item-selected:before {
+  content: '';
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  background-color: #2c3d55;
+}
+
 .notes-timeline-time {
   position: absolute;
   top: -14px;
@@ -198,18 +227,18 @@ export default {
   font-size: 13px;
 }
 
-.notes-main-content-wrapper {
+.notes-editor-wrapper {
   flex: 2;
 }
 
-.notes-main-content {
+.notes-editor {
   padding: 50px;
   font-size: 18px;
   font-family: lxgw wenkai, sans-serif;
   height: 100%;
 }
 
-.notes-main-content textarea {
+.notes-editor textarea {
   position: relative;
   display: block;
   resize: none;
