@@ -1,6 +1,14 @@
 import { defineStore } from 'pinia';
 import { Local } from '@/utils/storage';
-import { generateUID } from '@/utils/tool';
+import { generateUID, useDebounce } from '@/utils/tool';
+
+const debounceNotesToLocal = useDebounce(data => {
+  Local.set('notes', data);
+}, 3000);
+
+const debounceSetUpdateTime = useDebounce(note => {
+  note.updateTime = Date.now();
+}, 3000);
 
 export const useAppNotesStore = defineStore('appNotes', {
   state: () => ({
@@ -92,8 +100,8 @@ export const useAppNotesStore = defineStore('appNotes', {
       let selected = this.noteList.find(item => item.id === id);
       if (selected) {
         selected.content = newContent;
-        selected.updateTime = Date.now();
-        Local.set('notes', this.noteList);
+        debounceSetUpdateTime(selected);
+        debounceNotesToLocal(this.noteList);
       }
     },
     addNewNote() {
