@@ -4,11 +4,21 @@
       <Navbar position="absolute" size="containerWidth">
         <template #left>
           <AstraButton
+            v-if="backToTimeline"
             type="text"
             :style="{
               'font-size': '23px'
             }"
-            @click="appNotesStore.addNewNote()"
+            @click="handleBackToTimeline()"
+          >
+            <IconArrowLeft></IconArrowLeft>
+          </AstraButton>
+          <AstraButton
+            type="text"
+            :style="{
+              'font-size': '23px'
+            }"
+            @click="handleAddNewNote()"
           >
             <IconEdit></IconEdit>
           </AstraButton>
@@ -61,10 +71,7 @@
                 ]"
               >
                 <span class="notes-timeline-time">{{ note.updatedAt }}</span>
-                <NotesCard
-                  :noteID="note.id"
-                  @click="appNotesStore.setNoteEditorContent(note.id)"
-                >
+                <NotesCard :noteID="note.id" @click="handleSelectNote(note.id)">
                   <template #text>
                     {{ truncate(note.content, 150) }}
                   </template>
@@ -74,7 +81,7 @@
           </li>
         </ol>
       </div>
-      <div class="notes-editor-wrapper">
+      <div ref="notesEditor" class="notes-editor-wrapper">
         <div class="notes-editor">
           <textarea
             v-model="editorContent"
@@ -94,6 +101,7 @@ import IconFullscreen from '@/components/icons/IconFullscreen.vue';
 import IconFullscreenExit from '@/components/icons/IconFullscreenExit.vue';
 import IconClose from '@/components/icons/IconClose.vue';
 import IconEdit from '@/components/icons/IconEdit.vue';
+import IconArrowLeft from '@/components/icons/IconArrowLeft.vue';
 import { ref, onMounted, onBeforeUnmount, watch, computed } from 'vue';
 import { useDraggable } from '@/utils/elements';
 import { Local } from '@/utils/storage';
@@ -108,12 +116,37 @@ const { enlarged, noteList, editorContent, selectedNoteID } =
 
 const notes = ref(null);
 const notesHeader = ref(null);
+const notesEditor = ref(null);
 const notesPosition = Local.get('notes-position');
 
 const { style, handleMousedown } = useDraggable(notesHeader, {
   initPosition: notesPosition,
   savePosition: true
 });
+
+const mobileMode = ref(false);
+const backToTimeline = ref(false);
+
+const handleSelectNote = id => {
+  appNotesStore.setNoteEditorContent(id);
+  if (mobileMode.value === true) {
+    notesEditor.value.style = 'left:0;';
+    backToTimeline.value = true;
+  }
+};
+
+const handleBackToTimeline = () => {
+  notesEditor.value.style = 'left:100%;';
+  backToTimeline.value = false;
+};
+
+const handleAddNewNote = () => {
+  appNotesStore.addNewNote();
+  if (mobileMode.value === true) {
+    notesEditor.value.style = 'left:0;';
+    backToTimeline.value = true;
+  }
+};
 
 const handleNoteEditor = () => {
   appNotesStore.updateNoteContent(selectedNoteID.value, editorContent.value);
@@ -171,6 +204,9 @@ onMounted(() => {
     setTimeout(() => {
       notesHeader.value.removeEventListener('mousedown', handleMousedown, true);
     }, 1000);
+  }
+  if (window.innerWidth < 700) {
+    mobileMode.value = true;
   }
 });
 
@@ -331,6 +367,21 @@ export default {
 
   .notes-enlarge-btn {
     display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .notes-timeline-wrapper {
+    max-width: 100%;
+  }
+  .notes-editor-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 100%;
+    background-color: #fff;
+    z-index: 1;
+    transition: all 0.3s ease-in-out;
   }
 }
 </style>

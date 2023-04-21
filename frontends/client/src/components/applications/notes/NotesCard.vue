@@ -1,6 +1,6 @@
 <template>
   <div class="notes-card-wrapper" :style="noteCardColor">
-    <div class="notes-card-text-wrapper">
+    <div class="notes-card-text-wrapper" @click="handleClick">
       <slot name="text"></slot>
     </div>
     <div class="notes-card-actions-wrapper">
@@ -28,6 +28,12 @@ import { computed } from 'vue';
 defineProps({
   noteID: String
 });
+
+const emit = defineEmits(['click']);
+
+const handleClick = ev => {
+  emit('click', ev);
+};
 
 const appNotesStore = useAppNotesStore();
 const { noteCardColorPreset } = storeToRefs(appNotesStore);
@@ -65,5 +71,11 @@ const noteCardColor = computed(() => {
   flex-direction: row-reverse;
   justify-items: center;
   align-items: center;
+}
+
+@media (max-width: 700px) {
+  .notes-card-wrapper {
+    cursor: none;
+  }
 }
 </style>
