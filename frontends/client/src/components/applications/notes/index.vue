@@ -48,7 +48,7 @@
           <li
             class="notes-timeline-item"
             :class="[note.id === selectedNoteID ? 'notes-item-selected' : '']"
-            v-for="note in noteList"
+            v-for="note in sortedNoteList"
             :key="note.id"
           >
             <span class="notes-timeline-time">{{ note.updateTime }}</span>
@@ -83,7 +83,7 @@ import IconFullscreen from '@/components/icons/IconFullscreen.vue';
 import IconFullscreenExit from '@/components/icons/IconFullscreenExit.vue';
 import IconClose from '@/components/icons/IconClose.vue';
 import IconEdit from '@/components/icons/IconEdit.vue';
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch, computed } from 'vue';
 import { useDraggable } from '@/utils/elements';
 import { Local } from '@/utils/storage';
 import { useAppNotesStore } from '@/stores/appNotes';
@@ -105,6 +105,19 @@ const { style, handleMousedown } = useDraggable(notesHeader, {
 const handleNoteEditor = () => {
   appNotesStore.updateNoteContent(selectedNoteID.value, editorContent.value);
 };
+
+const sortedNoteList = computed(() => {
+  let unsorted = noteList.value;
+  return unsorted.sort((a, b) => {
+    if (parseInt(a['updateTime']) < parseInt(b['updateTime'])) {
+      return 1;
+    }
+    if (parseInt(a['updateTime']) > parseInt(b['updateTime'])) {
+      return -1;
+    }
+    return 0;
+  });
+});
 
 watch(enlarged, () => {
   if (enlarged.value) {

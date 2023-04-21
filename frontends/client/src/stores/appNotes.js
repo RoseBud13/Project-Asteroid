@@ -6,9 +6,13 @@ const debounceNotesToLocal = useDebounce(data => {
   Local.set('notes', data);
 }, 3000);
 
-const debounceSetUpdateTime = useDebounce(note => {
-  note.updateTime = Date.now();
-}, 3000);
+const debounceSetUpdateTime = useDebounce(
+  note => {
+    note.updateTime = Date.now();
+  },
+  1000,
+  true
+);
 
 export const useAppNotesStore = defineStore('appNotes', {
   state: () => ({
