@@ -1,5 +1,5 @@
 <template>
-  <div class="notes-card-wrapper">
+  <div class="notes-card-wrapper" :style="noteCardColor">
     <div class="notes-card-text-wrapper">
       <slot name="text"></slot>
     </div>
@@ -22,12 +22,23 @@
 import AstraButton from '@/components/basics/button/index.vue';
 import IconDelete from '@/components/icons/IconDelete.vue';
 import { useAppNotesStore } from '@/stores/appNotes';
+import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
 
 defineProps({
   noteID: String
 });
 
 const appNotesStore = useAppNotesStore();
+const { noteCardColorPreset } = storeToRefs(appNotesStore);
+
+const noteCardColor = computed(() => {
+  let color =
+    noteCardColorPreset.value[
+      Math.floor(Math.random() * noteCardColorPreset.value.length)
+    ];
+  return 'background-color:' + color;
+});
 </script>
 
 <style lang="scss" scoped>
