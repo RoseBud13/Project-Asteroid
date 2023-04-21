@@ -43,7 +43,7 @@ const appNotesStore = useAppNotesStore();
 }
 
 .notes-card-text-wrapper {
-  padding: 15px;
+  padding: 15px 15px 40px 15px;
 }
 
 .notes-card-actions-wrapper {

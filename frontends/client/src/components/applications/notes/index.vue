@@ -46,20 +46,31 @@
       <div class="notes-timeline-wrapper">
         <ol class="notes-timeline">
           <li
-            class="notes-timeline-item"
-            :class="[note.id === selectedNoteID ? 'notes-item-selected' : '']"
-            v-for="note in sortedNoteList"
-            :key="note.id"
+            v-for="datedNotes in formatedNoteList"
+            :key="datedNotes.date"
+            class="notes-timeline-date-list"
           >
-            <span class="notes-timeline-time">{{ note.updateTime }}</span>
-            <NotesCard
-              :noteID="note.id"
-              @click="appNotesStore.setNoteEditorContent(note.id)"
-            >
-              <template #text>
-                {{ note.content }}
-              </template>
-            </NotesCard>
+            <span class="notes-timeline-date">{{ datedNotes.date }}</span>
+            <ol>
+              <li
+                v-for="note in datedNotes.notes"
+                :key="note.id"
+                class="notes-timeline-item"
+                :class="[
+                  note.id === selectedNoteID ? 'notes-item-selected' : ''
+                ]"
+              >
+                <span class="notes-timeline-time">{{ note.updatedAt }}</span>
+                <NotesCard
+                  :noteID="note.id"
+                  @click="appNotesStore.setNoteEditorContent(note.id)"
+                >
+                  <template #text>
+                    {{ truncate(note.content, 150) }}
+                  </template>
+                </NotesCard>
+              </li>
+            </ol>
           </li>
         </ol>
       </div>
@@ -86,6 +97,8 @@ import IconEdit from '@/components/icons/IconEdit.vue';
 import { ref, onMounted, onBeforeUnmount, watch, computed } from 'vue';
 import { useDraggable } from '@/utils/elements';
 import { Local } from '@/utils/storage';
+import { parseTime } from '@/utils/date';
+import { truncate } from '@/utils/tool';
 import { useAppNotesStore } from '@/stores/appNotes';
 import { storeToRefs } from 'pinia';
 
@@ -106,17 +119,38 @@ const handleNoteEditor = () => {
   appNotesStore.updateNoteContent(selectedNoteID.value, editorContent.value);
 };
 
-const sortedNoteList = computed(() => {
-  let unsorted = noteList.value;
-  return unsorted.sort((a, b) => {
-    if (parseInt(a['updateTime']) < parseInt(b['updateTime'])) {
+const formatedNoteList = computed(() => {
+  let unformated = noteList.value;
+  let dates = [];
+  let formated = [];
+  unformated.sort((a, b) => {
+    if (a['updateTime'] < b['updateTime']) {
       return 1;
     }
-    if (parseInt(a['updateTime']) > parseInt(b['updateTime'])) {
+    if (a['updateTime'] > b['updateTime']) {
       return -1;
     }
     return 0;
   });
+  unformated.forEach(item => {
+    let parsed = parseTime(item.updateTime).split(' ');
+    item['updateDate'] = parsed[0];
+    item['updatedAt'] = parsed[1];
+    dates.push(item['updateDate']);
+  });
+  let uniqDates = [...new Set(dates)];
+  let noteListOfTheDay = {};
+  uniqDates.forEach(date => {
+    noteListOfTheDay['date'] = date;
+    noteListOfTheDay['notes'] = [];
+    unformated.forEach(item => {
+      if (item.updateDate === date) {
+        noteListOfTheDay['notes'].push(item);
+      }
+    });
+    formated.push(JSON.parse(JSON.stringify(noteListOfTheDay)));
+  });
+  return formated;
 });
 
 watch(enlarged, () => {
@@ -172,7 +206,7 @@ export default {
   position: relative;
   width: 100%;
   height: 50px;
-  background-color: #93bcb2;
+  background-color: #d8f3dc;
   border-radius: 15px 15px 0 0;
 }
 
@@ -195,22 +229,39 @@ export default {
 }
 
 .notes-timeline {
-  padding: 100px 0 20px;
+  padding: 130px 0 20px;
+  min-height: 100%;
+  height: fit-content;
 }
 
 .notes-timeline:before {
   content: '';
-  width: 4px;
+  width: 3px;
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 4px;
-  background-color: #93bcb2;
+  left: 5px;
+  background-color: #52b69a;
+  border-radius: 50%;
+}
+
+.notes-timeline-date-list {
+  position: relative;
+  margin-bottom: 110px;
+}
+
+.notes-timeline-date {
+  position: absolute;
+  top: -45px;
+  left: 12px;
+  font-size: 17px;
+  font-weight: bolder;
+  font-family: lxgw wenkai, sans-serif;
 }
 
 .notes-timeline-item {
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .notes-timeline-item:before {
@@ -220,7 +271,7 @@ export default {
   border-radius: 50%;
   position: absolute;
   top: 10px;
-  background-color: rgb(95, 140, 128);
+  background-color: #52b69a;
 }
 
 .notes-item-selected:before {
@@ -230,12 +281,12 @@ export default {
   border-radius: 50%;
   position: absolute;
   top: 10px;
-  background-color: #2c3d55;
+  background-color: #bc4749;
 }
 
 .notes-timeline-time {
   position: absolute;
-  top: -14px;
+  top: -7px;
   left: 12px;
   font-size: 13px;
 }
