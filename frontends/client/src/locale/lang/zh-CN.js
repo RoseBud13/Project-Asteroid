@@ -13,6 +13,10 @@ export default {
   'searchbar.input.placeholder.bing': '搜索由 bing.com 提供',
   'searchbar.input.placeholder.google': '搜索由 google.com 提供',
   'searchbar.input.placeholder.baidu': '搜索由 baidu.com 提供',
+  'searchbar.assist.shortcut.notes': '/便签',
+  'searchbar.assist.shortcut.calendar': '/日历 (开发中...)',
+  'searchbar.assist.shortcut.weather': '/天气 (开发中...)',
+  'searchbar.assist.shortcut.bonus': '/于是转身向大海走去',
   'appbox.action.addNewWidgetApp': '添加小组件',
   'appbox.input.placeholder.title': '名称',
   'appbox.input.placeholder.url': 'URL',
@@ -23,5 +27,6 @@ export default {
   'wallpaper.oneapp': 'ONE·一个',
   'wallpaper.ghibli': '吉卜力',
   'wallpaper.yuanshen': '原神',
-  'wallpaper.color': '纯色 Astra'
+  'wallpaper.color': '纯色 Astra',
+  'application.notes.textarea.prompt': '在此创建新便签...'
 };

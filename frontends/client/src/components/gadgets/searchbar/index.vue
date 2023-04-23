@@ -19,7 +19,7 @@
       v-for="item in filteredSearchAssistList"
       :key="item.id"
       @click="handleSearchAssist(item.id)"
-      >{{ item.name }}</AstraDropdownOption
+      >{{ $t(item.name) }}</AstraDropdownOption
     >
   </div>
 </template>
@@ -95,8 +95,9 @@ const filteredSearchAssistList = computed(() => {
   let filtered = [];
   unFiltered.forEach(item => {
     if (
-      item['name'].startsWith(inputValue.value) ||
-      item['alt'].startsWith(inputValue.value)
+      item['matchText'].startsWith(inputValue.value) ||
+      item['alt'].startsWith(inputValue.value) ||
+      item['alt1'].startsWith(inputValue.value)
     ) {
       filtered.push(item);
     }

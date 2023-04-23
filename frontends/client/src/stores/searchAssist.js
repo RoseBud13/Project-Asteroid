@@ -5,23 +5,31 @@ export const useSearchAssistStore = defineStore('searchAssist', {
   state: () => ({
     searchAssistList: [
       {
-        name: '/便签',
+        name: 'searchbar.assist.shortcut.notes',
+        matchText: '/便签',
         alt: '/notes',
+        alt1: '/Notes',
         id: 'notes'
       },
       {
-        name: '/日历 (开发中...)',
+        name: 'searchbar.assist.shortcut.calendar',
+        matchText: '/日历',
         alt: '/calendar',
+        alt1: '/Calendar',
         id: 'calendar'
       },
       {
-        name: '/天气 (开发中...)',
+        name: 'searchbar.assist.shortcut.weather',
+        matchText: '/天气',
         alt: '/weather',
+        alt1: '/Weather',
         id: 'weather'
       },
       {
-        name: '/于是转身向大海走去',
+        name: 'searchbar.assist.shortcut.bonus',
+        matchText: '/于是转身向大海走去',
         alt: '/starry-eyed moonshiner',
+        alt1: '/Starry-eyed moonshiner',
         id: 'starry-eyed-moonshiner'
       }
     ],

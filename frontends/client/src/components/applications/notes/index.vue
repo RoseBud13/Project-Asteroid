@@ -84,7 +84,7 @@
       <div ref="notesEditor" class="notes-editor-wrapper">
         <div class="notes-editor">
           <textarea
-            placeholder="在此创建新便签..."
+            :placeholder="$t('application.notes.textarea.prompt')"
             v-model="editorContent"
             @input="handleNoteEditor()"
           ></textarea>
