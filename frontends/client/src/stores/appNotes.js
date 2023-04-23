@@ -95,12 +95,12 @@ export const useAppNotesStore = defineStore('appNotes', {
         debounceNotesToLocal(this.noteList);
       }
     },
-    addNewNote() {
+    addNewNote(input) {
       let newNote = {
         id: 'note-' + generateUID(5),
         createTime: Date.now(),
         updateTime: Date.now(),
-        content: ''
+        content: input || ''
       };
       this.noteList.unshift(newNote);
       this.setNoteEditorContent(newNote.id);
@@ -111,6 +111,9 @@ export const useAppNotesStore = defineStore('appNotes', {
       if (selected) {
         this.noteList = this.noteList.filter(item => item.id !== id);
         Local.set('notes', this.noteList);
+        this.editorContent = '';
+        this.selectedNoteID = '';
+        this.selectedNoteIndex = null;
       }
     }
   }

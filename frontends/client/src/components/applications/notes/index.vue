@@ -84,9 +84,17 @@
       <div ref="notesEditor" class="notes-editor-wrapper">
         <div class="notes-editor">
           <textarea
+            placeholder="在此创建新便签..."
             v-model="editorContent"
             @input="handleNoteEditor()"
           ></textarea>
+          <img
+            v-if="editorContent === ''"
+            class="notes-editor-placeholder"
+            src="../../../assets/image/notes_bg.png"
+            alt="start writing notes"
+            draggable="false"
+          />
         </div>
       </div>
     </div>
@@ -149,6 +157,9 @@ const handleAddNewNote = () => {
 };
 
 const handleNoteEditor = () => {
+  if (selectedNoteID.value === '') {
+    appNotesStore.addNewNote(editorContent.value);
+  }
   appNotesStore.updateNoteContent(selectedNoteID.value, editorContent.value);
 };
 
@@ -336,13 +347,13 @@ export default {
   font-size: 18px;
   font-family: lxgw wenkai, sans-serif;
   height: 100%;
+  position: relative;
 }
 
 .notes-editor textarea {
   position: relative;
   display: block;
   resize: none;
-  padding: 5px 11px;
   line-height: 1.5;
   width: 100%;
   height: 100%;
@@ -350,6 +361,16 @@ export default {
   font-family: inherit;
   border: none;
   outline: none;
+}
+
+.notes-editor-placeholder {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  opacity: 0.7;
+  width: 220px;
+  height: auto;
 }
 
 @media (max-width: 1100px) {
