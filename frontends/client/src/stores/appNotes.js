@@ -66,14 +66,7 @@ export const useAppNotesStore = defineStore('appNotes', {
     editorContent: '',
     selectedNoteID: '',
     selectedNoteIndex: null,
-    noteCardColorPreset: [
-      '#ffcdb2',
-      '#ffb4a2',
-      '#e5989b',
-      '#b5838d',
-      '#ffa5ab',
-      '#f9dbbd'
-    ]
+    noteCardColorPreset: ['#ffffb7', '#fff8a5', '#fff599', '#fff6cc']
   }),
   actions: {
     toggleNotes() {

@@ -242,7 +242,7 @@ export default {
   position: relative;
   width: 100%;
   height: 50px;
-  background-color: #d8f3dc;
+  background-color: #ffd52e;
   border-radius: 15px 15px 0 0;
 }
 
@@ -277,7 +277,7 @@ export default {
   top: 0;
   bottom: 0;
   left: 5px;
-  background-color: #52b69a;
+  background-color: #ffd52e;
   border-radius: 50%;
 }
 
@@ -307,7 +307,7 @@ export default {
   border-radius: 50%;
   position: absolute;
   top: 10px;
-  background-color: #52b69a;
+  background-color: #ffd52e;
 }
 
 .notes-item-selected:before {
