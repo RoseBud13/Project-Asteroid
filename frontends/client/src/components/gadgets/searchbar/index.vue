@@ -31,6 +31,7 @@ import { useGlobal } from '@/stores/global';
 import { useModalStore } from '@/stores/modal';
 import { useWallpaperStore } from '@/stores/wallpaper';
 import { useSearchAssistStore } from '@/stores/searchAssist';
+import { useAppNotesStore } from '@/stores/appNotes';
 import IconSearch from '@/components/icons/IconSearch.vue';
 import AstraDropdownOption from '@/components/basics/dropdown/DropdownOption.vue';
 import useSearch from './search';
@@ -43,6 +44,8 @@ const modalStore = useModalStore();
 const wallpaperStore = useWallpaperStore();
 const searchAssistStore = useSearchAssistStore();
 const { searchAssistList, moonshinerUrl } = storeToRefs(searchAssistStore);
+const appNotesStore = useAppNotesStore();
+const { showNotes } = storeToRefs(appNotesStore);
 
 const props = defineProps({
   autofocus: Boolean
@@ -114,14 +117,19 @@ const hanldeInput = event => {
 };
 
 const handleSearchAssist = assistId => {
-  if (assistId === 'starry-eyed-moonshiner') {
-    if (moonshinerUrl.value.length > 0) {
-      wallpaperStore.setVideoWallpaper(
-        moonshinerUrl.value[
-          Math.floor(Math.random() * moonshinerUrl.value.length)
-        ]
-      );
-    }
+  switch (assistId) {
+    case 'notes':
+      showNotes.value = true;
+      break;
+    case 'starry-eyed-moonshiner':
+      if (moonshinerUrl.value.length > 0) {
+        wallpaperStore.setVideoWallpaper(
+          moonshinerUrl.value[
+            Math.floor(Math.random() * moonshinerUrl.value.length)
+          ]
+        );
+      }
+      break;
   }
   showSearchAssist.value = false;
   keywords.value = '';

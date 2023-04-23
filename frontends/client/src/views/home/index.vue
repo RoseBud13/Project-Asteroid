@@ -4,6 +4,7 @@
     <HomeNavbar></HomeNavbar>
     <HomeDashboard ref="dashboard"></HomeDashboard>
     <HomeModal></HomeModal>
+    <AstraNotes v-if="showNotes"></AstraNotes>
   </div>
 </template>
 
@@ -13,14 +14,22 @@ import HomeNavbar from './components/HomeNavbar.vue';
 import HomeDashboard from '@/components/dashboard/index.vue';
 import HomeModal from './components/HomeModal.vue';
 import { useGlobal } from '@/stores/global';
+import { useAppNotesStore } from '@/stores/appNotes';
 import { storeToRefs } from 'pinia';
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue';
+
+const AstraNotes = defineAsyncComponent(() =>
+  import('@/components/applications/notes/index.vue')
+);
 
 const homepage = ref(null);
 const dashboard = ref(null);
 
 const globalStore = useGlobal();
 const { deviceType, showDashboardMobile } = storeToRefs(globalStore);
+
+const appNotesStore = useAppNotesStore();
+const { showNotes } = storeToRefs(appNotesStore);
 
 const scrollTop = ref(0);
 const scrollStart = ref(0);

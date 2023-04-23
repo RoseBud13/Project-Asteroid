@@ -243,7 +243,7 @@ export default {
   border-radius: 15px;
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
     rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px;
-  z-index: 1;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   overflow: hidden;

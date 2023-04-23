@@ -5,12 +5,7 @@ export const useSearchAssistStore = defineStore('searchAssist', {
   state: () => ({
     searchAssistList: [
       {
-        name: '/于是转身向大海走去',
-        alt: '/starry-eyed moonshiner',
-        id: 'starry-eyed-moonshiner'
-      },
-      {
-        name: '/便签 (开发中...)',
+        name: '/便签',
         alt: '/notes',
         id: 'notes'
       },
@@ -23,6 +18,11 @@ export const useSearchAssistStore = defineStore('searchAssist', {
         name: '/天气 (开发中...)',
         alt: '/weather',
         id: 'weather'
+      },
+      {
+        name: '/于是转身向大海走去',
+        alt: '/starry-eyed moonshiner',
+        id: 'starry-eyed-moonshiner'
       }
     ],
     moonshinerUrl: []
