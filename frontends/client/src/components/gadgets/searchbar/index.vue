@@ -3,7 +3,7 @@
     <div class="search-input">
       <input
         v-model="keywords"
-        @keyup.enter="handleSearch"
+        @keyup.enter="handleSearch(e)"
         @keydown.tab="handleChangeSearchEngine"
         @input="hanldeInput"
         :placeholder="$t(searchPlaceholder)"
@@ -68,8 +68,10 @@ const handleChangeSearchEngine = event => {
   event.stopPropagation();
 };
 
-const handleSearch = () => {
-  if (keywords.value) {
+const handleSearch = event => {
+  // isComposing to check if compositionstart event is fired
+  // https://developer.mozilla.org/en-US/docs/Web/API/Element/compositionstart_event
+  if (keywords.value && !event.isComposing) {
     if (
       isFullscreen.value &&
       searchLink.value === 'https://www.bing.com/search?q='
