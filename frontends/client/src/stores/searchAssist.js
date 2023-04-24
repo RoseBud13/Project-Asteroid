@@ -3,6 +3,7 @@ import { fetchMoonshinerUrl } from '@/utils/request';
 
 export const useSearchAssistStore = defineStore('searchAssist', {
   state: () => ({
+    showSearchAssist: false,
     searchAssistList: [
       {
         name: 'searchbar.assist.shortcut.notes',
@@ -36,6 +37,13 @@ export const useSearchAssistStore = defineStore('searchAssist', {
     moonshinerUrl: []
   }),
   actions: {
+    toggleShowSearchAssist(value) {
+      if (value !== 'undefined') {
+        this.showSearchAssist = value;
+      } else {
+        this.showSearchAssist = !this.showSearchAssist;
+      }
+    },
     initMoonshiner() {
       fetchMoonshinerUrl().then(res => {
         this.moonshinerUrl = res;

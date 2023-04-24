@@ -17,6 +17,7 @@ export default {
   'searchbar.assist.shortcut.calendar': '/日历 (开发中...)',
   'searchbar.assist.shortcut.weather': '/天气 (开发中...)',
   'searchbar.assist.shortcut.bonus': '/于是转身向大海走去',
+  'searchbar.assist.shortcut.unavailable': '开发中...',
   'appbox.action.addNewWidgetApp': '添加小组件',
   'appbox.input.placeholder.title': '名称',
   'appbox.input.placeholder.url': 'URL',

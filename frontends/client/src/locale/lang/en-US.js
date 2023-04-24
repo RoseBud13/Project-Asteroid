@@ -17,6 +17,7 @@ export default {
   'searchbar.assist.shortcut.calendar': '/Calendar (coming soon...)',
   'searchbar.assist.shortcut.weather': '/Weather (coming soon...)',
   'searchbar.assist.shortcut.bonus': '/starry-eyed moonshiner',
+  'searchbar.assist.shortcut.unavailable': 'Coming soon...',
   'appbox.action.addNewWidgetApp': 'Add Widget App',
   'appbox.input.placeholder.title': 'Title',
   'appbox.input.placeholder.url': 'URL',

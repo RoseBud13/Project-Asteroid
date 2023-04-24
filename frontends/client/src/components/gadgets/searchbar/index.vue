@@ -2,8 +2,8 @@
   <div class="search-box">
     <div class="search-input">
       <input
+        ref="searchInput"
         v-model="keywords"
-        @keyup.enter="handleSearch(e)"
         @keydown.tab="handleChangeSearchEngine"
         @input="hanldeInput"
         :placeholder="$t(searchPlaceholder)"
@@ -18,6 +18,7 @@
     <AstraDropdownOption
       v-for="item in filteredSearchAssistList"
       :key="item.id"
+      :selected="item.id === selectedID"
       @click="handleSearchAssist(item.id)"
       >{{ $t(item.name) }}</AstraDropdownOption
     >
@@ -25,16 +26,20 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, computed } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch, computed, inject } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useGlobal } from '@/stores/global';
 import { useModalStore } from '@/stores/modal';
 import { useWallpaperStore } from '@/stores/wallpaper';
 import { useSearchAssistStore } from '@/stores/searchAssist';
 import { useAppNotesStore } from '@/stores/appNotes';
+import useLocale from '@/hooks/locale';
 import IconSearch from '@/components/icons/IconSearch.vue';
 import AstraDropdownOption from '@/components/basics/dropdown/DropdownOption.vue';
 import useSearch from './search';
+
+const toast = inject('toast');
+const { i18 } = useLocale();
 
 const globalStore = useGlobal();
 const { searchEngine, isFullscreen, searchPlaceholder, deviceType } =
@@ -43,7 +48,8 @@ const { changeSearchEngine, searchEngineList } = useSearch();
 const modalStore = useModalStore();
 const wallpaperStore = useWallpaperStore();
 const searchAssistStore = useSearchAssistStore();
-const { searchAssistList, moonshinerUrl } = storeToRefs(searchAssistStore);
+const { showSearchAssist, searchAssistList, moonshinerUrl } =
+  storeToRefs(searchAssistStore);
 const appNotesStore = useAppNotesStore();
 
 const props = defineProps({
@@ -54,8 +60,10 @@ const keywords = ref('');
 const searchLink = ref();
 const searchEngines = Object.keys(searchEngineList);
 const searchEngineIndex = ref();
-const showSearchAssist = ref(false);
 const inputValue = ref('');
+const selectedIndex = ref(-1);
+const selectedID = ref('');
+const searchInput = ref(null);
 
 const handleChangeSearchEngine = event => {
   if (searchEngineIndex.value === 2) {
@@ -101,6 +109,8 @@ const filteredSearchAssistList = computed(() => {
       item['alt1'].startsWith(inputValue.value)
     ) {
       filtered.push(item);
+      selectedIndex.value = -1;
+      selectedID.value = '';
     }
   });
   return filtered;
@@ -112,9 +122,12 @@ const hanldeInput = event => {
     event.target.value.startsWith('/') &&
     filteredSearchAssistList.value.length > 0
   ) {
-    showSearchAssist.value = true;
+    searchAssistStore.toggleShowSearchAssist(true);
   } else {
-    showSearchAssist.value = false;
+    searchAssistStore.toggleShowSearchAssist(false);
+  }
+  if (filteredSearchAssistList.value.length === 1) {
+    selectedID.value = filteredSearchAssistList.value[0]['id'];
   }
 };
 
@@ -132,9 +145,39 @@ const handleSearchAssist = assistId => {
         );
       }
       break;
+    default:
+      toast(i18.t('searchbar.assist.shortcut.unavailable'), 'warn');
   }
-  showSearchAssist.value = false;
+  searchAssistStore.toggleShowSearchAssist(false);
   keywords.value = '';
+};
+
+const handleArrowKeySelect = event => {
+  let maxIndex = filteredSearchAssistList.value.length - 1;
+  if (event.code === 'ArrowDown') {
+    if (selectedIndex.value < maxIndex) {
+      selectedIndex.value++;
+    } else {
+      selectedIndex.value = 0;
+    }
+  } else if (event.code === 'ArrowUp') {
+    if (selectedIndex.value > 0) {
+      selectedIndex.value--;
+    } else {
+      selectedIndex.value = maxIndex;
+    }
+  } else if (event.code === 'Enter') {
+    if (selectedID.value !== '') {
+      handleSearchAssist(selectedID.value);
+      selectedID.value = '';
+    }
+  }
+  if (selectedIndex.value !== -1) {
+    selectedID.value =
+      filteredSearchAssistList.value[selectedIndex.value]['id'];
+  } else {
+    selectedID.value = '';
+  }
 };
 
 watch(searchEngine, () => {
@@ -143,6 +186,28 @@ watch(searchEngine, () => {
   globalStore.setSearchPlaceholder(searchEngine.value);
 });
 
+watch(
+  showSearchAssist,
+  () => {
+    if (showSearchAssist.value === true) {
+      window.addEventListener('keydown', handleArrowKeySelect);
+      searchInput.value.addEventListener('keydown', e => {
+        if (e.code === 'ArrowDown' || e.code === 'ArrowUp') {
+          e.preventDefault();
+        }
+      });
+    } else {
+      window.removeEventListener('keydown', handleArrowKeySelect);
+      searchInput.value.removeEventListener('keydown', e => {
+        if (e.code === 'ArrowDown' || e.code === 'ArrowUp') {
+          e.preventDefault();
+        }
+      });
+    }
+  },
+  { deep: true }
+);
+
 globalStore.setSearchEngine();
 globalStore.setSearchPlaceholder(searchEngine.value);
 
@@ -150,6 +215,19 @@ onMounted(() => {
   searchLink.value = searchEngineList[searchEngine.value];
   searchEngineIndex.value = searchEngines.indexOf(searchEngine.value);
   searchAssistStore.initMoonshiner();
+  searchInput.value.addEventListener('keydown', e => {
+    if (e.code === 'Enter' && showSearchAssist.value === false) {
+      handleSearch(e);
+    }
+  });
+});
+
+onBeforeUnmount(() => {
+  searchInput.value.removeEventListener('keydown', e => {
+    if (e.code === 'Enter' && showSearchAssist.value === false) {
+      handleSearch(e);
+    }
+  });
 });
 </script>
 
