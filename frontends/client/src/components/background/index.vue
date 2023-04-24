@@ -30,15 +30,32 @@
     >
       <slot name="widgetbox"></slot>
     </div>
+    <div
+      ref="sidebarLeft"
+      class="sidebar-wrapper-left"
+      v-if="$slots.sidebarLeft"
+    >
+      <slot name="sidebarLeft"></slot>
+    </div>
+    <div
+      ref="sidebarRight"
+      class="sidebar-wrapper-right"
+      v-if="$slots.sidebarRight"
+    >
+      <slot name="sidebarRight"></slot>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { computed, watch } from 'vue';
+import { computed, watch, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { isUrl } from '@/utils/is';
 import { useWidgetboxStore } from '@/stores/widgetbox';
 import { useWallpaperStore } from '@/stores/wallpaper';
+
+const sidebarLeft = ref(null);
+const sidebarRight = ref(null);
 
 const widgetboxStore = useWidgetboxStore();
 
@@ -70,6 +87,11 @@ const imgUrl = computed(() => {
 const handleVideoEnd = () => {
   wallpaperStore.setVideoWallpaper('');
 };
+
+defineExpose({
+  sidebarLeft,
+  sidebarRight
+});
 </script>
 
 <script>
@@ -145,5 +167,25 @@ export default {
 .widgetbox-container-show {
   visibility: visible;
   opacity: 1;
+}
+
+.sidebar-wrapper-left {
+  position: absolute;
+  left: 0;
+  height: 80%;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar-wrapper-right {
+  position: absolute;
+  right: 0;
+  height: 80%;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

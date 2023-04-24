@@ -45,7 +45,6 @@ const wallpaperStore = useWallpaperStore();
 const searchAssistStore = useSearchAssistStore();
 const { searchAssistList, moonshinerUrl } = storeToRefs(searchAssistStore);
 const appNotesStore = useAppNotesStore();
-const { showNotes } = storeToRefs(appNotesStore);
 
 const props = defineProps({
   autofocus: Boolean
@@ -120,7 +119,7 @@ const hanldeInput = event => {
 const handleSearchAssist = assistId => {
   switch (assistId) {
     case 'notes':
-      showNotes.value = true;
+      appNotesStore.toggleNotes();
       break;
     case 'starry-eyed-moonshiner':
       if (moonshinerUrl.value.length > 0) {
