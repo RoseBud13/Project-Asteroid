@@ -36,7 +36,7 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         embedded: true,
         urlRouter: 'https://wiki.biligame.com/ys',
         title: '原神WIKI',
-        icon: 'src/assets/image/ys-logo.png',
+        icon: 'https://b612-static-rsrcs-1306125602.cos.ap-shanghai.myqcloud.com/static-img/ys-logo.png',
         tag: '原神WIKI'
       },
       {
@@ -45,7 +45,7 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         embedded: true,
         urlRouter: 'https://www.miyoushe.com/ys/',
         title: '米游社',
-        icon: 'src/assets/image/mhy.webp',
+        icon: 'https://b612-static-rsrcs-1306125602.cos.ap-shanghai.myqcloud.com/static-img/mhy.webp',
         tag: '米游社'
       },
       {
