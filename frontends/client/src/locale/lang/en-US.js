@@ -13,6 +13,11 @@ export default {
   'searchbar.input.placeholder.bing': 'via bing.com',
   'searchbar.input.placeholder.google': 'via google.com',
   'searchbar.input.placeholder.baidu': 'via baidu.com',
+  'searchbar.assist.shortcut.notes': '/Notes',
+  'searchbar.assist.shortcut.calendar': '/Calendar (coming soon...)',
+  'searchbar.assist.shortcut.weather': '/Weather (coming soon...)',
+  'searchbar.assist.shortcut.bonus': '/starry-eyed moonshiner',
+  'searchbar.assist.shortcut.unavailable': 'Coming soon...',
   'appbox.action.addNewWidgetApp': 'Add Widget App',
   'appbox.input.placeholder.title': 'Title',
   'appbox.input.placeholder.url': 'URL',
@@ -23,5 +28,7 @@ export default {
   'wallpaper.oneapp': 'ONE·一个',
   'wallpaper.ghibli': 'Ghibli',
   'wallpaper.yuanshen': 'Genshin Impact',
-  'wallpaper.color': 'Astremerald'
+  'wallpaper.color': 'Astremerald',
+  'application.notes.textarea.prompt': 'Start writing here...',
+  'application.notes.title': 'Notes'
 };

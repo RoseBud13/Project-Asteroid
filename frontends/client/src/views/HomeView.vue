@@ -2,6 +2,7 @@
   <div class="homepage-wrapper" ref="homepage">
     <Background
       :wallpaperUrl="wallpaperList[currentWallpaper]"
+      :videoUrl="videoWallpaper"
       preventUserSelect
     >
       <template #widgetbox>
@@ -137,89 +138,87 @@
       </template>
     </Navbar>
     <HomeDashboard ref="dashboard"></HomeDashboard>
-    <Transition name="fade">
-      <AstraModal
-        :fullscreen="isEmbeddedFull"
-        :visible="showModal"
-        :embeddedUrl="targetUrl"
-        :hasForm="hasForm"
-        :hasCard="hasCard"
-        :multiContent="multiContent"
-        @cancel="modalStore.closeModal()"
-      >
-        <template #left>
-          <IconArrowLeft
-            v-if="targetUrl"
+    <AstraModal
+      :fullscreen="isEmbeddedFull"
+      :visible="showModal"
+      :embeddedUrl="targetUrl"
+      :hasForm="hasForm"
+      :hasCard="hasCard"
+      :multiContent="multiContent"
+      @cancel="modalStore.closeModal()"
+    >
+      <template #left>
+        <IconArrowLeft
+          v-if="targetUrl"
+          @click="modalStore.closeModal()"
+          style="cursor: pointer"
+        ></IconArrowLeft>
+      </template>
+      <template #title>{{ $t(modalTitle) }}</template>
+      <template #right>
+        <a
+          v-if="targetUrl"
+          :href="targetUrl"
+          target="_blank"
+          style="height: 18px"
+        >
+          <IconArrowExternal
             @click="modalStore.closeModal()"
-            style="cursor: pointer"
-          ></IconArrowLeft>
-        </template>
-        <template #title>{{ $t(modalTitle) }}</template>
-        <template #right>
-          <a
-            v-if="targetUrl"
-            :href="targetUrl"
-            target="_blank"
-            style="height: 18px"
-          >
-            <IconArrowExternal
-              @click="modalStore.closeModal()"
-            ></IconArrowExternal>
-          </a>
-          <IconClose
-            v-else
-            @click="modalStore.closeModal()"
-            style="cursor: pointer"
-          ></IconClose>
-        </template>
-        <template #modalcard>
-          <AstraAppCard
-            v-for="widgetApp in astraWidgetApps"
-            :key="widgetApp.id"
-            :title="widgetApp.title"
-            @clickWidgetApp="widgetboxStore.addAstraWidgetApp(widgetApp.id)"
-            @click="modalStore.closeModal()"
-          >
-            <template #appicon>
-              <IconMusic v-if="widgetApp.icon === 'iconMusic'"></IconMusic>
-              <IconCode v-else-if="widgetApp.icon === 'iconCode'"></IconCode>
-              <img
-                v-else
-                :src="widgetApp.icon"
-                :alt="widgetApp.title"
-                style="height: 25px; object-fit: contain"
-              />
-            </template>
-            <template #apptag>
-              {{ widgetApp.tag }}
-            </template>
-          </AstraAppCard>
-        </template>
-        <template #footer>
-          <AstraButton size="mini" @click="modalStore.closeModal()">{{
-            $t('modal.button.cancel')
-          }}</AstraButton>
-          <AstraButton
-            type="emerald"
-            size="mini"
-            @click="modalStore.handleModalOK()"
-            >{{ $t('modal.button.confirm') }}</AstraButton
-          >
-        </template>
-      </AstraModal>
-    </Transition>
+          ></IconArrowExternal>
+        </a>
+        <IconClose
+          v-else
+          @click="modalStore.closeModal()"
+          style="cursor: pointer"
+        ></IconClose>
+      </template>
+      <template #modalcard>
+        <AstraAppCard
+          v-for="widgetApp in astraWidgetApps"
+          :key="widgetApp.id"
+          :title="widgetApp.title"
+          @clickWidgetApp="widgetboxStore.addAstraWidgetApp(widgetApp.id)"
+          @click="modalStore.closeModal()"
+        >
+          <template #appicon>
+            <IconMusic v-if="widgetApp.icon === 'iconMusic'"></IconMusic>
+            <IconCode v-else-if="widgetApp.icon === 'iconCode'"></IconCode>
+            <img
+              v-else
+              :src="widgetApp.icon"
+              :alt="widgetApp.title"
+              style="height: 25px; object-fit: contain"
+            />
+          </template>
+          <template #apptag>
+            {{ widgetApp.tag }}
+          </template>
+        </AstraAppCard>
+      </template>
+      <template #footer>
+        <AstraButton size="mini" @click="modalStore.closeModal()">{{
+          $t('modal.button.cancel')
+        }}</AstraButton>
+        <AstraButton
+          type="emerald"
+          size="mini"
+          @click="modalStore.handleModalOK()"
+          >{{ $t('modal.button.confirm') }}</AstraButton
+        >
+      </template>
+    </AstraModal>
   </div>
 </template>
 
 <script setup>
 import Background from '@/components/background/index.vue';
-import Navbar from '@/components/navbar/index.vue';
+import Navbar from '@/components/basics/navbar/index.vue';
 import HomeDashboard from '@/components/dashboard/index.vue';
-import ClockItem from '@/components/materials/ClockItem.vue';
+import ClockItem from '@/components/gadgets/clock/ClockItem.vue';
 import AstraDropdown from '@/components/basics/dropdown/index.vue';
-import AstraDropdownOption from '@/components/basics/dropdown/dropdown-option.vue';
+import AstraDropdownOption from '@/components/basics/dropdown/DropdownOption.vue';
 import AstraButton from '@/components/basics/button/index.vue';
-import SearchBar from '@/components/materials/search-bar/index.vue';
+import SearchBar from '@/components/gadgets/searchbar/index.vue';
 import AstraModal from '@/components/basics/modal/index.vue';
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue';
 import IconArrowExternal from '@/components/icons/IconArrowExternal.vue';
@@ -230,8 +229,8 @@ import IconFullscreen from '@/components/icons/IconFullscreen.vue';
 import IconFullscreenExit from '@/components/icons/IconFullscreenExit.vue';
 import IconLanguage from '@/components/icons/IconLanguage.vue';
 import IconWallpaper from '@/components/icons/IconWallpaper.vue';
-import AstraAppBox from '@/components/materials/app-box/index.vue';
-import AstraAppCard from '@/components/basics/app-card/index.vue';
+import AstraAppBox from '@/components/gadgets/appbox/index.vue';
+import AstraAppCard from '@/components/basics/appcard/index.vue';
 import { LOCALE_OPTIONS } from '@/locale';
 import useLocale from '@/hooks/locale';
 import { useGlobal } from '@/stores/global';
@@ -266,7 +265,8 @@ const widgetboxStore = useWidgetboxStore();
 const { widgetApps, astraWidgetApps } = storeToRefs(widgetboxStore);
 
 const wallpaperStore = useWallpaperStore();
-const { currentWallpaper, wallpaperList } = storeToRefs(wallpaperStore);
+const { currentWallpaper, wallpaperList, videoWallpaper } =
+  storeToRefs(wallpaperStore);
 
 const scrollTop = ref(0);
 const scrollStart = ref(0);
@@ -440,15 +440,5 @@ onBeforeUnmount(() => {
 
 .homepage-wrapper::-webkit-scrollbar {
   display: none;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>

@@ -116,6 +116,7 @@
     <AstraModal
       fullscreen
       :visible="modalVisible1"
+      :hasForm="true"
       :embeddedUrl="`https://bilibili.com`"
       @cancel="handleCancelModal1"
     >
@@ -127,34 +128,99 @@
     </AstraModal>
   </div>
   <div class="test-container">
-    <AstraInput v-model="message">
+    <AstraInput v-model="inputMessage">
       <template #prepend>https://</template>
       <template #append>.com</template>
     </AstraInput>
-    <p>Message is: {{ message }}</p>
+    <p>Message is: {{ inputMessage }}</p>
     <p v-for="item in nestedInputInfo" :key="item.placeholder">
       nested is {{ item.modelValue }}
     </p>
     <AstraInput nestedInput v-model="nestedInputInfo"></AstraInput>
   </div>
+  <div class="test-container-full">
+    <AstraButton type="emerald" @click="appNotesStore.toggleNotes()"
+      >toggle notes</AstraButton
+    >
+    <AstraButton type="emerald" @click="toggleToast">toggle toast</AstraButton>
+    <AstraToast
+      v-for="toast in toastList"
+      :key="toast.id"
+      :topOffset="toast.top"
+      :toastType="toast.type"
+      :msg="toast.message"
+      :show="showToast"
+    ></AstraToast>
+    <AstraToast topOffset="240px" :show="showToast">
+      <template #content>
+        <AstraInput v-model="inputMessage">
+          <template #prepend>https://</template>
+          <template #append>.com</template>
+        </AstraInput>
+        <AstraButton type="text" href="https://github.com">Github</AstraButton>
+      </template>
+    </AstraToast>
+    <AstraNotes v-if="showNotes"></AstraNotes>
+  </div>
 </template>
 
 <script setup>
-import AstraButton from '@/components/basics/button/index.vue';
-import AstraDropdown from '@/components/basics/dropdown/index.vue';
-import AstraDropdownOption from '@/components/basics/dropdown/dropdown-option.vue';
-import IconCommunity from '@/components/icons/IconCommunity.vue';
-import ClockItem from '@/components/materials/ClockItem.vue';
-import AstraModal from '@/components/basics/modal/index.vue';
-import AstraInput from '@/components/basics/input/index.vue';
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useInputStore } from '@/stores/input';
+import { useAppNotesStore } from '@/stores/appNotes';
+import AstraButton from '@/components/basics/button/index.vue';
+import AstraDropdown from '@/components/basics/dropdown/index.vue';
+import AstraDropdownOption from '@/components/basics/dropdown/DropdownOption.vue';
+import IconCommunity from '@/components/icons/IconCommunity.vue';
+import ClockItem from '@/components/gadgets/clock/ClockItem.vue';
+import AstraModal from '@/components/basics/modal/index.vue';
+import AstraInput from '@/components/basics/input/index.vue';
+import AstraToast from '@/components/basics/toast/index.vue';
+
+const AstraNotes = defineAsyncComponent(() =>
+  import('@/components/applications/notes/index.vue')
+);
 
 const inputStore = useInputStore();
 const { nestedInputInfo } = storeToRefs(inputStore);
 
-const message = ref('');
+const appNotesStore = useAppNotesStore();
+const { showNotes } = storeToRefs(appNotesStore);
+
+const inputMessage = ref('');
+
+const showToast = ref(false);
+const toastList = ref([
+  {
+    message: '♥ This is a toast',
+    top: '40px',
+    type: 'normal',
+    id: 1
+  },
+  {
+    message: '♥ This is a success toast',
+    top: '90px',
+    type: 'success',
+    id: 2
+  },
+  {
+    message: '♥ This is a warn toast',
+    top: '140px',
+    type: 'warn',
+    id: 3
+  },
+  {
+    message: '♥ This is an error toast',
+    top: '190px',
+    type: 'error',
+    id: 4
+  }
+]);
+
+const toggleToast = () => {
+  showToast.value = !showToast.value;
+};
 
 onMounted(() => {
   let nestedInputData = [
@@ -182,7 +248,7 @@ onMounted(() => {
   inputStore.setNestedInfo(nestedInputData);
 });
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   inputStore.clearNestedInfo();
 });
 
@@ -229,5 +295,21 @@ const handleCancelModal1 = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.test-container-full {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--color-background-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+@media (max-width: 800px) {
+  .test-container {
+    flex-direction: column;
+  }
 }
 </style>

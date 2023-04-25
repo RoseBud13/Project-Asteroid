@@ -19,6 +19,7 @@ const setDeviceAttr = () => {
     document.documentElement.style.setProperty('--100vh', '100dvh');
     document.head.querySelector('meta[name="viewport"]').content =
       'width=device-width, initial-scale=1, maximum-scale=1';
+    document.documentElement.setAttribute('ontouchmove', '');
   } else {
     document.documentElement.style.setProperty('--90vh', '90vh');
     document.documentElement.style.setProperty('--100vh', '100vh');

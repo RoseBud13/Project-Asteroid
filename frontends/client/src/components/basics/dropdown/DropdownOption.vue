@@ -1,5 +1,9 @@
 <template>
-  <li class="astra-dropdown-option" @click="handleClick">
+  <li
+    class="astra-dropdown-option"
+    :class="{ 'astra-dropdown-option-selected': props.selected }"
+    @click="handleClick"
+  >
     <span v-if="$slots.icon" class="astra-dropdown-option-icon">
       <slot name="icon"></slot>
     </span>
@@ -15,6 +19,10 @@ const props = defineProps({
    * @defaultValue false
    */
   disabled: {
+    type: Boolean,
+    default: false
+  },
+  selected: {
     type: Boolean,
     default: false
   }
@@ -63,5 +71,9 @@ export default {
   align-items: center;
   margin-right: 8px;
   height: 36px;
+}
+
+.astra-dropdown-option-selected {
+  background-color: var(--color-neutral-2);
 }
 </style>

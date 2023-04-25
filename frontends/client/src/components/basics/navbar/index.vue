@@ -30,6 +30,19 @@ const props = defineProps({
     validator(value) {
       return ['fixed', 'absolute'].includes(value);
     }
+  },
+  /**
+   * @zh Navbar size 属性（viewWidth | viewWidth)
+   * @en Navbar size property（viewWidth: 100vw | containerWidth: 100%)
+   * @values 'viewWidth', 'containerWidth'
+   * @defaultValue 'viewWidth'
+   */
+  size: {
+    type: String,
+    default: 'viewWidth',
+    validator(value) {
+      return ['viewWidth', 'containerWidth'].includes(value);
+    }
   }
 });
 
@@ -37,7 +50,8 @@ const prefixCls = 'astra-navbar';
 
 const cls = computed(() => [
   prefixCls,
-  `${prefixCls}-${props.position ? props.position : 'fixed'}`
+  `${prefixCls}-${props.position ? props.position : 'fixed'}`,
+  `${prefixCls}-${props.size ? props.size : 'viewWidth'}`
 ]);
 </script>
 
@@ -49,7 +63,6 @@ export default {
 
 <style lang="scss" scoped>
 .astra-navbar {
-  width: 100vw;
   height: 50px;
   top: 0;
   z-index: 2;
@@ -61,6 +74,14 @@ export default {
 
 .astra-navbar-absolute {
   position: absolute;
+}
+
+.astra-navbar-viewWidth {
+  width: 100vw;
+}
+
+.astra-navbar-containerWidth {
+  width: 100%;
 }
 
 .navbar-container {

@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "title": "global.title",
   "tagline": "Ad astra",
   "navbarPosition": "fixed",
@@ -33,9 +33,9 @@
       "id": "yuanshen",
       "external": true,
       "embedded": true,
-      "urlRouter": "https://bbs.mihoyo.com/ys/strategy",
-      "title": "原神观测枢",
-      "icon": "src/assets/image/ys-logo.png"
+      "urlRouter": "https://wiki.biligame.com/ys",
+      "title": "原神WIKI",
+      "icon": "https://b612-static-rsrcs-1306125602.cos.ap-shanghai.myqcloud.com/static-img/ys-logo.png"
     },
     {
       "id": "bilibili",
@@ -43,7 +43,7 @@
       "embedded": false,
       "urlRouter": "https://bilibili.com",
       "title": "Bilibili",
-      "icon": "src/assets/image/bilibili.svg"
+      "icon": "https://b612-static-rsrcs-1306125602.cos.ap-shanghai.myqcloud.com/static-img/bilibili.svg"
     },
     {
       "id": "github",
@@ -51,7 +51,7 @@
       "embedded": false,
       "urlRouter": "https://github.com",
       "title": "GitHub",
-      "icon": "src/assets/image/github.svg"
+      "icon": "https://b612-static-rsrcs-1306125602.cos.ap-shanghai.myqcloud.com/static-img/github.svg"
     }
   ]
 }
