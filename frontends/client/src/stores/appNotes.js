@@ -78,6 +78,9 @@ export const useAppNotesStore = defineStore('appNotes', {
     },
     initNotes() {
       this.noteList = Local.get('notes') || this.testNoteList;
+      if (!Local.get('notes')) {
+        Local.set('notes', this.noteList);
+      }
     },
     setNoteEditorContent(id) {
       let selected = this.noteList.find(item => item.id === id);

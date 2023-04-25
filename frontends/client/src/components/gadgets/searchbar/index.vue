@@ -64,6 +64,7 @@ const inputValue = ref('');
 const selectedIndex = ref(-1);
 const selectedID = ref('');
 const searchInput = ref(null);
+const addNotesFlag = ref(false);
 
 const handleChangeSearchEngine = event => {
   if (searchEngineIndex.value === 2) {
@@ -116,8 +117,25 @@ const filteredSearchAssistList = computed(() => {
   return filtered;
 });
 
+const addNotesCommand = () => {
+  let content = inputValue.value.substring(inputValue.value.indexOf(' '));
+  appNotesStore.addNewNote(content);
+  addNotesFlag.value = false;
+  keywords.value = '';
+};
+
 const hanldeInput = event => {
   inputValue.value = event.target.value;
+  if (
+    (event.target.value.startsWith('/notes ') ||
+      event.target.value.startsWith('/Notes ') ||
+      event.target.value.startsWith('/便签 ')) &&
+    event.target.value.split(' ').length >= 2
+  ) {
+    addNotesFlag.value = true;
+  } else {
+    addNotesFlag.value = false;
+  }
   if (
     event.target.value.startsWith('/') &&
     filteredSearchAssistList.value.length > 0
@@ -216,16 +234,28 @@ onMounted(() => {
   searchEngineIndex.value = searchEngines.indexOf(searchEngine.value);
   searchAssistStore.initMoonshiner();
   searchInput.value.addEventListener('keydown', e => {
-    if (e.code === 'Enter' && showSearchAssist.value === false) {
+    if (
+      e.code === 'Enter' &&
+      showSearchAssist.value === false &&
+      addNotesFlag.value === false
+    ) {
       handleSearch(e);
+    } else if (e.code === 'Enter' && addNotesFlag.value === true) {
+      addNotesCommand();
     }
   });
 });
 
 onBeforeUnmount(() => {
   searchInput.value.removeEventListener('keydown', e => {
-    if (e.code === 'Enter' && showSearchAssist.value === false) {
+    if (
+      e.code === 'Enter' &&
+      showSearchAssist.value === false &&
+      addNotesFlag.value === false
+    ) {
       handleSearch(e);
+    } else if (e.code === 'Enter' && addNotesFlag.value === true) {
+      addNotesCommand();
     }
   });
 });
