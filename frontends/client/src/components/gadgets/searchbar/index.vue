@@ -130,8 +130,10 @@ const hanldeInput = event => {
     (event.target.value.startsWith('/notes ') ||
       event.target.value.startsWith('/Notes ') ||
       event.target.value.startsWith('/便签 ')) &&
-    event.target.value.split(' ').length >= 2
+    event.target.value.split(' ').length > 1 &&
+    event.target.value.split(' ')[1] !== ''
   ) {
+    appNotesStore.initNotes();
     addNotesFlag.value = true;
   } else {
     addNotesFlag.value = false;

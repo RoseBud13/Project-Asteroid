@@ -24,7 +24,7 @@ export const useAppNotesStore = defineStore('appNotes', {
         createTime: 1681984433,
         updateTime: 1681984433,
         content:
-          '你好呀！\n这是测试，功能待完善。\nLorem ipsum dolor sit amet consectetur adipisicing elit. Placeat necessitatibus repellendus iusto cupiditate aliquam accusamus delectus molestiae fugiat perspiciatis in! Autem dolores corporis eius voluptatum temporibus vero quos! Dignissimos, dolorem?'
+          '你好呀！\n欢迎使用便签！\n目前还处于测试阶段，功能待完善。\n\nTips:\n1. 在搜索框内输入 "/notes + [空格] + [内容]" 快速创建新的便签\n2. 鼠标拖动便签顶部栏可以移动便签\n\n\n注意：储存的数据可能会因实施浏览器缓存清理而丢失，请妥善使用。'
       },
       {
         id: '2',
@@ -53,13 +53,6 @@ export const useAppNotesStore = defineStore('appNotes', {
         updateTime: 1681552433,
         content:
           'Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat necessitatibus repellendus iusto cupiditate aliquam accusamus delectus molestiae fugiat perspiciatis in! Autem dolores corporis eius voluptatum temporibus vero quos! Dignissimos, dolorem?'
-      },
-      {
-        id: '6',
-        createTime: 1681552433,
-        updateTime: 1681552433,
-        content:
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non a placeat architecto officiis aperiam quam dignissimos nemo dolorem minus. Molestiae, rem labore tenetur expedita modi est excepturi inventore beatae dolore!'
       }
     ],
     noteList: [],
