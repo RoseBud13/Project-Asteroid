@@ -136,13 +136,24 @@ const removeScrollOrTouch = () => {
   }
 };
 
+const fullscreenChange = () => {
+  const fullEl =
+    document.fullcreenElement ||
+    document.mozFullScreenElement ||
+    document.webkitCurrentFullScreenElement;
+  if (!fullEl) {
+    globalStore.setFullscreenState(false);
+  }
+};
+
 onMounted(() => {
   setSize();
   setScrollOrTouch();
   document.addEventListener('fullscreenchange', () => {
-    if (!document.fullscreenElement) {
-      globalStore.setFullscreenState(false);
-    }
+    fullscreenChange();
+  });
+  document.addEventListener('webkitfullscreenchange', () => {
+    fullscreenChange();
   });
   window.addEventListener('resize', () => {
     if (homepage.value) {
@@ -154,9 +165,10 @@ onMounted(() => {
 onBeforeUnmount(() => {
   removeScrollOrTouch();
   document.removeEventListener('fullscreenchange', () => {
-    if (!document.fullscreenElement) {
-      globalStore.setFullscreenState(false);
-    }
+    fullscreenChange();
+  });
+  document.removeEventListener('webkitfullscreenchange', () => {
+    fullscreenChange();
   });
   window.removeEventListener('resize', () => {
     if (homepage.value) {
