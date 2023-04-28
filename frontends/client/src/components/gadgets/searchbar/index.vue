@@ -118,7 +118,7 @@ const filteredSearchAssistList = computed(() => {
 });
 
 const addNotesCommand = () => {
-  let content = inputValue.value.substring(inputValue.value.indexOf(' '));
+  let content = inputValue.value.substring(inputValue.value.indexOf(' ') + 1);
   appNotesStore.addNewNote(content);
   addNotesFlag.value = false;
   keywords.value = '';
