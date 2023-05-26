@@ -48,8 +48,12 @@ const { changeSearchEngine, searchEngineList } = useSearch();
 const modalStore = useModalStore();
 const wallpaperStore = useWallpaperStore();
 const searchAssistStore = useSearchAssistStore();
-const { showSearchAssist, searchAssistList, moonshinerUrl } =
-  storeToRefs(searchAssistStore);
+const {
+  showSearchAssist,
+  searchAssistList,
+  moonshinerUrl,
+  latestMoonshinerIndex
+} = storeToRefs(searchAssistStore);
 const appNotesStore = useAppNotesStore();
 
 const props = defineProps({
@@ -65,6 +69,7 @@ const selectedIndex = ref(-1);
 const selectedID = ref('');
 const searchInput = ref(null);
 const addNotesFlag = ref(false);
+const moonshinerIndex = ref(null);
 
 const handleChangeSearchEngine = event => {
   if (searchEngineIndex.value === 2) {
@@ -158,10 +163,19 @@ const handleSearchAssist = assistId => {
       break;
     case 'starry-eyed-moonshiner':
       if (moonshinerUrl.value.length > 0) {
+        moonshinerIndex.value = Math.floor(
+          Math.random() * moonshinerUrl.value.length
+        );
+        if (latestMoonshinerIndex.value) {
+          while (moonshinerIndex.value === latestMoonshinerIndex.value) {
+            moonshinerIndex.value = Math.floor(
+              Math.random() * moonshinerUrl.value.length
+            );
+          }
+        }
+        latestMoonshinerIndex.value = moonshinerIndex.value;
         wallpaperStore.setVideoWallpaper(
-          moonshinerUrl.value[
-            Math.floor(Math.random() * moonshinerUrl.value.length)
-          ]
+          moonshinerUrl.value[latestMoonshinerIndex.value]
         );
       }
       break;
