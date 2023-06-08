@@ -1,17 +1,20 @@
 <template>
   <div class="search-box">
-    <div class="search-input">
-      <input
-        ref="searchInput"
-        v-model="keywords"
-        @keydown.tab="handleChangeSearchEngine"
-        @input="hanldeInput"
-        :placeholder="$t(searchPlaceholder)"
-        :autofocus="props.autofocus"
-      />
-    </div>
-    <div class="search-btn" @click="handleSearch">
-      <IconSearch></IconSearch>
+    <div class="search-box-border-effect" v-if="showSearchAssist"></div>
+    <div class="search-box-content">
+      <div class="search-input">
+        <input
+          ref="searchInput"
+          v-model="keywords"
+          @keydown.tab="handleChangeSearchEngine"
+          @input="hanldeInput"
+          :placeholder="$t(searchPlaceholder)"
+          :autofocus="props.autofocus"
+        />
+      </div>
+      <div class="search-btn" @click="handleSearch">
+        <IconSearch></IconSearch>
+      </div>
     </div>
   </div>
   <div class="search-assist-wrapper" v-if="showSearchAssist">
@@ -286,19 +289,50 @@ export default {
 <style lang="scss" scoped>
 .search-box {
   display: flex;
-  width: 400px;
-  height: 40px;
+  width: 401px;
+  height: 41px;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.search-box-border-effect {
+  background-image: linear-gradient(in hsl longer hue 90deg, red 0 0);
+  position: absolute;
+  left: 0;
+  top: -180px;
+  width: 401px;
+  height: 401px;
+  animation: 6s infinite linear rotate;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.search-box-content {
+  display: flex;
+  background-color: #fff;
+  border-radius: 20px;
+  width: 398px;
+  height: 38px;
 }
 
 .search-input {
+  position: relative;
   flex: 1;
-  margin: 5px 5px 5px 10px;
+  margin: 4px 4px 4px 10px;
 }
 
 .search-input input {
-  margin: 0 20px;
+  margin: 0 10px;
   width: 100%;
   line-height: 30px;
   border: 0;
@@ -311,7 +345,7 @@ export default {
 // }
 
 .search-btn {
-  width: 40px;
+  width: 38px;
   margin: 0 5px;
   display: flex;
   justify-content: center;
@@ -341,6 +375,16 @@ export default {
   .search-assist-wrapper {
     width: 60vw;
   }
+
+  .search-box-border-effect {
+    width: 60vw;
+    height: 60vw;
+    top: calc(-60vw / 2);
+  }
+
+  .search-box-content {
+    width: calc(60vw - 3px);
+  }
 }
 
 @media (max-width: 600px) {
@@ -350,6 +394,15 @@ export default {
 
   .search-assist-wrapper {
     width: 70vw;
+  }
+
+  .search-box-border-effect {
+    width: 70vw;
+    height: 70vw;
+  }
+
+  .search-box-content {
+    width: calc(70vw - 3px);
   }
 }
 </style>
