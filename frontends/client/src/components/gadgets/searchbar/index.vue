@@ -299,7 +299,15 @@ export default {
 }
 
 .search-box-border-effect {
-  background-image: linear-gradient(in hsl longer hue 90deg, red 0 0);
+  background-image: linear-gradient(
+    90deg,
+    #c253d9,
+    #fdadfb,
+    #ffeeff,
+    #1d75a9,
+    #00ddff,
+    #c0eedb
+  );
   position: absolute;
   left: 0;
   top: -180px;
