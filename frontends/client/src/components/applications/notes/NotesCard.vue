@@ -10,6 +10,15 @@
           'font-size': '15px',
           opacity: 0.3
         }"
+      >
+        <IconPushpin></IconPushpin>
+      </AstraButton>
+      <AstraButton
+        type="text"
+        :style="{
+          'font-size': '15px',
+          opacity: 0.3
+        }"
         @click="appNotesStore.deleteNote(noteID)"
       >
         <IconDelete></IconDelete>
@@ -21,6 +30,7 @@
 <script setup>
 import AstraButton from '@/components/basics/button/index.vue';
 import IconDelete from '@/components/icons/IconDelete.vue';
+import IconPushpin from '@/components/icons/IconPushpin.vue';
 import { useAppNotesStore } from '@/stores/appNotes';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
@@ -68,9 +78,10 @@ const noteCardColor = computed(() => {
   bottom: 0;
   width: 100%;
   display: flex;
-  flex-direction: row-reverse;
-  justify-items: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 15px;
 }
 
 @media (max-width: 700px) {
