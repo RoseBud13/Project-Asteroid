@@ -10,6 +10,7 @@
           'font-size': '15px',
           opacity: 0.3
         }"
+        @click="handlePinStickies(noteID)"
       >
         <IconPushpin></IconPushpin>
       </AstraButton>
@@ -33,13 +34,15 @@ import IconDelete from '@/components/icons/IconDelete.vue';
 import IconPushpin from '@/components/icons/IconPushpin.vue';
 import { useAppNotesStore } from '@/stores/appNotes';
 import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 
 defineProps({
   noteID: String
 });
 
 const emit = defineEmits(['click']);
+
+const pinStickies = inject('stickies');
 
 const handleClick = ev => {
   emit('click', ev);
@@ -55,6 +58,15 @@ const noteCardColor = computed(() => {
     ];
   return 'background-color:' + color;
 });
+
+const handlePinStickies = id => {
+  const content = appNotesStore.pinNote(id);
+  if (content) {
+    const sticky = pinStickies(id, content);
+    sticky.instance;
+    appNotesStore.updateStickyList(id, content, sticky.unmount);
+  }
+};
 </script>
 
 <style lang="scss" scoped>

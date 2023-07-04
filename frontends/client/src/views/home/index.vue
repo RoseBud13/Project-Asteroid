@@ -16,7 +16,15 @@ import HomeModal from './components/HomeModal.vue';
 import { useGlobal } from '@/stores/global';
 import { useAppNotesStore } from '@/stores/appNotes';
 import { storeToRefs } from 'pinia';
-import { ref, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue';
+import {
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  defineAsyncComponent,
+  inject
+} from 'vue';
+
+const pinStickies = inject('stickies');
 
 const AstraNotes = defineAsyncComponent(() =>
   import('@/components/applications/notes/index.vue')
@@ -29,7 +37,7 @@ const globalStore = useGlobal();
 const { deviceType, showDashboardMobile } = storeToRefs(globalStore);
 
 const appNotesStore = useAppNotesStore();
-const { showNotes } = storeToRefs(appNotesStore);
+const { showNotes, stickyList } = storeToRefs(appNotesStore);
 
 const scrollTop = ref(0);
 const scrollStart = ref(0);
@@ -146,6 +154,26 @@ const fullscreenChange = () => {
   }
 };
 
+const renderStickies = () => {
+  if (stickyList.value.length > 0) {
+    appNotesStore.initNotes();
+    const stickyListTemp = stickyList.value;
+    stickyList.value.forEach(item => {
+      appNotesStore.unpinNote(item.stickyID);
+    });
+    stickyListTemp.forEach(item => {
+      appNotesStore.pinNote(item.stickyID);
+      const sticky = pinStickies(item.stickyID, item.content);
+      sticky.instance;
+      appNotesStore.updateStickyList(
+        item.stickyID,
+        item.content,
+        sticky.unmount
+      );
+    });
+  }
+};
+
 onMounted(() => {
   setSize();
   setScrollOrTouch();
@@ -160,6 +188,8 @@ onMounted(() => {
       setSize();
     }
   });
+  appNotesStore.initStickies();
+  renderStickies();
 });
 
 onBeforeUnmount(() => {
