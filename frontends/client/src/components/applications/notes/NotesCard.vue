@@ -35,6 +35,7 @@ import IconPushpin from '@/components/icons/IconPushpin.vue';
 import { useAppNotesStore } from '@/stores/appNotes';
 import { storeToRefs } from 'pinia';
 import { computed, inject } from 'vue';
+import { useAutoLayout } from '@/utils/elements';
 
 defineProps({
   noteID: String
@@ -49,7 +50,7 @@ const handleClick = ev => {
 };
 
 const appNotesStore = useAppNotesStore();
-const { noteCardColorPreset } = storeToRefs(appNotesStore);
+const { noteCardColorPreset, stickyList } = storeToRefs(appNotesStore);
 
 const noteCardColor = computed(() => {
   let color =
@@ -62,7 +63,21 @@ const noteCardColor = computed(() => {
 const handlePinStickies = id => {
   const content = appNotesStore.pinNote(id);
   if (content) {
-    const sticky = pinStickies(id, content);
+    let container = {
+      x: window.innerWidth,
+      y: window.innerHeight
+    };
+    let target = {
+      x: 260,
+      y: 200,
+      amount: stickyList.value.length + 1
+    };
+    const positionInfo = useAutoLayout(container, target);
+    const sticky = pinStickies(
+      id,
+      content,
+      positionInfo[stickyList.value.length]
+    );
     sticky.instance;
     appNotesStore.updateStickyList(id, content, sticky.unmount);
   }

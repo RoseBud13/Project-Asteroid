@@ -23,6 +23,7 @@ import {
   defineAsyncComponent,
   inject
 } from 'vue';
+import { useAutoLayout } from '@/utils/elements';
 
 const pinStickies = inject('stickies');
 
@@ -161,9 +162,25 @@ const renderStickies = () => {
     stickyList.value.forEach(item => {
       appNotesStore.unpinNote(item.stickyID);
     });
-    stickyListTemp.forEach(item => {
+
+    let container = {
+      x: window.innerWidth,
+      y: window.innerHeight
+    };
+    let target = {
+      x: 260,
+      y: 200,
+      amount: stickyListTemp.length
+    };
+    const positionInfo = useAutoLayout(container, target);
+
+    stickyListTemp.forEach((item, index) => {
       appNotesStore.pinNote(item.stickyID);
-      const sticky = pinStickies(item.stickyID, item.content);
+      const sticky = pinStickies(
+        item.stickyID,
+        item.content,
+        positionInfo[index]
+      );
       sticky.instance;
       appNotesStore.updateStickyList(
         item.stickyID,

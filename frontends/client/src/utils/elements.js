@@ -62,3 +62,58 @@ export function useDraggable(targetEle, options) {
     handleMousedown
   };
 }
+
+/**
+ * Returns position info for each target item.
+ *
+ * @param {object} container  The width and height of container, number value.
+ * @param {object} target The width, height and amount of all items, number value.
+ * @param {object} options The layout style, container padding and item gap, string and number value.
+ * @return {object} The x-y position of each item by given order.
+ */
+export function useAutoLayout(container, target, options) {
+  const { layoutStyle, padding, gap } = options || {};
+  const style = layoutStyle || 'tile-vertical';
+  const safeArea = padding || { x: 100, y: 100 };
+  const itemGap = gap || { x: 20, y: 20 };
+
+  const containerBox = {
+    x: container.x - safeArea.x * 2,
+    y: container.y - safeArea.y * 2
+  };
+  const itemBox = {
+    x: target.x + itemGap.x,
+    y: target.y + itemGap.y
+  };
+
+  const result = [];
+
+  switch (style) {
+    case 'tile-vertical': {
+      let verticalAmount = Math.floor(containerBox.y / itemBox.y);
+      for (let i = 1; i <= target.amount; i++) {
+        let columnIndex = Math.ceil(i / verticalAmount);
+        let rowIndex =
+          i % verticalAmount === 0 ? verticalAmount : i % verticalAmount;
+        let positionData = {};
+        positionData['x'] = itemBox.x * (columnIndex - 1) + safeArea.x;
+        positionData['y'] = itemBox.y * (rowIndex - 1) + safeArea.y;
+        result.push(positionData);
+      }
+      return result;
+    }
+    case 'tile-horizontal': {
+      let horizontalAmount = Math.floor(containerBox.x / itemBox.x);
+      for (let i = 1; i <= target.amount; i++) {
+        let columnIndex =
+          i % horizontalAmount === 0 ? horizontalAmount : i % horizontalAmount;
+        let rowIndex = Math.ceil(i / horizontalAmount);
+        let positionData = {};
+        positionData['x'] = itemBox.x * (columnIndex - 1) + safeArea.x;
+        positionData['y'] = itemBox.y * (rowIndex - 1) + safeArea.y;
+        result.push(positionData);
+      }
+      return result;
+    }
+  }
+}
