@@ -3,8 +3,8 @@
     <div class="sticky-header">
       <h3>{{ noteID }}</h3>
     </div>
-    <div class="sticky-body">
-      <p>{{ noteContent }}</p>
+    <div class="sticky-body" @click="handleSelectNote(noteID)">
+      <p>{{ stickyContent }}</p>
     </div>
     <div class="sticky-footer">
       <div class="unpin-btn">
@@ -18,14 +18,28 @@
 import { useAppNotesStore } from '@/stores/appNotes';
 import { storeToRefs } from 'pinia';
 import IconPushpinOff from '@/components/icons/IconPushpinOff.vue';
+import { computed } from 'vue';
 
 const appNotesStore = useAppNotesStore();
 const { stickyList } = storeToRefs(appNotesStore);
 
-defineProps({
-  noteID: String,
-  noteContent: String
+const props = defineProps({
+  noteID: String
 });
+
+const stickyContent = computed(() => {
+  const sticky = stickyList.value.find(item => item.stickyID === props.noteID);
+  if (sticky) {
+    return sticky.content;
+  } else {
+    return '';
+  }
+});
+
+const handleSelectNote = id => {
+  appNotesStore.toggleNotes(true);
+  appNotesStore.setNoteEditorContent(id);
+};
 
 const handleUnpinStickies = id => {
   const sticky = stickyList.value.find(item => item.stickyID === id);

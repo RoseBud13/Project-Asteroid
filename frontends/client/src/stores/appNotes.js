@@ -14,6 +14,10 @@ const debounceSetUpdateTime = useDebounce(
   true
 );
 
+const debounceStickiesToLocal = useDebounce(data => {
+  Local.set('stickies', data);
+}, 3000);
+
 export const useAppNotesStore = defineStore('appNotes', {
   state: () => ({
     showNotes: false,
@@ -68,8 +72,12 @@ export const useAppNotesStore = defineStore('appNotes', {
     noteCardColorPreset: ['#ffffb7', '#fff8a5', '#fff599', '#fff6cc']
   }),
   actions: {
-    toggleNotes() {
-      this.showNotes = !this.showNotes;
+    toggleNotes(value) {
+      if (value) {
+        this.showNotes = value;
+      } else {
+        this.showNotes = !this.showNotes;
+      }
       this.enlarged = false;
     },
     toggleEnlarge() {
@@ -96,6 +104,11 @@ export const useAppNotesStore = defineStore('appNotes', {
         debounceSetUpdateTime(selected);
         debounceNotesToLocal(this.noteList);
       }
+      let sticky = this.stickyList.find(item => item.stickyID === id);
+      if (sticky) {
+        sticky.content = newContent;
+        debounceStickiesToLocal(this.stickyList);
+      }
     },
     addNewNote(input) {
       let newNote = {
@@ -117,6 +130,11 @@ export const useAppNotesStore = defineStore('appNotes', {
         this.editorContent = '';
         this.selectedNoteID = '';
         this.selectedNoteIndex = null;
+        const sticky = this.stickyList.find(item => item.stickyID === id);
+        if (sticky) {
+          sticky.unpin();
+          this.unpinNote(id);
+        }
       }
     },
     initStickies() {
@@ -131,7 +149,8 @@ export const useAppNotesStore = defineStore('appNotes', {
         if (!selected.pinned) {
           selected.pinned = true;
           Local.set('notes', this.noteList);
-          return selected.content;
+          let contentValue = selected.content || ' ';
+          return contentValue;
         } else {
           return false;
         }

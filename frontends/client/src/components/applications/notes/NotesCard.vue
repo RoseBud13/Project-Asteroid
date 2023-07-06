@@ -69,11 +69,7 @@ const handlePinStickies = id => {
       amount: stickyList.value.length + 1
     };
     const positionInfo = useAutoLayout(target);
-    const sticky = pinStickies(
-      id,
-      content,
-      positionInfo[stickyList.value.length]
-    );
+    const sticky = pinStickies(id, positionInfo[stickyList.value.length]);
     sticky.instance;
     appNotesStore.updateStickyList(id, content, sticky.unmount);
   }

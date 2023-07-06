@@ -1,10 +1,9 @@
 import AstraStickies from './Stickies.vue';
 import { useMountComponent } from '@/hooks/mountComponent';
 
-const stickiesPlugin = (id, content, position) => {
+const stickiesPlugin = (id, position) => {
   const options = {
-    noteID: id,
-    noteContent: content
+    noteID: id
   };
 
   const cls = 'stickies-wrapper';

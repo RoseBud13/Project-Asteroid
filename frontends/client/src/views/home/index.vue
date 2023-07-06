@@ -172,11 +172,7 @@ const renderStickies = () => {
 
     stickyListTemp.forEach((item, index) => {
       appNotesStore.pinNote(item.stickyID);
-      const sticky = pinStickies(
-        item.stickyID,
-        item.content,
-        positionInfo[index]
-      );
+      const sticky = pinStickies(item.stickyID, positionInfo[index]);
       sticky.instance;
       appNotesStore.updateStickyList(
         item.stickyID,
