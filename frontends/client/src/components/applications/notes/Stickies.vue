@@ -67,6 +67,18 @@ export default {
   overflow-x: hidden;
 }
 
+.sticky-body::-webkit-scrollbar-track {
+  background-color: #ffffb7;
+}
+
+.sticky-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sticky-body::-webkit-scrollbar-thumb {
+  background-color: #ffd52e;
+}
+
 .sticky-body p {
   white-space: pre-line;
 }
