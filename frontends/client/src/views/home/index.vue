@@ -163,16 +163,12 @@ const renderStickies = () => {
       appNotesStore.unpinNote(item.stickyID);
     });
 
-    let container = {
-      x: window.innerWidth,
-      y: window.innerHeight
-    };
     let target = {
       x: 260,
       y: 200,
       amount: stickyListTemp.length
     };
-    const positionInfo = useAutoLayout(container, target);
+    const positionInfo = useAutoLayout(target);
 
     stickyListTemp.forEach((item, index) => {
       appNotesStore.pinNote(item.stickyID);

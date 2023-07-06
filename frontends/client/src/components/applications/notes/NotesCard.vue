@@ -63,16 +63,12 @@ const noteCardColor = computed(() => {
 const handlePinStickies = id => {
   const content = appNotesStore.pinNote(id);
   if (content) {
-    let container = {
-      x: window.innerWidth,
-      y: window.innerHeight
-    };
     let target = {
       x: 260,
       y: 200,
       amount: stickyList.value.length + 1
     };
-    const positionInfo = useAutoLayout(container, target);
+    const positionInfo = useAutoLayout(target);
     const sticky = pinStickies(
       id,
       content,
