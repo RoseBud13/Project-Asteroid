@@ -158,7 +158,13 @@ const fullscreenChange = () => {
 const renderStickies = () => {
   if (stickyList.value.length > 0) {
     appNotesStore.initNotes();
-    const stickyListTemp = stickyList.value;
+    const stickyListTemp = stickyList.value.filter(
+      item => item.moved === false
+    );
+    const movedStickyList = stickyList.value.filter(
+      item => item.moved === true
+    );
+
     stickyList.value.forEach(item => {
       appNotesStore.unpinNote(item.stickyID);
     });
@@ -177,7 +183,21 @@ const renderStickies = () => {
       appNotesStore.updateStickyList(
         item.stickyID,
         item.content,
-        sticky.unmount
+        sticky.unmount,
+        positionInfo[index]
+      );
+    });
+
+    movedStickyList.forEach(item => {
+      appNotesStore.pinNote(item.stickyID);
+      const sticky = pinStickies(item.stickyID, item.position);
+      sticky.instance;
+      appNotesStore.updateStickyList(
+        item.stickyID,
+        item.content,
+        sticky.unmount,
+        item.position,
+        true
       );
     });
   }

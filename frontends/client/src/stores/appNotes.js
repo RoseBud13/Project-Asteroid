@@ -16,7 +16,7 @@ const debounceSetUpdateTime = useDebounce(
 
 const debounceStickiesToLocal = useDebounce(data => {
   Local.set('stickies', data);
-}, 3000);
+}, 500);
 
 export const useAppNotesStore = defineStore('appNotes', {
   state: () => ({
@@ -156,14 +156,24 @@ export const useAppNotesStore = defineStore('appNotes', {
         }
       }
     },
-    updateStickyList(id, content, unmount) {
+    updateStickyList(id, content, unmount, position, moved = false) {
       const data = {
         stickyID: id,
         content: content,
-        unpin: unmount
+        unpin: unmount,
+        position,
+        moved: moved
       };
       this.stickyList.push(data);
       Local.set('stickies', this.stickyList);
+    },
+    moveSticky(id, position) {
+      let selected = this.stickyList.find(item => item.stickyID === id);
+      if (selected) {
+        selected.position = position;
+        selected.moved = true;
+        debounceStickiesToLocal(this.stickyList);
+      }
     },
     unpinNote(id) {
       let selected = this.stickyList.find(item => item.stickyID === id);

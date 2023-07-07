@@ -1,7 +1,7 @@
 <template>
   <div class="sticky-box">
-    <div class="sticky-header">
-      <h3>{{ noteID }}</h3>
+    <div class="sticky-header" ref="stickyHeader" @click="handleMoveSticky">
+      <h3>{{ stickyPosition }}</h3>
     </div>
     <div class="sticky-body" @click="handleSelectNote(noteID)">
       <p>{{ stickyContent }}</p>
@@ -15,10 +15,13 @@
 </template>
 
 <script setup>
-import { useAppNotesStore } from '@/stores/appNotes';
-import { storeToRefs } from 'pinia';
 import IconPushpinOff from '@/components/icons/IconPushpinOff.vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useAppNotesStore } from '@/stores/appNotes';
+import { useDraggable } from '@/utils/elements';
+
+const stickyHeader = ref(null);
 
 const appNotesStore = useAppNotesStore();
 const { stickyList } = storeToRefs(appNotesStore);
@@ -35,6 +38,30 @@ const stickyContent = computed(() => {
     return '';
   }
 });
+
+const stickyPosition = computed(() => {
+  const sticky = stickyList.value.find(item => item.stickyID === props.noteID);
+  if (sticky) {
+    return sticky.position;
+  } else {
+    return 'no stikcy found';
+  }
+});
+
+setTimeout(() => {
+  useDraggable(
+    stickyHeader,
+    {
+      initPosition: stickyPosition.value,
+      savePosition: false
+    },
+    document.getElementById(props.noteID)
+  );
+}, 200);
+
+const handleMoveSticky = () => {
+  appNotesStore.moveSticky(props.noteID, stickyPosition.value);
+};
 
 const handleSelectNote = id => {
   appNotesStore.toggleNotes(true);
@@ -71,6 +98,11 @@ export default {
   width: 100%;
   height: 30px;
   padding: 5px 10px;
+  cursor: grab;
+}
+
+.sticky-header:active {
+  cursor: grabbing;
 }
 
 .sticky-body {

@@ -1,7 +1,7 @@
 import { reactive, computed } from 'vue';
 import { Local } from './storage';
 
-export function useDraggable(targetEle, options) {
+export function useDraggable(targetEle, options, otherEle) {
   const { initPosition, savePosition } = options || {};
 
   const originPosition = reactive(initPosition || { x: 0, y: 0 });
@@ -35,6 +35,9 @@ export function useDraggable(targetEle, options) {
     event.stopPropagation();
     elementOffset.x = event.clientX - originPosition.x - mousedownOffset.x;
     elementOffset.y = event.clientY - originPosition.y - mousedownOffset.y;
+    if (otherEle) {
+      otherEle.style = `top:${originPosition.y}px;left:${originPosition.x}px;transform:translate(${elementOffset.x}px,${elementOffset.y}px)`;
+    }
   };
 
   const handleMouseup = event => {

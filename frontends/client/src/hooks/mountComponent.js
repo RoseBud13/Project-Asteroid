@@ -10,6 +10,9 @@ export function useMountComponent(rootComp, options, cls, style) {
     containerNode.style.top = style.top + 'px';
     containerNode.style.left = style.left + 'px';
   }
+  if (options.noteID) {
+    containerNode.id = options.noteID;
+  }
   document.body.appendChild(containerNode);
   return {
     instance: app.mount(containerNode),
