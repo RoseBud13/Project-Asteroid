@@ -10,19 +10,20 @@
           'font-size': '15px',
           opacity: 0.3
         }"
-        @click="handlePinStickies(noteID)"
+        @click="appNotesStore.deleteNote(noteID)"
       >
-        <IconPushpin></IconPushpin>
+        <IconDelete></IconDelete>
       </AstraButton>
       <AstraButton
+        v-if="deviceType === 'PC' || deviceType === ''"
         type="text"
         :style="{
           'font-size': '15px',
           opacity: 0.3
         }"
-        @click="appNotesStore.deleteNote(noteID)"
+        @click="handlePinStickies(noteID)"
       >
-        <IconDelete></IconDelete>
+        <IconPushpin></IconPushpin>
       </AstraButton>
     </div>
   </div>
@@ -36,6 +37,7 @@ import { useAppNotesStore } from '@/stores/appNotes';
 import { storeToRefs } from 'pinia';
 import { computed, inject } from 'vue';
 import { useAutoLayout } from '@/utils/elements';
+import { useGlobal } from '@/stores/global';
 
 defineProps({
   noteID: String
@@ -51,6 +53,9 @@ const handleClick = ev => {
 
 const appNotesStore = useAppNotesStore();
 const { noteCardColorPreset, stickyList } = storeToRefs(appNotesStore);
+
+const globalStore = useGlobal();
+const { deviceType } = storeToRefs(globalStore);
 
 const noteCardColor = computed(() => {
   let color =
@@ -102,7 +107,7 @@ const handlePinStickies = id => {
   bottom: 0;
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
   padding: 0 15px;

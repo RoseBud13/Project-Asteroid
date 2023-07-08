@@ -1,7 +1,7 @@
 <template>
   <div class="sticky-box">
     <div class="sticky-header" ref="stickyHeader" @click="handleMoveSticky">
-      <h3>{{ stickyPosition }}</h3>
+      <!-- <h3>{{ stickyPosition }}</h3> -->
     </div>
     <div class="sticky-body" @click="handleSelectNote(noteID)">
       <p>{{ stickyContent }}</p>
