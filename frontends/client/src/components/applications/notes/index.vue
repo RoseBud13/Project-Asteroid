@@ -202,9 +202,11 @@ watch(enlarged, () => {
     notes.value.style =
       'top:0px;left:0px;width:100%;height:100%;transition: all 0.5s ease';
     notesHeader.value.removeEventListener('mousedown', handleMousedown, true);
+    notesHeader.value.style = 'cursor: default';
   } else {
     notes.value.style = style.value + ';transition:all 0.5s ease';
     notesHeader.value.addEventListener('mousedown', handleMousedown, true);
+    notesHeader.value.style = 'cursor: grab';
   }
 });
 
@@ -255,6 +257,11 @@ export default {
   height: 50px;
   background-color: #ffd52e;
   border-radius: 15px 15px 0 0;
+  cursor: grab;
+}
+
+.notes-header:active {
+  cursor: grabbing;
 }
 
 .notes-main {

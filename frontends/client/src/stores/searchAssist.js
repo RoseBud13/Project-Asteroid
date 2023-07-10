@@ -34,7 +34,8 @@ export const useSearchAssistStore = defineStore('searchAssist', {
         id: 'starry-eyed-moonshiner'
       }
     ],
-    moonshinerUrl: []
+    moonshinerUrl: [],
+    latestMoonshinerIndex: null
   }),
   actions: {
     toggleShowSearchAssist(value) {

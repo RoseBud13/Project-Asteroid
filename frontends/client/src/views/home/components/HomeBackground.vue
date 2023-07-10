@@ -29,7 +29,10 @@
         >
           <template #appicon>
             <IconMusic v-if="widgetApp.icon === 'iconMusic'"></IconMusic>
-            <IconCode v-else-if="widgetApp.icon === 'iconCode'"></IconCode>
+            <!-- <IconCode v-else-if="widgetApp.icon === 'iconCode'"></IconCode> -->
+            <EmojiMessage
+              v-else-if="widgetApp.icon === 'iconMessage'"
+            ></EmojiMessage>
             <img
               v-else
               :src="widgetApp.icon"
@@ -61,7 +64,8 @@ import SideAppBox from '@/components/gadgets/appbox/SideAppBox.vue';
 import AstraAppCard from '@/components/basics/appcard/index.vue';
 import AstraApp from '@/components/basics/appcard/AstraApp.vue';
 import IconMusic from '@/components/icons/IconMusic.vue';
-import IconCode from '@/components/icons/IconCode.vue';
+// import IconCode from '@/components/icons/IconCode.vue';
+import EmojiMessage from '@/components/icons/EmojiMessage.vue';
 import { useWidgetboxStore } from '@/stores/widgetbox';
 import { useWallpaperStore } from '@/stores/wallpaper';
 import { useModalStore } from '@/stores/modal';

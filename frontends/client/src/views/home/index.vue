@@ -16,7 +16,16 @@ import HomeModal from './components/HomeModal.vue';
 import { useGlobal } from '@/stores/global';
 import { useAppNotesStore } from '@/stores/appNotes';
 import { storeToRefs } from 'pinia';
-import { ref, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue';
+import {
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  defineAsyncComponent,
+  inject
+} from 'vue';
+import { useAutoLayout } from '@/utils/elements';
+
+const pinStickies = inject('stickies');
 
 const AstraNotes = defineAsyncComponent(() =>
   import('@/components/applications/notes/index.vue')
@@ -29,7 +38,7 @@ const globalStore = useGlobal();
 const { deviceType, showDashboardMobile } = storeToRefs(globalStore);
 
 const appNotesStore = useAppNotesStore();
-const { showNotes } = storeToRefs(appNotesStore);
+const { showNotes, stickyList } = storeToRefs(appNotesStore);
 
 const scrollTop = ref(0);
 const scrollStart = ref(0);
@@ -136,27 +145,91 @@ const removeScrollOrTouch = () => {
   }
 };
 
+const fullscreenChange = () => {
+  const fullEl =
+    document.fullcreenElement ||
+    document.mozFullScreenElement ||
+    document.webkitCurrentFullScreenElement;
+  if (!fullEl) {
+    globalStore.setFullscreenState(false);
+  }
+};
+
+const renderStickies = () => {
+  if (deviceType.value === 'PC' || deviceType.value === '') {
+    if (stickyList.value.length > 0) {
+      appNotesStore.initNotes();
+      const stickyListTemp = stickyList.value.filter(
+        item => item.moved === false
+      );
+      const movedStickyList = stickyList.value.filter(
+        item => item.moved === true
+      );
+
+      stickyList.value.forEach(item => {
+        appNotesStore.unpinNote(item.stickyID);
+      });
+
+      let target = {
+        x: 260,
+        y: 200,
+        amount: stickyListTemp.length
+      };
+      const positionInfo = useAutoLayout(target);
+
+      stickyListTemp.forEach((item, index) => {
+        appNotesStore.pinNote(item.stickyID);
+        const sticky = pinStickies(item.stickyID, positionInfo[index]);
+        sticky.instance;
+        appNotesStore.updateStickyList(
+          item.stickyID,
+          item.content,
+          sticky.unmount,
+          positionInfo[index]
+        );
+      });
+
+      movedStickyList.forEach(item => {
+        appNotesStore.pinNote(item.stickyID);
+        const sticky = pinStickies(item.stickyID, item.position);
+        sticky.instance;
+        appNotesStore.updateStickyList(
+          item.stickyID,
+          item.content,
+          sticky.unmount,
+          item.position,
+          true
+        );
+      });
+    }
+  }
+};
+
 onMounted(() => {
   setSize();
   setScrollOrTouch();
   document.addEventListener('fullscreenchange', () => {
-    if (!document.fullscreenElement) {
-      globalStore.setFullscreenState(false);
-    }
+    fullscreenChange();
+  });
+  document.addEventListener('webkitfullscreenchange', () => {
+    fullscreenChange();
   });
   window.addEventListener('resize', () => {
     if (homepage.value) {
       setSize();
     }
   });
+  appNotesStore.initStickies();
+  renderStickies();
 });
 
 onBeforeUnmount(() => {
   removeScrollOrTouch();
   document.removeEventListener('fullscreenchange', () => {
-    if (!document.fullscreenElement) {
-      globalStore.setFullscreenState(false);
-    }
+    fullscreenChange();
+  });
+  document.removeEventListener('webkitfullscreenchange', () => {
+    fullscreenChange();
   });
   window.removeEventListener('resize', () => {
     if (homepage.value) {

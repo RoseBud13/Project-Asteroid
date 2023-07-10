@@ -21,14 +21,23 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         icon: 'iconMusic',
         tag: '唱片机'
       },
+      // {
+      //   id: 'editor',
+      //   external: true,
+      //   embedded: true,
+      //   urlRouter: 'https://www.b612.one/asteroid/web-editor',
+      //   title: 'JS Editor by 🍒',
+      //   icon: 'iconCode',
+      //   tag: 'Editor'
+      // },
       {
-        id: 'editor',
+        id: 'chatroom',
         external: true,
         embedded: true,
-        urlRouter: 'https://www.b612.one/asteroid/web-editor',
-        title: 'JS Editor by 🍒',
-        icon: 'iconCode',
-        tag: 'Editor'
+        urlRouter: 'https://www.b612.one/chatty',
+        title: 'Chatty',
+        icon: 'iconMessage',
+        tag: 'Chatty'
       },
       {
         id: 'yuanshen',

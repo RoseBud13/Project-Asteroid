@@ -1,12 +1,27 @@
 export function useFullscreen() {
+  const docEl = document.documentElement;
+  const fullEl =
+    document.fullcreenElement ||
+    document.mozFullScreenElement ||
+    document.webkitCurrentFullScreenElement;
   const openFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
+    if (!fullEl) {
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen();
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (docEl.msRequestFullscreen) {
+        docEl.msRequestFullscreen();
+      }
     }
   };
   const closeFullscreen = () => {
     if (document.exitFullscreen) {
       document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
     }
   };
   return {

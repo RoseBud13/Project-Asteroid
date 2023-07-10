@@ -41,7 +41,10 @@
       >
         <template #appicon>
           <IconMusic v-if="widgetApp.icon === 'iconMusic'"></IconMusic>
-          <IconCode v-else-if="widgetApp.icon === 'iconCode'"></IconCode>
+          <!-- <IconCode v-else-if="widgetApp.icon === 'iconCode'"></IconCode> -->
+          <EmojiMessage
+            v-else-if="widgetApp.icon === 'iconMessage'"
+          ></EmojiMessage>
           <img
             v-else
             :src="widgetApp.icon"
@@ -76,7 +79,8 @@ import IconArrowLeft from '@/components/icons/IconArrowLeft.vue';
 import IconArrowExternal from '@/components/icons/IconArrowExternal.vue';
 import IconMusic from '@/components/icons/IconMusic.vue';
 import IconClose from '@/components/icons/IconClose.vue';
-import IconCode from '@/components/icons/IconCode.vue';
+// import IconCode from '@/components/icons/IconCode.vue';
+import EmojiMessage from '@/components/icons/EmojiMessage.vue';
 import { useModalStore } from '@/stores/modal';
 import { useWidgetboxStore } from '@/stores/widgetbox';
 import { storeToRefs } from 'pinia';
