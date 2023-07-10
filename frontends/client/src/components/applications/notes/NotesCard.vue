@@ -67,20 +67,25 @@ const noteCardColor = computed(() => {
 
 const handlePinStickies = id => {
   const content = appNotesStore.pinNote(id);
+
+  const originStickyList = stickyList.value.filter(
+    item => item.moved === false
+  );
+
   if (content) {
     let target = {
       x: 260,
       y: 200,
-      amount: stickyList.value.length + 1
+      amount: originStickyList.length + 1
     };
     const positionInfo = useAutoLayout(target);
-    const sticky = pinStickies(id, positionInfo[stickyList.value.length]);
+    const sticky = pinStickies(id, positionInfo[originStickyList.length]);
     sticky.instance;
     appNotesStore.updateStickyList(
       id,
       content,
       sticky.unmount,
-      positionInfo[stickyList.value.length]
+      positionInfo[originStickyList.length]
     );
   }
 };

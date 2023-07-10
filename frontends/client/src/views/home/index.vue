@@ -159,25 +159,26 @@ const renderStickies = () => {
   if (deviceType.value === 'PC' || deviceType.value === '') {
     if (stickyList.value.length > 0) {
       appNotesStore.initNotes();
-      const stickyListTemp = stickyList.value.filter(
+      const stickyListTemp = stickyList.value;
+      const originStickyList = stickyList.value.filter(
         item => item.moved === false
       );
       const movedStickyList = stickyList.value.filter(
         item => item.moved === true
       );
 
-      stickyList.value.forEach(item => {
+      stickyListTemp.forEach(item => {
         appNotesStore.unpinNote(item.stickyID);
       });
 
       let target = {
         x: 260,
         y: 200,
-        amount: stickyListTemp.length
+        amount: originStickyList.length
       };
       const positionInfo = useAutoLayout(target);
 
-      stickyListTemp.forEach((item, index) => {
+      originStickyList.forEach((item, index) => {
         appNotesStore.pinNote(item.stickyID);
         const sticky = pinStickies(item.stickyID, positionInfo[index]);
         sticky.instance;
