@@ -113,6 +113,7 @@ export default {
   padding: 0 10px;
   overflow-y: auto;
   overflow-x: hidden;
+  user-select: text;
 }
 
 .sticky-body::-webkit-scrollbar-track {
