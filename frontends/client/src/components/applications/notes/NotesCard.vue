@@ -21,9 +21,15 @@
           'font-size': '15px',
           opacity: 0.3
         }"
-        @click="handlePinStickies(noteID)"
       >
-        <IconPushpin></IconPushpin>
+        <IconPushpin
+          v-if="!notePinState"
+          @click="handlePinStickies(noteID)"
+        ></IconPushpin>
+        <IconPushpinOff
+          v-else
+          @click="handleUnpinStickies(noteID)"
+        ></IconPushpinOff>
       </AstraButton>
     </div>
   </div>
@@ -33,13 +39,14 @@
 import AstraButton from '@/components/basics/button/index.vue';
 import IconDelete from '@/components/icons/IconDelete.vue';
 import IconPushpin from '@/components/icons/IconPushpin.vue';
+import IconPushpinOff from '@/components/icons/IconPushpinOff.vue';
 import { useAppNotesStore } from '@/stores/appNotes';
 import { storeToRefs } from 'pinia';
 import { computed, inject } from 'vue';
 import { useAutoLayout } from '@/utils/elements';
 import { useGlobal } from '@/stores/global';
 
-defineProps({
+const props = defineProps({
   noteID: String
 });
 
@@ -65,6 +72,15 @@ const noteCardColor = computed(() => {
   return 'background-color:' + color;
 });
 
+const notePinState = computed(() => {
+  const sticky = stickyList.value.find(item => item.stickyID === props.noteID);
+  if (sticky) {
+    return true;
+  } else {
+    return false;
+  }
+});
+
 const handlePinStickies = id => {
   const content = appNotesStore.pinNote(id);
 
@@ -88,6 +104,12 @@ const handlePinStickies = id => {
       positionInfo[originStickyList.length]
     );
   }
+};
+
+const handleUnpinStickies = id => {
+  const sticky = stickyList.value.find(item => item.stickyID === id);
+  sticky.unpin();
+  appNotesStore.unpinNote(id);
 };
 </script>
 
