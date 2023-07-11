@@ -88,6 +88,8 @@ const handlePinStickies = id => {
     item => item.moved === false
   );
 
+  const parentComp = document.getElementsByClassName('background-wrapper')[0];
+
   if (content) {
     let target = {
       x: 260,
@@ -95,7 +97,11 @@ const handlePinStickies = id => {
       amount: originStickyList.length + 1
     };
     const positionInfo = useAutoLayout(target);
-    const sticky = pinStickies(id, positionInfo[originStickyList.length]);
+    const sticky = pinStickies(
+      id,
+      positionInfo[originStickyList.length],
+      parentComp
+    );
     sticky.instance;
     appNotesStore.updateStickyList(
       id,

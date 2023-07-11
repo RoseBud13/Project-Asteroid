@@ -178,9 +178,16 @@ const renderStickies = () => {
       };
       const positionInfo = useAutoLayout(target);
 
+      const parentComp =
+        document.getElementsByClassName('background-wrapper')[0];
+
       originStickyList.forEach((item, index) => {
         appNotesStore.pinNote(item.stickyID);
-        const sticky = pinStickies(item.stickyID, positionInfo[index]);
+        const sticky = pinStickies(
+          item.stickyID,
+          positionInfo[index],
+          parentComp
+        );
         sticky.instance;
         appNotesStore.updateStickyList(
           item.stickyID,
@@ -192,7 +199,7 @@ const renderStickies = () => {
 
       movedStickyList.forEach(item => {
         appNotesStore.pinNote(item.stickyID);
-        const sticky = pinStickies(item.stickyID, item.position);
+        const sticky = pinStickies(item.stickyID, item.position, parentComp);
         sticky.instance;
         appNotesStore.updateStickyList(
           item.stickyID,
