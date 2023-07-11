@@ -391,6 +391,7 @@ export default {
 
   .notes-header {
     border-radius: 0;
+    cursor: default;
   }
 
   .notes-enlarge-btn {
