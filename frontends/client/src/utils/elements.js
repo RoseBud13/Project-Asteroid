@@ -32,6 +32,7 @@ export function useDraggable(targetEle, options, otherEle) {
   };
 
   const handleMousemove = event => {
+    event.preventDefault();
     event.stopPropagation();
     elementOffset.x = event.clientX - originPosition.x - mousedownOffset.x;
     elementOffset.y = event.clientY - originPosition.y - mousedownOffset.y;

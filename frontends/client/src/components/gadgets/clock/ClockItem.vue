@@ -116,6 +116,7 @@ onUnmounted(() => {
 #clock {
   text-align: center;
   margin: auto;
+  user-select: none;
 }
 .time {
   transform: translate(-50%, -50%);

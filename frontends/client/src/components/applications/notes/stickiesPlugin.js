@@ -1,7 +1,7 @@
 import AstraStickies from './Stickies.vue';
 import { useMountComponent } from '@/hooks/mountComponent';
 
-const stickiesPlugin = (id, position) => {
+const stickiesPlugin = (id, position, parentComp) => {
   const options = {
     noteID: id
   };
@@ -13,7 +13,8 @@ const stickiesPlugin = (id, position) => {
     AstraStickies,
     options,
     cls,
-    style
+    style,
+    parentComp
   );
 
   return {

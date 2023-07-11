@@ -66,6 +66,7 @@ export default {
   height: 50px;
   top: 0;
   z-index: 2;
+  user-select: none;
 }
 
 .astra-navbar-fixed {

@@ -48,7 +48,7 @@ const cls = computed(() => {
   background-color: #fff;
   border-radius: 25px;
   transition: all 0.3s ease-in-out;
-  z-index: 1;
+  z-index: 10;
 }
 
 .side-appbox-left {

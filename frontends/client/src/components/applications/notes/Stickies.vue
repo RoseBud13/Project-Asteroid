@@ -64,8 +64,10 @@ const handleMoveSticky = () => {
 };
 
 const handleSelectNote = id => {
-  appNotesStore.toggleNotes(true);
-  appNotesStore.setNoteEditorContent(id);
+  if (window.getSelection().type !== 'Range') {
+    appNotesStore.toggleNotes(true);
+    appNotesStore.setNoteEditorContent(id);
+  }
 };
 
 const handleUnpinStickies = id => {

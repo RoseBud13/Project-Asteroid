@@ -1,8 +1,9 @@
 import { createApp } from 'vue';
 
-export function useMountComponent(rootComp, options, cls, style) {
+export function useMountComponent(rootComp, options, cls, style, parentComp) {
   const app = createApp(rootComp, options);
   const containerNode = document.createElement('div');
+  const wrapper = parentComp || document.body;
   if (cls && typeof cls === 'string') {
     containerNode.classList.add(cls);
   }
@@ -13,12 +14,12 @@ export function useMountComponent(rootComp, options, cls, style) {
   if (options.noteID) {
     containerNode.id = options.noteID;
   }
-  document.body.appendChild(containerNode);
+  wrapper.appendChild(containerNode);
   return {
     instance: app.mount(containerNode),
     unmount() {
       app.unmount();
-      document.body.removeChild(containerNode);
+      wrapper.removeChild(containerNode);
     }
   };
 }
