@@ -162,7 +162,7 @@ const hanldeInput = event => {
 const handleSearchAssist = assistId => {
   switch (assistId) {
     case 'notes':
-      appNotesStore.toggleNotes();
+      appNotesStore.toggleNotes(true);
       break;
     case 'starry-eyed-moonshiner':
       if (moonshinerUrl.value.length > 0) {

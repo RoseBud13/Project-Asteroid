@@ -49,7 +49,7 @@
         <AstraApp
           icon="notes"
           :appTitle="$t('application.notes.title')"
-          @click="appNotesStore.toggleNotes()"
+          @click="appNotesStore.toggleNotes(true)"
         ></AstraApp>
       </SideAppBox>
     </template>
