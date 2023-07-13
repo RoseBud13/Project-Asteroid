@@ -45,7 +45,9 @@
           </AstraDropdownOption>
         </template>
       </AstraDropdown>
-      <AstraDropdown>
+      <AstraDropdown
+        :rightEdge="deviceType !== 'PC' && deviceType !== '' ? true : false"
+      >
         <template #trigger>
           <AstraButton
             type="nav"

@@ -1,5 +1,5 @@
 <template>
-  <div class="astra-dropdown">
+  <div class="astra-dropdown" :class="cls">
     <div class="dropdown-trigger-wrapper" ref="dropdownTrigger">
       <slot name="trigger"></slot>
     </div>
@@ -15,13 +15,33 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
+
+const props = defineProps({
+  leftEdge: {
+    type: Boolean,
+    default: false
+  },
+  rightEdge: {
+    type: Boolean,
+    default: false
+  }
+});
 
 const dropdownTrigger = ref(null);
 const triggerHeight = ref();
 
+const cls = computed(() => {
+  if (props.leftEdge) {
+    return 'astra-dropdown-left';
+  } else if (props.rightEdge) {
+    return 'astra-dropdown-right';
+  } else {
+    return '';
+  }
+});
+
 onMounted(() => {
-  // console.log(dropdownTrigger.value.offsetHeight);
   triggerHeight.value = dropdownTrigger.value.offsetHeight + 5;
 });
 </script>
@@ -51,6 +71,16 @@ export default {
   transform: translateX(50%);
   transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
   z-index: 1;
+}
+
+.astra-dropdown-left .astra-dropdown-container {
+  left: 0;
+  transform: translateX(0);
+}
+
+.astra-dropdown-right .astra-dropdown-container {
+  right: 0;
+  transform: translateX(0);
 }
 
 .astra-dropdown-menu {
