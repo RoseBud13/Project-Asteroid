@@ -23,37 +23,7 @@
           <div class="dashboard-content-hint">
             <IconArrowDown></IconArrowDown>
           </div>
-          <h1>widget</h1>
-          <div class="widget-test">
-            <h1>test</h1>
-            <br />
-            <h1>test</h1>
-            <br />
-            <h1>test</h1>
-            <br />
-            <h1>test</h1>
-            <br />
-            <h1>hi</h1>
-            <br />
-            <h1>test</h1>
-            <br />
-            <h1>hi</h1>
-            <br />
-            <h1>test</h1>
-            <br />
-            <h1>hi</h1>
-            <br />
-            <h1>test</h1>
-            <br />
-            <h1>hi</h1>
-            <br />
-            <h1>test</h1>
-            <br />
-            <h1>hi</h1>
-            <br />
-            <h1>test</h1>
-            <br />
-          </div>
+          <DashboardWidget></DashboardWidget>
         </div>
         <div
           class="dashboard-content-main"
@@ -64,7 +34,7 @@
           <div class="dashboard-content-hint">
             <IconArrowDown></IconArrowDown>
           </div>
-          <h1>main</h1>
+          <DashboardMain></DashboardMain>
         </div>
       </div>
     </div>
@@ -77,6 +47,8 @@ import { storeToRefs } from 'pinia';
 import { useGlobal } from '@/stores/global';
 import IconArrowUp from '@/components/icons/IconArrowUp.vue';
 import IconArrowDown from '@/components/icons/IconArrowDown.vue';
+import DashboardWidget from './DashboardWidget.vue';
+import DashboardMain from './DashboardMain.vue';
 
 const dashboardComp = ref(null);
 const dashboardContent = ref(null);
@@ -263,12 +235,6 @@ export default {
     flex: 1;
     transition: transform 0.5s ease;
   }
-}
-
-.widget-test {
-  width: 200px;
-  height: 2000px;
-  background-color: white;
 }
 
 @keyframes bounce {
