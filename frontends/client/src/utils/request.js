@@ -16,6 +16,30 @@ export async function fetchOneWallpaperUrl() {
   }
 }
 
+export async function fetchOneDailyQuote() {
+  try {
+    const response = await fetch('https://b612.one/oneapi/');
+    if (!response.ok) {
+      // throw new Error("Network response was not OK");
+      return {
+        content: 'Ad astra abyssosque.',
+        info: 'Project Asteroid'
+      };
+    }
+    const jsonData = await response.json();
+    return {
+      content: jsonData.data.content_list[0].forward,
+      info: '—— ' + jsonData.data.content_list[0].words_info
+    };
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+    return {
+      content: 'Ad astra abyssosque.',
+      info: 'Project Asteroid'
+    };
+  }
+}
+
 export async function fetchMoonshinerUrl() {
   try {
     const response = await fetch(
