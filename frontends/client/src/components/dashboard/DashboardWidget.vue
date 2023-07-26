@@ -39,14 +39,9 @@
 <script setup>
 import { useDashboardStore } from '@/stores/dashboard';
 import { storeToRefs } from 'pinia';
-import { onMounted } from 'vue';
 
 const dashboardStore = useDashboardStore();
 const { dailyQuote } = storeToRefs(dashboardStore);
-
-onMounted(() => {
-  dashboardStore.initDashboardWidgets();
-});
 </script>
 
 <style lang="scss" scoped>

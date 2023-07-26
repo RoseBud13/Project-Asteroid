@@ -114,7 +114,6 @@ const handleOpenWidgetApp = (url, title, isExternal, isEmbedded) => {
 };
 
 onMounted(() => {
-  wallpaperStore.initWallpaper();
   widgetboxStore.initWidgetApps();
   background.value.sidebarLeft.addEventListener('mouseover', () => {
     sideAppBoxStore.show();

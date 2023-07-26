@@ -8,10 +8,16 @@ import { RouterView } from 'vue-router';
 import useLocale from '@/hooks/locale';
 import { useGlobal } from '@/stores/global';
 import { useUserAgent } from '@/utils/browser';
+import { fetchOneApi } from '@/utils/request';
+import { useWallpaperStore } from '@/stores/wallpaper';
+import { useDashboardStore } from '@/stores/dashboard';
 
 const { i18, currentLocale } = useLocale();
 const globalStore = useGlobal();
 const { getDeviceType } = useUserAgent();
+
+const wallpaperStore = useWallpaperStore();
+const dashboardStore = useDashboardStore();
 
 const setDeviceAttr = () => {
   if (getDeviceType() === 'ios') {
@@ -25,6 +31,11 @@ const setDeviceAttr = () => {
     document.documentElement.style.setProperty('--100vh', '100vh');
   }
 };
+
+fetchOneApi().then(data => {
+  wallpaperStore.initWallpaper(data);
+  dashboardStore.initOneDailyQuote(data);
+});
 
 document.title = i18.t('global.title');
 

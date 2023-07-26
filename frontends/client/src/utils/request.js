@@ -1,42 +1,30 @@
-export async function fetchOneWallpaperUrl() {
+export async function fetchOneApi() {
+  const oneData = {
+    wallpaperUrl: 'https://b612.one/oneapi/img/Fh5NZm2cRYJtvIurGJ6sfW-bGP3F',
+    dailyQuoteContent: '',
+    dailyQuoteInfo: ''
+  };
   try {
     const response = await fetch('https://b612.one/oneapi/');
-    if (!response.ok) {
+    if (response.ok) {
+      const jsonData = await response.json();
+      oneData.wallpaperUrl =
+        'https://b612.one/oneapi/img/' +
+        jsonData.data.content_list[0].img_url.slice(27);
+      oneData.dailyQuoteContent = jsonData.data.content_list[0].forward;
+      oneData.dailyQuoteInfo = '—— ' + jsonData.data.content_list[0].words_info;
+      return oneData;
+    } else {
       // throw new Error("Network response was not OK");
-      return 'https://b612.one/oneapi/img/FvNvpKLF74mqdlKqAnhaNWhlToQ6';
+      oneData.dailyQuoteContent = 'Ad astra abyssosque.';
+      oneData.dailyQuoteInfo = 'Project Asteroid';
+      return oneData;
     }
-    const jsonData = await response.json();
-    return (
-      'https://b612.one/oneapi/img/' +
-      jsonData.data.content_list[0].img_url.slice(27)
-    );
   } catch (error) {
     console.error('There has been a problem with your fetch operation:', error);
-    return 'https://b612.one/oneapi/img/FvNvpKLF74mqdlKqAnhaNWhlToQ6';
-  }
-}
-
-export async function fetchOneDailyQuote() {
-  try {
-    const response = await fetch('https://b612.one/oneapi/');
-    if (!response.ok) {
-      // throw new Error("Network response was not OK");
-      return {
-        content: 'Ad astra abyssosque.',
-        info: 'Project Asteroid'
-      };
-    }
-    const jsonData = await response.json();
-    return {
-      content: jsonData.data.content_list[0].forward,
-      info: '—— ' + jsonData.data.content_list[0].words_info
-    };
-  } catch (error) {
-    console.error('There has been a problem with your fetch operation:', error);
-    return {
-      content: 'Ad astra abyssosque.',
-      info: 'Project Asteroid'
-    };
+    oneData.dailyQuoteContent = 'Ad astra abyssosque.';
+    oneData.dailyQuoteInfo = 'Project Asteroid';
+    return oneData;
   }
 }
 
