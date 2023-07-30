@@ -4,8 +4,7 @@
       <router-link to="/about">
         <h3
           :style="{
-            color:
-              currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+            color: '#fff'
           }"
         >
           {{ tagline }}
@@ -13,12 +12,7 @@
       </router-link>
     </template>
     <template #mid>
-      <ClockItem
-        blink
-        :textColor="
-          currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
-        "
-      ></ClockItem>
+      <ClockItem blink :textColor="'#fff'"></ClockItem>
     </template>
     <template #right>
       <AstraDropdown>
@@ -27,8 +21,7 @@
             type="nav"
             :style="{
               'font-size': '20px',
-              color:
-                currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+              color: '#fff'
             }"
           >
             <IconLanguage></IconLanguage>
@@ -53,8 +46,7 @@
             type="nav"
             :style="{
               'font-size': '20px',
-              color:
-                currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+              color: '#fff'
             }"
           >
             <IconWallpaper></IconWallpaper>
@@ -76,7 +68,7 @@
         v-if="deviceType === 'PC' || deviceType === ''"
         :style="{
           'font-size': '25px',
-          color: currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+          color: '#fff'
         }"
         :title="
           !isFullscreen
