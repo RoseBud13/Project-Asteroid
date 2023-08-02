@@ -15,6 +15,8 @@ import HomeDashboard from '@/components/dashboard/index.vue';
 import HomeModal from './components/HomeModal.vue';
 import { useGlobal } from '@/stores/global';
 import { useAppNotesStore } from '@/stores/appNotes';
+import { useWallpaperStore } from '@/stores/wallpaper';
+import { useDashboardStore } from '@/stores/dashboard';
 import { storeToRefs } from 'pinia';
 import {
   ref,
@@ -24,6 +26,8 @@ import {
   inject
 } from 'vue';
 import { useAutoLayout } from '@/utils/elements';
+import { fetchOneApi } from '@/utils/request';
+// import ImageColor from '@/utils/image';
 
 const pinStickies = inject('stickies');
 
@@ -46,6 +50,37 @@ const target = ref(); // distence of toggling dashbaord
 const scrollTimeoutTime = ref(800); // 0.8s is the minimum scroll interval to act as debounce
 const touchStartY = ref(0); // 触摸位置
 const touchEndY = ref(0); // 结束位置
+
+const dashboardStore = useDashboardStore();
+const wallpaperStore = useWallpaperStore();
+// const { currentWallpaper, wallpaperList } = storeToRefs(wallpaperStore);
+
+fetchOneApi().then(data => {
+  wallpaperStore.initWallpaper(data);
+  dashboardStore.initOneDailyQuote(data);
+});
+
+// const getWallpaperAnalysed = src => {
+//   let IC = new ImageColor();
+
+//   IC.analyzeImage({
+//     id: 'mycanvas',
+//     url: src,
+//     frequency: 2000
+//   }).then(res => {
+//     const { primary, colors, pixels, imageInfo } = res;
+//     console.log('主题色：', primary);
+//     console.log('三种不同亮度的颜色：', colors);
+//     console.log('所有像素', pixels);
+//     console.log('图片信息：', imageInfo);
+//   });
+// };
+
+// watch(currentWallpaper, () => {
+//   setTimeout(() => {
+//     getWallpaperAnalysed(wallpaperList.value[currentWallpaper.value]);
+//   }, 500);
+// });
 
 const setSize = () => {
   target.value = 0.9 * homepage.value.clientHeight; // dsshboard initial top 90vh

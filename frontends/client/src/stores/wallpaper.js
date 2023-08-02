@@ -10,7 +10,7 @@ export const useWallpaperStore = defineStore('wallpaper', {
     videoWallpaper: null
   }),
   actions: {
-    initWallpaper(data) {
+    initWallpaper(oneAppData) {
       this.currentWallpaper =
         localStorage.getItem('wallpaper') ||
         getLocalConfig('defaultWallpaper') ||
@@ -19,7 +19,9 @@ export const useWallpaperStore = defineStore('wallpaper', {
         localStorage.setItem('wallpaper', this.currentWallpaper);
       }
       const defaultWallpaperList = getLocalConfig('wallpaper');
-      defaultWallpaperList['wallpaper.oneapp'] = data.wallpaperUrl;
+      if (oneAppData) {
+        defaultWallpaperList['wallpaper.oneapp'] = oneAppData.wallpaperUrl;
+      }
       this.wallpaperList = defaultWallpaperList;
     },
     changeWallpaper(value) {
