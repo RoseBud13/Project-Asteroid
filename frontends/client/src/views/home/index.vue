@@ -17,6 +17,7 @@ import { useGlobal } from '@/stores/global';
 import { useAppNotesStore } from '@/stores/appNotes';
 import { useWallpaperStore } from '@/stores/wallpaper';
 import { useDashboardStore } from '@/stores/dashboard';
+import { useWidgetboxStore } from '@/stores/widgetbox';
 import { storeToRefs } from 'pinia';
 import {
   ref,
@@ -55,6 +56,8 @@ const touchEndY = ref(0); // 结束位置
 const dashboardStore = useDashboardStore();
 const wallpaperStore = useWallpaperStore();
 const { currentWallpaper, wallpaperList } = storeToRefs(wallpaperStore);
+
+const widgetboxStore = useWidgetboxStore();
 
 fetchOneApi().then(data => {
   wallpaperStore.initWallpaper(data);
@@ -258,6 +261,12 @@ const renderStickies = () => {
   }
 };
 
+const setWidgetboxShow = () => {
+  if (deviceType.value !== 'PC' && deviceType.value !== '') {
+    widgetboxStore.toggleWidgetbox();
+  }
+};
+
 onMounted(() => {
   setSize();
   setScrollOrTouch();
@@ -274,6 +283,7 @@ onMounted(() => {
   });
   appNotesStore.initStickies();
   renderStickies();
+  setWidgetboxShow();
 });
 
 onBeforeUnmount(() => {
