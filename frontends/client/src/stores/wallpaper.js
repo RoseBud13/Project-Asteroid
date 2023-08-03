@@ -7,7 +7,8 @@ export const useWallpaperStore = defineStore('wallpaper', {
   state: () => ({
     currentWallpaper: '',
     wallpaperList: {},
-    videoWallpaper: null
+    videoWallpaper: null,
+    wallpaperBrightness: ''
   }),
   actions: {
     initWallpaper(oneAppData) {
@@ -34,6 +35,9 @@ export const useWallpaperStore = defineStore('wallpaper', {
       } else {
         this.videoWallpaper = null;
       }
+    },
+    setWallpaperBrightness(data) {
+      this.wallpaperBrightness = data;
     }
   }
 });

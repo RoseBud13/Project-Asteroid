@@ -23,11 +23,12 @@ import {
   onMounted,
   onBeforeUnmount,
   defineAsyncComponent,
-  inject
+  inject,
+  watch
 } from 'vue';
 import { useAutoLayout } from '@/utils/elements';
 import { fetchOneApi } from '@/utils/request';
-// import ImageColor from '@/utils/image';
+import ImageColor from '@/utils/image';
 
 const pinStickies = inject('stickies');
 
@@ -53,34 +54,43 @@ const touchEndY = ref(0); // 结束位置
 
 const dashboardStore = useDashboardStore();
 const wallpaperStore = useWallpaperStore();
-// const { currentWallpaper, wallpaperList } = storeToRefs(wallpaperStore);
+const { currentWallpaper, wallpaperList } = storeToRefs(wallpaperStore);
 
 fetchOneApi().then(data => {
   wallpaperStore.initWallpaper(data);
   dashboardStore.initOneDailyQuote(data);
 });
 
-// const getWallpaperAnalysed = src => {
-//   let IC = new ImageColor();
+const getWallpaperAnalysed = src => {
+  let IC = new ImageColor();
 
-//   IC.analyzeImage({
-//     id: 'mycanvas',
-//     url: src,
-//     frequency: 2000
-//   }).then(res => {
-//     const { primary, colors, pixels, imageInfo } = res;
-//     console.log('主题色：', primary);
-//     console.log('三种不同亮度的颜色：', colors);
-//     console.log('所有像素', pixels);
-//     console.log('图片信息：', imageInfo);
-//   });
-// };
+  IC.analyzeImage({
+    id: 'mycanvas',
+    url: src,
+    frequency: 2000
+  })
+    .then(res => {
+      const { colors } = res;
+      // console.log('三种不同亮度的颜色：', colors);
+      let brightness = colors.bright.yuvPercent;
+      if (brightness > 50) {
+        wallpaperStore.setWallpaperBrightness('light');
+      } else {
+        wallpaperStore.setWallpaperBrightness('dark');
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      wallpaperStore.setWallpaperBrightness('error');
+    });
+};
 
-// watch(currentWallpaper, () => {
-//   setTimeout(() => {
-//     getWallpaperAnalysed(wallpaperList.value[currentWallpaper.value]);
-//   }, 500);
-// });
+watch(currentWallpaper, () => {
+  let imgUrl =
+    'https://cors-anywhere.b612.town/?' +
+    wallpaperList.value[currentWallpaper.value];
+  getWallpaperAnalysed(imgUrl);
+});
 
 const setSize = () => {
   target.value = 0.9 * homepage.value.clientHeight; // dsshboard initial top 90vh

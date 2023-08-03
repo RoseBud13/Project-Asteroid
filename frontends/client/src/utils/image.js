@@ -58,23 +58,8 @@ export default class ImageColor {
       }
       this.ctx = this.canvas.getContext('2d');
       try {
-        console.log(url);
-        if (
-          /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi.test(
-            url
-          )
-        ) {
-          imgInfo = await this.loadImage(url);
-        } else {
-          imgInfo.img = url;
-          imgInfo.width = url.naturalWidth;
-          (imgInfo.height = url.naturalHeight),
-            (imgInfo.whRatio =
-              (url.naturalWidth / url.naturalHeight).toFixed(2) * 1),
-            (imgInfo.hwRatio =
-              (url.naturalHeight / url.naturalWidth).toFixed(2) * 1);
-        }
-        console.log(imgInfo);
+        imgInfo = await this.loadImage(url);
+        // console.log(imgInfo);
         this.imageInfo = imgInfo;
       } catch (err) {
         return reject({

@@ -4,7 +4,7 @@
       <router-link to="/about">
         <h3
           :style="{
-            color: '#fff'
+            color: wallpaperBrightness === 'light' ? '#213547' : '#fff'
           }"
         >
           {{ tagline }}
@@ -12,7 +12,10 @@
       </router-link>
     </template>
     <template #mid>
-      <ClockItem blink :textColor="'#fff'"></ClockItem>
+      <ClockItem
+        blink
+        :textColor="wallpaperBrightness === 'light' ? '#213547' : '#fff'"
+      ></ClockItem>
     </template>
     <template #right>
       <AstraDropdown>
@@ -21,7 +24,7 @@
             type="nav"
             :style="{
               'font-size': '20px',
-              color: '#fff'
+              color: wallpaperBrightness === 'light' ? '#213547' : '#fff'
             }"
           >
             <IconLanguage></IconLanguage>
@@ -46,7 +49,7 @@
             type="nav"
             :style="{
               'font-size': '20px',
-              color: '#fff'
+              color: wallpaperBrightness === 'light' ? '#213547' : '#fff'
             }"
           >
             <IconWallpaper></IconWallpaper>
@@ -68,7 +71,7 @@
         v-if="deviceType === 'PC' || deviceType === ''"
         :style="{
           'font-size': '25px',
-          color: '#fff'
+          color: wallpaperBrightness === 'light' ? '#213547' : '#fff'
         }"
         :title="
           !isFullscreen
@@ -112,7 +115,8 @@ const locales = [...LOCALE_OPTIONS];
 const { changeLocale, currentLocale } = useLocale();
 
 const wallpaperStore = useWallpaperStore();
-const { currentWallpaper, wallpaperList } = storeToRefs(wallpaperStore);
+const { currentWallpaper, wallpaperList, wallpaperBrightness } =
+  storeToRefs(wallpaperStore);
 </script>
 
 <style lang="scss" scoped></style>
