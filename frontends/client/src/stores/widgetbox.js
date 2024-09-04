@@ -16,7 +16,7 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         id: 'bubbleTurntable',
         external: true,
         embedded: true,
-        urlRouter: 'https://www.b612.one/bubble-turntable',
+        urlRouter: 'https://music.b612.town',
         title: 'Bubble Turntable by 🍒',
         icon: 'iconMusic',
         tag: '唱片机'
@@ -25,7 +25,7 @@ export const useWidgetboxStore = defineStore('widgetbox', {
       //   id: 'editor',
       //   external: true,
       //   embedded: true,
-      //   urlRouter: 'https://www.b612.one/asteroid/web-editor',
+      //   urlRouter: 'https://www.b612.town/asteroid/web-editor',
       //   title: 'JS Editor by 🍒',
       //   icon: 'iconCode',
       //   tag: 'Editor'
@@ -34,7 +34,7 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         id: 'chatroom',
         external: true,
         embedded: true,
-        urlRouter: 'https://www.b612.one/chatty',
+        urlRouter: 'https://chatty.b612.town/',
         title: 'Chatty',
         icon: 'iconMessage',
         tag: 'Chatty'
@@ -99,7 +99,7 @@ export const useWidgetboxStore = defineStore('widgetbox', {
       //   embedded: false,
       //   urlRouter: 'http://wufazhuce.com/',
       //   title: 'ONE·一个',
-      //   icon: 'https://b612.one/oneapi/img/favicon.ico',
+      //   icon: 'https://api.malou.men/oneapi/img/favicon.ico',
       //   tag: 'ONE·一个'
       // }
     ]

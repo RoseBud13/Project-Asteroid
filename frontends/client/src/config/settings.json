@@ -8,7 +8,7 @@
   "theme": "light",
   "wallpaper": {
     "wallpaper.bing": "https://api.dujin.org/bing/1920.php",
-    "wallpaper.oneapp": "https://b612.one/oneapi/img/Fh5NZm2cRYJtvIurGJ6sfW-bGP3F",
+    "wallpaper.oneapp": "https://api.malou.men/oneapi/img/Fh5NZm2cRYJtvIurGJ6sfW-bGP3F",
     "wallpaper.ghibli": "https://api.dujin.org/pic/ghibli",
     "wallpaper.yuanshen": "https://api.dujin.org/pic/yuanshen/",
     "wallpaper.color": ""
@@ -25,7 +25,7 @@
       "id": "bubbleTurntable",
       "external": true,
       "embedded": true,
-      "urlRouter": "https://www.b612.one/bubble-turntable",
+      "urlRouter": "https://music.b612.town",
       "title": "Bubble Turntable by 🍒",
       "icon": "iconMusic"
     },

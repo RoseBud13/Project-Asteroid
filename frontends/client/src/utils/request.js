@@ -1,15 +1,16 @@
 export async function fetchOneApi() {
   const oneData = {
-    wallpaperUrl: 'https://b612.one/oneapi/img/Fh5NZm2cRYJtvIurGJ6sfW-bGP3F',
+    wallpaperUrl:
+      'https://api.malou.men/oneapi/img/Fh5NZm2cRYJtvIurGJ6sfW-bGP3F',
     dailyQuoteContent: '',
     dailyQuoteInfo: ''
   };
   try {
-    const response = await fetch('https://b612.one/oneapi/');
+    const response = await fetch('https://api.malou.men/oneapi/');
     if (response.ok) {
       const jsonData = await response.json();
       oneData.wallpaperUrl =
-        'https://b612.one/oneapi/img/' +
+        'https://api.malou.men/oneapi/img/' +
         jsonData.data.content_list[0].img_url.slice(27);
       oneData.dailyQuoteContent = jsonData.data.content_list[0].forward;
       oneData.dailyQuoteInfo = '—— ' + jsonData.data.content_list[0].words_info;
@@ -30,14 +31,11 @@ export async function fetchOneApi() {
 
 export async function fetchMoonshinerUrl() {
   try {
-    const response = await fetch(
-      'https://b612.one/static-rsrc/moonshiner.json',
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        }
+    const response = await fetch('https://b612.town/static/moonshiner.json', {
+      headers: {
+        'Content-Type': 'application/json'
       }
-    );
+    });
     if (!response.ok) {
       // throw new Error("Network response was not OK");
       console.error('"Network response was not OK');
