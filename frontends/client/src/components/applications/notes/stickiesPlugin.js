@@ -6,7 +6,7 @@ const stickiesPlugin = (id, position, parentComp) => {
     noteID: id
   };
 
-  const cls = 'stickies-wrapper';
+  const cls = 'sticky-wrapper';
   const style = { top: position.y, left: position.x };
 
   const { instance, unmount } = useMountComponent(
