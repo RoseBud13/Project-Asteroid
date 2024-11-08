@@ -97,7 +97,7 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         id: 'yige',
         external: true,
         embedded: true,
-        urlRouter: 'http://wufazhuce.com/',
+        urlRouter: 'https://wufazhuce.com/',
         title: 'ONE·一个',
         icon: 'https://api.malou.men/oneapi/img/favicon.ico',
         tag: 'ONE·一个'
