@@ -7,11 +7,7 @@
   >
     <template #widgetbox>
       <SearchBar autofocus></SearchBar>
-      <AstraAppBox
-        :addNew="widgetApps.length === 0"
-        :addShow="widgetApps.length < 10"
-        :addBtnFlex="widgetApps.length > 5"
-      >
+      <AstraAppBox :addShow="widgetApps.length < 10">
         <AstraAppCard
           v-for="widgetApp in sortedWidgetApps"
           :key="widgetApp.id"
@@ -49,7 +45,7 @@
         <AstraApp
           icon="notes"
           :appTitle="$t('application.notes.title')"
-          @click="appNotesStore.toggleNotes()"
+          @click="appNotesStore.toggleNotes(true)"
         ></AstraApp>
       </SideAppBox>
     </template>
@@ -114,7 +110,6 @@ const handleOpenWidgetApp = (url, title, isExternal, isEmbedded) => {
 };
 
 onMounted(() => {
-  wallpaperStore.initWallpaper();
   widgetboxStore.initWidgetApps();
   background.value.sidebarLeft.addEventListener('mouseover', () => {
     sideAppBoxStore.show();

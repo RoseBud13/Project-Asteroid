@@ -1,0 +1,21 @@
+{
+  "name": "Asteroid B612",
+  "short_name": "B612",
+  "start_url": "/",
+  "display": "fullscreen",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "description": "A progressive web app for Project Asteroid.",
+  "icons": [
+    {
+      "src": "/icons/b612_icon_192.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/b612_icon_512.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

@@ -44,7 +44,7 @@ export default {
 <style lang="scss" scoped>
 .app-card-wrapper {
   position: relative;
-  height: 50%;
+  height: 80px;
   width: 20%;
   max-width: 100px;
   background-color: transparent;

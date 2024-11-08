@@ -19,10 +19,17 @@
       <img
         v-else-if="imgUrl"
         class="wallpaper-img"
+        :class="{
+          'wallpaper-img-right': currentWallpaper === 'wallpaper.otaku'
+        }"
         :src="imgUrl"
         draggable="false"
       />
       <div v-else class="wallpaper-placeholder"></div>
+      <div
+        v-if="currentWallpaper === 'wallpaper.otaku'"
+        class="wallpaper-mask"
+      ></div>
     </div>
     <div
       class="widgetbox-container"
@@ -62,6 +69,7 @@ const widgetboxStore = useWidgetboxStore();
 const { showWidgetbox } = storeToRefs(widgetboxStore);
 
 const wallpaperStore = useWallpaperStore();
+const { currentWallpaper } = storeToRefs(wallpaperStore);
 
 watch(showWidgetbox, () => {
   if (showWidgetbox.value) {
@@ -134,6 +142,10 @@ export default {
   background: var(--vt-c-gray-light-5);
 }
 
+.wallpaper-img-right {
+  object-position: right;
+}
+
 .wallpaper-vid {
   position: absolute;
   top: 50%;
@@ -150,14 +162,23 @@ export default {
   background: linear-gradient(#77bfa3, #bfd8bd, #edeec9);
 }
 
+.wallpaper-mask {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.03);
+}
+
 .widgetbox-container {
+  position: absolute;
+  top: 40%;
   width: 90%;
-  height: 60%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  margin-bottom: 20vh;
   transition: opacity 0.35s, visibility 0.35s;
   visibility: hidden;
   opacity: 0;

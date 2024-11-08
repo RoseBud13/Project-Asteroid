@@ -43,7 +43,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.stickies-wrapper {
+.sticky-wrapper {
   position: absolute;
   top: 100px;
   left: 100px;

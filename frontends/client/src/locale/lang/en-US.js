@@ -21,6 +21,7 @@ export default {
   'appbox.action.addNewWidgetApp': 'Add Widget App',
   'appbox.input.placeholder.title': 'Title',
   'appbox.input.placeholder.url': 'URL',
+  'appbox.input.check': 'Fill in the widget info',
   'modal.button.confirm': 'Confirm',
   'modal.button.cancel': 'Cancel',
   'appcard.button.delete': 'Delete',
@@ -28,6 +29,7 @@ export default {
   'wallpaper.oneapp': 'ONE·一个',
   'wallpaper.ghibli': 'Ghibli',
   'wallpaper.yuanshen': 'Genshin Impact',
+  'wallpaper.otaku': 'Anime Girl',
   'wallpaper.color': 'Astremerald',
   'application.notes.textarea.prompt': 'Start writing here...',
   'application.notes.title': 'Notes'

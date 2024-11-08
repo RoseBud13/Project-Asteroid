@@ -16,7 +16,7 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         id: 'bubbleTurntable',
         external: true,
         embedded: true,
-        urlRouter: 'https://www.b612.one/bubble-turntable',
+        urlRouter: 'https://music.b612.town',
         title: 'Bubble Turntable by 🍒',
         icon: 'iconMusic',
         tag: '唱片机'
@@ -25,7 +25,7 @@ export const useWidgetboxStore = defineStore('widgetbox', {
       //   id: 'editor',
       //   external: true,
       //   embedded: true,
-      //   urlRouter: 'https://www.b612.one/asteroid/web-editor',
+      //   urlRouter: 'https://www.b612.town/asteroid/web-editor',
       //   title: 'JS Editor by 🍒',
       //   icon: 'iconCode',
       //   tag: 'Editor'
@@ -34,7 +34,7 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         id: 'chatroom',
         external: true,
         embedded: true,
-        urlRouter: 'https://www.b612.one/chatty',
+        urlRouter: 'https://chatty.b612.town/',
         title: 'Chatty',
         icon: 'iconMessage',
         tag: 'Chatty'
@@ -66,24 +66,24 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         icon: 'https://douban.com/favicon.ico',
         tag: '豆瓣电影'
       },
-      {
-        id: 'doubanmusic',
-        external: true,
-        embedded: true,
-        urlRouter: 'https://m.douban.com/music/',
-        title: '音乐-豆瓣',
-        icon: 'https://douban.com/favicon.ico',
-        tag: '豆瓣音乐'
-      },
-      {
-        id: 'doubanbook',
-        external: true,
-        embedded: true,
-        urlRouter: 'https://m.douban.com/book/',
-        title: '图书-豆瓣',
-        icon: 'https://douban.com/favicon.ico',
-        tag: '豆瓣图书'
-      },
+      // {
+      //   id: 'doubanmusic',
+      //   external: true,
+      //   embedded: true,
+      //   urlRouter: 'https://m.douban.com/music/',
+      //   title: '音乐-豆瓣',
+      //   icon: 'https://douban.com/favicon.ico',
+      //   tag: '豆瓣音乐'
+      // },
+      // {
+      //   id: 'doubanbook',
+      //   external: true,
+      //   embedded: true,
+      //   urlRouter: 'https://m.douban.com/book/',
+      //   title: '图书-豆瓣',
+      //   icon: 'https://douban.com/favicon.ico',
+      //   tag: '豆瓣图书'
+      // },
       {
         id: 'weibo',
         external: true,
@@ -92,16 +92,25 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         title: '微博',
         icon: 'https://weibo.com/favicon.ico',
         tag: '微博'
+      },
+      {
+        id: 'yige',
+        external: true,
+        embedded: true,
+        urlRouter: 'http://wufazhuce.com/',
+        title: 'ONE·一个',
+        icon: 'https://api.malou.men/oneapi/img/favicon.ico',
+        tag: 'ONE·一个'
+      },
+      {
+        id: '163music',
+        external: true,
+        embedded: false,
+        urlRouter: 'https://music.163.com/',
+        title: '网易云音乐',
+        icon: 'https://s1.music.126.net/style/favicon.ico',
+        tag: '网易云音乐'
       }
-      // {
-      //   id: 'yige',
-      //   external: true,
-      //   embedded: false,
-      //   urlRouter: 'http://wufazhuce.com/',
-      //   title: 'ONE·一个',
-      //   icon: 'https://b612.one/oneapi/img/favicon.ico',
-      //   tag: 'ONE·一个'
-      // }
     ]
   }),
   getters: {},
@@ -118,18 +127,22 @@ export const useWidgetboxStore = defineStore('widgetbox', {
     },
     addWidgetApp(value) {
       if (this.widgetApps.length < 10) {
-        let newWidgetApps = {
-          id: generateUID(5),
-          external: true,
-          embedded: false,
-          urlRouter: value.url,
-          title: value.title,
-          icon: getFaviconUrl(value.url)
-        };
-        this.widgetApps.push(newWidgetApps);
-        let localWidgetApps = Local.get('widget-apps') || [];
-        localWidgetApps.push(newWidgetApps);
-        Local.set('widget-apps', localWidgetApps);
+        if (value.title && value.url) {
+          let newWidgetApps = {
+            id: generateUID(5),
+            external: true,
+            embedded: false,
+            urlRouter: value.url,
+            title: value.title,
+            icon: getFaviconUrl(value.url)
+          };
+          this.widgetApps.push(newWidgetApps);
+          let localWidgetApps = Local.get('widget-apps') || [];
+          localWidgetApps.push(newWidgetApps);
+          Local.set('widget-apps', localWidgetApps);
+        } else {
+          console.log('widget apps title or url is empty');
+        }
       } else {
         console.log('apps maximum');
       }

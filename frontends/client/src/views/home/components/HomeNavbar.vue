@@ -4,8 +4,7 @@
       <router-link to="/about">
         <h3
           :style="{
-            color:
-              currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+            color: wallpaperBrightness === 'light' ? '#213547' : '#fff'
           }"
         >
           {{ tagline }}
@@ -15,9 +14,7 @@
     <template #mid>
       <ClockItem
         blink
-        :textColor="
-          currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
-        "
+        :textColor="wallpaperBrightness === 'light' ? '#213547' : '#fff'"
       ></ClockItem>
     </template>
     <template #right>
@@ -27,8 +24,7 @@
             type="nav"
             :style="{
               'font-size': '20px',
-              color:
-                currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+              color: wallpaperBrightness === 'light' ? '#213547' : '#fff'
             }"
           >
             <IconLanguage></IconLanguage>
@@ -45,14 +41,15 @@
           </AstraDropdownOption>
         </template>
       </AstraDropdown>
-      <AstraDropdown>
+      <AstraDropdown
+        :rightEdge="deviceType !== 'PC' && deviceType !== '' ? true : false"
+      >
         <template #trigger>
           <AstraButton
             type="nav"
             :style="{
               'font-size': '20px',
-              color:
-                currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+              color: wallpaperBrightness === 'light' ? '#213547' : '#fff'
             }"
           >
             <IconWallpaper></IconWallpaper>
@@ -74,7 +71,7 @@
         v-if="deviceType === 'PC' || deviceType === ''"
         :style="{
           'font-size': '25px',
-          color: currentWallpaper === 'wallpaper.yuanshen' ? '#213547' : '#fff'
+          color: wallpaperBrightness === 'light' ? '#213547' : '#fff'
         }"
         :title="
           !isFullscreen
@@ -118,7 +115,8 @@ const locales = [...LOCALE_OPTIONS];
 const { changeLocale, currentLocale } = useLocale();
 
 const wallpaperStore = useWallpaperStore();
-const { currentWallpaper, wallpaperList } = storeToRefs(wallpaperStore);
+const { currentWallpaper, wallpaperList, wallpaperBrightness } =
+  storeToRefs(wallpaperStore);
 </script>
 
 <style lang="scss" scoped></style>

@@ -72,6 +72,7 @@ const selectedIndex = ref(-1);
 const selectedID = ref('');
 const searchInput = ref(null);
 const addNotesFlag = ref(false);
+const biliSearchFlag = ref(false);
 const moonshinerIndex = ref(null);
 
 const handleChangeSearchEngine = event => {
@@ -132,6 +133,13 @@ const addNotesCommand = () => {
   keywords.value = '';
 };
 
+const triggerBiliSearch = () => {
+  let content = inputValue.value.substring(inputValue.value.indexOf(' ') + 1);
+  window.open('https://search.bilibili.com/all?keyword=' + encodeURI(content));
+  biliSearchFlag.value = false;
+  keywords.value = '';
+};
+
 const hanldeInput = event => {
   inputValue.value = event.target.value;
   if (
@@ -145,6 +153,15 @@ const hanldeInput = event => {
     addNotesFlag.value = true;
   } else {
     addNotesFlag.value = false;
+  }
+  if (
+    event.target.value.startsWith('/bili ') &&
+    event.target.value.split(' ').length > 1 &&
+    event.target.value.split(' ')[1] !== ''
+  ) {
+    biliSearchFlag.value = true;
+  } else {
+    biliSearchFlag.value = false;
   }
   if (
     event.target.value.startsWith('/') &&
@@ -162,7 +179,7 @@ const hanldeInput = event => {
 const handleSearchAssist = assistId => {
   switch (assistId) {
     case 'notes':
-      appNotesStore.toggleNotes();
+      appNotesStore.toggleNotes(true);
       break;
     case 'starry-eyed-moonshiner':
       if (moonshinerUrl.value.length > 0) {
@@ -256,11 +273,14 @@ onMounted(() => {
     if (
       e.code === 'Enter' &&
       showSearchAssist.value === false &&
-      addNotesFlag.value === false
+      addNotesFlag.value === false &&
+      biliSearchFlag.value === false
     ) {
       handleSearch(e);
     } else if (e.code === 'Enter' && addNotesFlag.value === true) {
       addNotesCommand();
+    } else if (e.code === 'Enter' && biliSearchFlag.value === true) {
+      triggerBiliSearch();
     }
   });
 });
@@ -270,11 +290,14 @@ onBeforeUnmount(() => {
     if (
       e.code === 'Enter' &&
       showSearchAssist.value === false &&
-      addNotesFlag.value === false
+      addNotesFlag.value === false &&
+      biliSearchFlag.value === false
     ) {
       handleSearch(e);
     } else if (e.code === 'Enter' && addNotesFlag.value === true) {
       addNotesCommand();
+    } else if (e.code === 'Enter' && biliSearchFlag.value === true) {
+      triggerBiliSearch();
     }
   });
 });
@@ -365,8 +388,6 @@ export default {
 
 .search-assist-wrapper {
   position: absolute;
-  bottom: calc(100vh * 0.4 * 0.6 + 20px);
-  transform: translateY(100%);
   width: 400px;
   min-height: 60px;
   padding: 10px;

@@ -9,6 +9,7 @@
         @input="$emit('update:modelValue', $event.target.value)"
         :type="props.isPswd ? 'password' : props.type"
         :placeholder="$t(props.placeholder)"
+        :required="props.required"
       />
       <div class="input-append-wrapper" v-if="$slots.append">
         <slot name="append"></slot>
@@ -32,6 +33,7 @@
         @input="item.modelValue = $event.target.value"
         :type="item.isPswd ? 'password' : item.type"
         :placeholder="$t(item.placeholder)"
+        :required="item.required"
       />
       <div class="input-append-wrapper" v-if="item.append">
         {{ item.append }}
@@ -62,6 +64,10 @@ const props = defineProps({
     default: 'placeholder'
   },
   nestedInput: {
+    type: Boolean,
+    default: false
+  },
+  required: {
     type: Boolean,
     default: false
   }

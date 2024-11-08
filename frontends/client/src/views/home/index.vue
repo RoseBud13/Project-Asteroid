@@ -15,15 +15,21 @@ import HomeDashboard from '@/components/dashboard/index.vue';
 import HomeModal from './components/HomeModal.vue';
 import { useGlobal } from '@/stores/global';
 import { useAppNotesStore } from '@/stores/appNotes';
+import { useWallpaperStore } from '@/stores/wallpaper';
+import { useDashboardStore } from '@/stores/dashboard';
+import { useWidgetboxStore } from '@/stores/widgetbox';
 import { storeToRefs } from 'pinia';
 import {
   ref,
   onMounted,
   onBeforeUnmount,
   defineAsyncComponent,
-  inject
+  inject,
+  watch
 } from 'vue';
 import { useAutoLayout } from '@/utils/elements';
+import { fetchOneApi } from '@/utils/request';
+import ImageColor from '@/utils/image';
 
 const pinStickies = inject('stickies');
 
@@ -46,6 +52,48 @@ const target = ref(); // distence of toggling dashbaord
 const scrollTimeoutTime = ref(800); // 0.8s is the minimum scroll interval to act as debounce
 const touchStartY = ref(0); // 触摸位置
 const touchEndY = ref(0); // 结束位置
+
+const dashboardStore = useDashboardStore();
+const wallpaperStore = useWallpaperStore();
+const { currentWallpaper, wallpaperList } = storeToRefs(wallpaperStore);
+
+const widgetboxStore = useWidgetboxStore();
+
+fetchOneApi().then(data => {
+  wallpaperStore.initWallpaper(data);
+  dashboardStore.initOneDailyQuote(data);
+});
+
+const getWallpaperAnalysed = src => {
+  let IC = new ImageColor();
+
+  IC.analyzeImage({
+    id: 'mycanvas',
+    url: src,
+    frequency: 2000
+  })
+    .then(res => {
+      const { colors } = res;
+      // console.log('三种不同亮度的颜色：', colors);
+      let brightness = colors.bright.yuvPercent;
+      if (brightness > 50) {
+        wallpaperStore.setWallpaperBrightness('light');
+      } else {
+        wallpaperStore.setWallpaperBrightness('dark');
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      wallpaperStore.setWallpaperBrightness('error');
+    });
+};
+
+watch(currentWallpaper, () => {
+  let imgUrl =
+    'https://cors-anywhere.b612.town/?' +
+    wallpaperList.value[currentWallpaper.value];
+  getWallpaperAnalysed(imgUrl);
+});
 
 const setSize = () => {
   target.value = 0.9 * homepage.value.clientHeight; // dsshboard initial top 90vh
@@ -213,6 +261,12 @@ const renderStickies = () => {
   }
 };
 
+const setWidgetboxShow = () => {
+  if (deviceType.value !== 'PC' && deviceType.value !== '') {
+    widgetboxStore.toggleWidgetbox();
+  }
+};
+
 onMounted(() => {
   setSize();
   setScrollOrTouch();
@@ -229,6 +283,7 @@ onMounted(() => {
   });
   appNotesStore.initStickies();
   renderStickies();
+  setWidgetboxShow();
 });
 
 onBeforeUnmount(() => {

@@ -21,6 +21,7 @@ export default {
   'appbox.action.addNewWidgetApp': '添加小组件',
   'appbox.input.placeholder.title': '名称',
   'appbox.input.placeholder.url': 'URL',
+  'appbox.input.check': '请填写小组件信息',
   'modal.button.confirm': '确定',
   'modal.button.cancel': '取消',
   'appcard.button.delete': '删除',
@@ -28,6 +29,7 @@ export default {
   'wallpaper.oneapp': 'ONE·一个',
   'wallpaper.ghibli': '吉卜力',
   'wallpaper.yuanshen': '原神',
+  'wallpaper.otaku': '四斋针鹅心',
   'wallpaper.color': '纯色 Astra',
   'application.notes.textarea.prompt': '在此创建新便签...',
   'application.notes.title': '便签'
