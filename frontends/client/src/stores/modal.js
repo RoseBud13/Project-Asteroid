@@ -7,6 +7,8 @@ export const useModalStore = defineStore('modal', {
     targetUrl: '',
     isEmbeddedFull: false,
     isConfirmed: false,
+    checkConfirmOk: false,
+    confirmButtonClicked: false,
     hasForm: false,
     hasCard: false,
     multiContent: false
@@ -35,11 +37,18 @@ export const useModalStore = defineStore('modal', {
       this.hasCard = hasCard || false;
       this.multiContent = multiContent || false;
     },
+    setCheckConfirmOk() {
+      this.checkConfirmOk = true;
+    },
     handleModalOK() {
-      this.isConfirmed = true;
-      setTimeout(() => {
-        this.closeModal();
-      }, 300);
+      this.confirmButtonClicked = !this.confirmButtonClicked;
+      if (this.checkConfirmOk) {
+        this.isConfirmed = true;
+        setTimeout(() => {
+          this.closeModal();
+          this.checkConfirmOk = false;
+        }, 300);
+      }
     }
   }
 });

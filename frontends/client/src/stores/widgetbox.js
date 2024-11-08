@@ -118,18 +118,22 @@ export const useWidgetboxStore = defineStore('widgetbox', {
     },
     addWidgetApp(value) {
       if (this.widgetApps.length < 10) {
-        let newWidgetApps = {
-          id: generateUID(5),
-          external: true,
-          embedded: false,
-          urlRouter: value.url,
-          title: value.title,
-          icon: getFaviconUrl(value.url)
-        };
-        this.widgetApps.push(newWidgetApps);
-        let localWidgetApps = Local.get('widget-apps') || [];
-        localWidgetApps.push(newWidgetApps);
-        Local.set('widget-apps', localWidgetApps);
+        if (value.title && value.url) {
+          let newWidgetApps = {
+            id: generateUID(5),
+            external: true,
+            embedded: false,
+            urlRouter: value.url,
+            title: value.title,
+            icon: getFaviconUrl(value.url)
+          };
+          this.widgetApps.push(newWidgetApps);
+          let localWidgetApps = Local.get('widget-apps') || [];
+          localWidgetApps.push(newWidgetApps);
+          Local.set('widget-apps', localWidgetApps);
+        } else {
+          console.log('widget apps title or url is empty');
+        }
       } else {
         console.log('apps maximum');
       }

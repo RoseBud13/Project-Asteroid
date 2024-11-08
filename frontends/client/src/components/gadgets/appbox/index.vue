@@ -23,13 +23,17 @@ import { useWidgetboxStore } from '@/stores/widgetbox';
 import { useModalStore } from '@/stores/modal';
 import { useInputStore } from '@/stores/input';
 import { storeToRefs } from 'pinia';
-import { watch, ref } from 'vue';
+import { watch, ref, inject } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const widgetboxStore = useWidgetboxStore();
 const modalStore = useModalStore();
-const { hasForm, isConfirmed } = storeToRefs(modalStore);
+const { hasForm, isConfirmed, confirmButtonClicked } = storeToRefs(modalStore);
 const inputStore = useInputStore();
 const { nestedInputInfo } = storeToRefs(inputStore);
+
+const toast = inject('toast');
+const i18 = useI18n();
 
 const newWidgetApp = ref({});
 
@@ -40,17 +44,21 @@ const props = defineProps({
 const handleOpenAddWidgetApp = () => {
   let widgetAppsInputData = [
     {
+      input_id: 'widgetAppsInputData_1',
       isPswd: false,
       type: 'text',
       placeholder: 'appbox.input.placeholder.title',
-      modelValue: ''
+      modelValue: '',
+      required: true
     },
     {
+      input_id: 'widgetAppsInputData_2',
       isPswd: false,
       type: 'text',
       placeholder: 'appbox.input.placeholder.url',
       modelValue: '',
-      prepend: 'https://'
+      prepend: 'https://',
+      required: true
     }
   ];
   inputStore.setNestedInfo(widgetAppsInputData);
@@ -60,7 +68,12 @@ const handleOpenAddWidgetApp = () => {
 watch(
   nestedInputInfo,
   () => {
-    if (nestedInputInfo.value.length === 2) {
+    if (
+      nestedInputInfo.value.length === 2 &&
+      nestedInputInfo.value[0]['modelValue'] &&
+      nestedInputInfo.value[1]['modelValue']
+    ) {
+      modalStore.setCheckConfirmOk();
       newWidgetApp.value = {
         title: nestedInputInfo.value[0]['modelValue'],
         url:
@@ -68,6 +81,11 @@ watch(
           nestedInputInfo.value[1]['modelValue'].startsWith('http://')
             ? nestedInputInfo.value[1]['modelValue']
             : 'https://' + nestedInputInfo.value[1]['modelValue']
+      };
+    } else {
+      newWidgetApp.value = {
+        title: '',
+        url: ''
       };
     }
   },
@@ -80,9 +98,11 @@ watch(hasForm, () => {
   }
 });
 
-watch(isConfirmed, () => {
+watch(confirmButtonClicked, () => {
   if (isConfirmed.value && newWidgetApp.value.title && newWidgetApp.value.url) {
     widgetboxStore.addWidgetApp(newWidgetApp.value);
+  } else {
+    toast(i18.t('appbox.input.check'), 'warn');
   }
 });
 </script>

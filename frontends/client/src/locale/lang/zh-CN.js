@@ -21,6 +21,7 @@ export default {
   'appbox.action.addNewWidgetApp': '添加小组件',
   'appbox.input.placeholder.title': '名称',
   'appbox.input.placeholder.url': 'URL',
+  'appbox.input.check': '请填写小组件信息',
   'modal.button.confirm': '确定',
   'modal.button.cancel': '取消',
   'appcard.button.delete': '删除',

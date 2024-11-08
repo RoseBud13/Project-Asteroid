@@ -21,6 +21,7 @@ export default {
   'appbox.action.addNewWidgetApp': 'Add Widget App',
   'appbox.input.placeholder.title': 'Title',
   'appbox.input.placeholder.url': 'URL',
+  'appbox.input.check': 'Fill in the widget info',
   'modal.button.confirm': 'Confirm',
   'modal.button.cancel': 'Cancel',
   'appcard.button.delete': 'Delete',
