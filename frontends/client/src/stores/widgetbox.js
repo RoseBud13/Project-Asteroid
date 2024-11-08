@@ -66,24 +66,24 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         icon: 'https://douban.com/favicon.ico',
         tag: '豆瓣电影'
       },
-      {
-        id: 'doubanmusic',
-        external: true,
-        embedded: true,
-        urlRouter: 'https://m.douban.com/music/',
-        title: '音乐-豆瓣',
-        icon: 'https://douban.com/favicon.ico',
-        tag: '豆瓣音乐'
-      },
-      {
-        id: 'doubanbook',
-        external: true,
-        embedded: true,
-        urlRouter: 'https://m.douban.com/book/',
-        title: '图书-豆瓣',
-        icon: 'https://douban.com/favicon.ico',
-        tag: '豆瓣图书'
-      },
+      // {
+      //   id: 'doubanmusic',
+      //   external: true,
+      //   embedded: true,
+      //   urlRouter: 'https://m.douban.com/music/',
+      //   title: '音乐-豆瓣',
+      //   icon: 'https://douban.com/favicon.ico',
+      //   tag: '豆瓣音乐'
+      // },
+      // {
+      //   id: 'doubanbook',
+      //   external: true,
+      //   embedded: true,
+      //   urlRouter: 'https://m.douban.com/book/',
+      //   title: '图书-豆瓣',
+      //   icon: 'https://douban.com/favicon.ico',
+      //   tag: '豆瓣图书'
+      // },
       {
         id: 'weibo',
         external: true,
@@ -92,16 +92,25 @@ export const useWidgetboxStore = defineStore('widgetbox', {
         title: '微博',
         icon: 'https://weibo.com/favicon.ico',
         tag: '微博'
+      },
+      {
+        id: 'yige',
+        external: true,
+        embedded: true,
+        urlRouter: 'http://wufazhuce.com/',
+        title: 'ONE·一个',
+        icon: 'https://api.malou.men/oneapi/img/favicon.ico',
+        tag: 'ONE·一个'
+      },
+      {
+        id: '163music',
+        external: true,
+        embedded: false,
+        urlRouter: 'https://music.163.com/',
+        title: '网易云音乐',
+        icon: 'https://s1.music.126.net/style/favicon.ico',
+        tag: '网易云音乐'
       }
-      // {
-      //   id: 'yige',
-      //   external: true,
-      //   embedded: false,
-      //   urlRouter: 'http://wufazhuce.com/',
-      //   title: 'ONE·一个',
-      //   icon: 'https://api.malou.men/oneapi/img/favicon.ico',
-      //   tag: 'ONE·一个'
-      // }
     ]
   }),
   getters: {},

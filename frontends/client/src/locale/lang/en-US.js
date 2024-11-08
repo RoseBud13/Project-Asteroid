@@ -29,6 +29,7 @@ export default {
   'wallpaper.oneapp': 'ONE·一个',
   'wallpaper.ghibli': 'Ghibli',
   'wallpaper.yuanshen': 'Genshin Impact',
+  'wallpaper.otaku': 'Anime Girl',
   'wallpaper.color': 'Astremerald',
   'application.notes.textarea.prompt': 'Start writing here...',
   'application.notes.title': 'Notes'

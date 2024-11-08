@@ -29,6 +29,7 @@ export default {
   'wallpaper.oneapp': 'ONE·一个',
   'wallpaper.ghibli': '吉卜力',
   'wallpaper.yuanshen': '原神',
+  'wallpaper.otaku': '四斋针鹅心',
   'wallpaper.color': '纯色 Astra',
   'application.notes.textarea.prompt': '在此创建新便签...',
   'application.notes.title': '便签'

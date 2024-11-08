@@ -9,8 +9,7 @@
   "wallpaper": {
     "wallpaper.bing": "https://api.dujin.org/bing/1920.php",
     "wallpaper.oneapp": "https://api.malou.men/oneapi/img/Fh5NZm2cRYJtvIurGJ6sfW-bGP3F",
-    "wallpaper.ghibli": "https://api.dujin.org/pic/ghibli",
-    "wallpaper.yuanshen": "https://api.dujin.org/pic/yuanshen/",
+    "wallpaper.otaku": "https://api.paugram.com/wallpaper",
     "wallpaper.color": ""
   },
   "defaultWallpaper": "wallpaper.bing",
@@ -22,28 +21,37 @@
   "searchEngine": "bing",
   "widgetApps": [
     {
-      "id": "bubbleTurntable",
+      "id": "yige",
       "external": true,
       "embedded": true,
-      "urlRouter": "https://music.b612.town",
-      "title": "Bubble Turntable by 🍒",
-      "icon": "iconMusic"
-    },
-    {
-      "id": "yuanshen",
-      "external": true,
-      "embedded": true,
-      "urlRouter": "https://wiki.biligame.com/ys",
-      "title": "原神WIKI",
-      "icon": "https://b612-static-rsrcs-1306125602.cos.ap-shanghai.myqcloud.com/static-img/ys-logo.png"
+      "urlRouter": "http://wufazhuce.com/",
+      "title": "ONE·一个",
+      "icon": "https://api.malou.men/oneapi/img/favicon.ico",
+      "tag": "ONE·一个"
     },
     {
       "id": "bilibili",
       "external": true,
-      "embedded": false,
+      "embedded": true,
       "urlRouter": "https://bilibili.com",
       "title": "Bilibili",
       "icon": "https://b612-static-rsrcs-1306125602.cos.ap-shanghai.myqcloud.com/static-img/bilibili.svg"
+    },
+    {
+      "id": "instagram",
+      "external": true,
+      "embedded": false,
+      "urlRouter": "https://www.instagram.com",
+      "title": "Instagram",
+      "icon": "https://b612-static-rsrcs-1306125602.cos.ap-shanghai.myqcloud.com/static-img/ig.ico"
+    },
+    {
+      "id": "youtube",
+      "external": true,
+      "embedded": false,
+      "urlRouter": "https://www.youtube.com",
+      "title": "YouTube",
+      "icon": "https://b612-static-rsrcs-1306125602.cos.ap-shanghai.myqcloud.com/static-img/32x32-youtube-icon-24.png"
     },
     {
       "id": "github",

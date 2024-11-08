@@ -15,7 +15,7 @@ export const useWallpaperStore = defineStore('wallpaper', {
       this.currentWallpaper =
         localStorage.getItem('wallpaper') ||
         getLocalConfig('defaultWallpaper') ||
-        'bing';
+        'wallpaper.bing';
       if (!localStorage.getItem('wallpaper')) {
         localStorage.setItem('wallpaper', this.currentWallpaper);
       }
