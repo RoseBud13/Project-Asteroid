@@ -388,8 +388,6 @@ export default {
 
 .search-assist-wrapper {
   position: absolute;
-  bottom: calc(100vh * 0.4 * 0.6 + 20px);
-  transform: translateY(100%);
   width: 400px;
   min-height: 60px;
   padding: 10px;
