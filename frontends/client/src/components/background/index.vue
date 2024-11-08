@@ -151,13 +151,13 @@ export default {
 }
 
 .widgetbox-container {
+  position: absolute;
+  top: 40%;
   width: 90%;
-  height: 60%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  margin-bottom: 20vh;
   transition: opacity 0.35s, visibility 0.35s;
   visibility: hidden;
   opacity: 0;

@@ -7,11 +7,7 @@
   >
     <template #widgetbox>
       <SearchBar autofocus></SearchBar>
-      <AstraAppBox
-        :addNew="widgetApps.length === 0"
-        :addShow="widgetApps.length < 10"
-        :addBtnFlex="widgetApps.length > 5"
-      >
+      <AstraAppBox :addShow="widgetApps.length < 10">
         <AstraAppCard
           v-for="widgetApp in sortedWidgetApps"
           :key="widgetApp.id"
