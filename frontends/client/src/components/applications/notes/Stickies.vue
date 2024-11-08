@@ -48,11 +48,15 @@ const stickyPosition = computed(() => {
   }
 });
 
+// const getStickyPostion = () =>
+//   stickyList.value.find(item => item.stickyID === props.noteID).position;
+
 setTimeout(() => {
   useDraggable(
     stickyHeader,
     {
       initPosition: stickyPosition.value,
+      // initPosition: getStickyPostion(),
       savePosition: false
     },
     document.getElementById(props.noteID)
@@ -61,6 +65,7 @@ setTimeout(() => {
 
 const handleMoveSticky = () => {
   appNotesStore.moveSticky(props.noteID, stickyPosition.value);
+  // console.log(Date.now(), 'move end');
 };
 
 const handleSelectNote = id => {
