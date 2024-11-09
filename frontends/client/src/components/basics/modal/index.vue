@@ -22,7 +22,7 @@
             <iframe
               :src="iframeUrl"
               class="modal-embedded-iframe"
-              sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+              sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"
             ></iframe>
           </div>
           <div class="modal-form-wrapper" v-if="props.hasForm">
@@ -88,7 +88,14 @@ const cls = computed(() => {
 });
 
 const iframeUrl = computed(() => {
-  return isUrl(props.embeddedUrl) ? props.embeddedUrl : '';
+  if (props.embeddedUrl.startsWith('http://m.wufazhuce.com/')) {
+    let url_path = props.embeddedUrl.split('http://m.wufazhuce.com/')[1];
+    let formed_url = 'https://api.malou.men/wufazhuce/m/' + url_path;
+    return formed_url;
+  } else if (isUrl(props.embeddedUrl)) {
+    return props.embeddedUrl;
+  }
+  return '';
 });
 
 watch(props, () => {
